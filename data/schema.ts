@@ -7,7 +7,7 @@ export type Variant = {
 
 export type Product = {
   id: string;
-  brandId: BrandId;
+  brand: string;  // Changed from brandId to brand to match actual data
   name: string;
   image?: string;        // single-image products
   variants?: Variant[];  // color/image variants
@@ -17,4 +17,20 @@ export type Product = {
   specs?: Record<string, string | number>;
   highlights?: string[];
   features?: string[];
+  // Additional fields from actual product data
+  plates?: string;
+  phRange?: string;
+  orp?: string;
+  orpDrink?: string;
+  power?: string;
+  warranty?: string;
+  installation?: string;
+  dimensions?: string;
+  internationalVoltage?: string;
+  microMembrane?: string;
+  filters?: string;
+  oneClickFilter?: string;
+  cleaning?: string;
+  colorOptions?: string;
+  hydrogen?: string;
 };

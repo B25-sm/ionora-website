@@ -5,7 +5,8 @@ import Link from 'next/link';
 import { ChevronLeft, ChevronRight, ExternalLink } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import ProductCard from '@/components/ProductCard';
-import type { Product, BrandId } from '@/data/schema';
+import type { Product } from '@/data/products';
+import type { BrandId } from '@/data/schema';
 
 type Props = {
   brandId: BrandId;
