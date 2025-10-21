@@ -1,3 +1,5 @@
+"use client";
+
 import dynamic from "next/dynamic";
 
 const ProductCompare = dynamic(() => import("@/components/ProductCompare"), { 
