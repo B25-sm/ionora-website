@@ -69,33 +69,6 @@ export default async function ProductDetails({ params }: { params: Promise<{ id:
             </div>
           </div>
 
-          {product.highlights && product.highlights.length > 0 && (
-            <div className="mb-6">
-              <h3 className="text-lg font-semibold mb-3">Key Highlights</h3>
-              <ul className="space-y-2">
-                {product.highlights.map((highlight, index) => (
-                  <li key={index} className="flex items-center gap-2">
-                    <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                    <span className="text-white/80">{highlight}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-
-          {product.features && product.features.length > 0 && (
-            <div className="mb-6">
-              <h3 className="text-lg font-semibold mb-3">Features</h3>
-              <ul className="space-y-2">
-                {product.features.map((feature, index) => (
-                  <li key={index} className="flex items-center gap-2">
-                    <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-                    <span className="text-white/80">{feature}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
 
           <button
             onClick={openWhatsApp}
