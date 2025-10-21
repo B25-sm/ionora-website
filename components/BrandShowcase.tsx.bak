@@ -1,0 +1,66 @@
+"use client";
+
+import { BRANDS } from "@/data/brands";
+import BrandCard from "./BrandCard";
+import { motion } from "framer-motion";
+import { cn } from "@/lib/utils";
+
+const accentMap: Record<
+  string,
+  { from: string; to: string }
+> = {
+  "life-ionizers-india": { from: "from-sky-400", to: "to-violet-500" },
+  "mediqua-india": { from: "from-emerald-400", to: "to-cyan-500" },
+  "medisoul-india": { from: "from-fuchsia-400", to: "to-indigo-500" },
+  // extend for future brands...
+};
+
+export default function BrandShowcase() {
+  // Take featured or first 3
+  const featured = (BRANDS || [])
+    .filter((b) => b.featured ?? true)
+    .slice(0, 3);
+
+  return (
+    <div className="relative">
+      {/* Section heading */}
+      <motion.div
+        initial={{ opacity: 0, y: 18 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.5 }}
+        className="mb-8 md:mb-10"
+      >
+        <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight">
+          <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 via-violet-400 to-fuchsia-400">
+            Explore Premium Brands
+          </span>
+        </h2>
+        <p className="mt-3 text-white/70 max-w-3xl">
+          Hand-picked manufacturers powering the IONORA marketplace.
+        </p>
+      </motion.div>
+
+      {/* Grid of brand cards */}
+      <div className="grid gap-6 md:gap-8 grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
+        {featured.map((b) => {
+          const accents = accentMap[b.id] ?? { from: "from-indigo-400", to: "to-violet-500" };
+          return (
+            <BrandCard
+              key={b.id}
+              id={b.id}
+              name={b.name}
+              country={b.country ?? "India"}
+              tagline={b.tagline ?? "Premium Hydration Engineering"}
+              productCount={b.productCount ?? 0}
+              logoSrc={b.logo ?? undefined}
+              href={`/products?brand=${encodeURIComponent(b.id)}`}
+              accentFrom={accents.from}
+              accentTo={accents.to}
+            />
+          );
+        })}
+      </div>
+    </div>
+  );
+}

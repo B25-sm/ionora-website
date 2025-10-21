@@ -1,0 +1,90 @@
+{
+  "brand": "Kyron",
+  "models": [
+    {
+      "slug": "kyron-5",
+      "title": "Kyron-5",
+      "summary": "Counter top unit featuring 5 XL plates delivering balanced alkaline water and compact form factor.",
+      "features": {
+        "Installation": "Counter Top",
+        "Plates": "5 XL Matrix GRID™ Plates",
+        "Power": "249 Watts XL Power™ SMPS",
+        "pH Range": "3.0 – 9.8 pH",
+        "Max ORP": "Up to -507 mV",
+        "Warranty": "7 Year Warranty",
+        "Filters": "Customized Pre-Filters; Top Loading One-Click Filter",
+        "Auto Clean": "Advanced RADC Self-Cleaning",
+        "Colors": ["Black","White"],
+        "Dimensions": "12.5\" W x 6.25\" D x 15\" H",
+        "Voltage": "110–220V"
+      }
+    },
+    {
+      "slug": "kyron-7",
+      "title": "Kyron-7",
+      "summary": "7-plate unit with strong ORP capability, available with black & white finish.",
+      "features": {
+        "Installation": "Counter Top or Under Counter",
+        "Plates": "7 XL Matrix GRID™ Plates",
+        "Power": "450 Watts XL Power™ SMPS",
+        "pH Range": "2.5 – 11.0 pH",
+        "Max ORP": "Up to -705 mV",
+        "Warranty": "10 Year Parts | Lifetime Labor",
+        "Colors": ["Black","White"]
+      }
+    },
+    {
+      "slug": "kyron-9",
+      "title": "Kyron-9",
+      "summary": "Nine-plate high performance model with lifetime warranty and clinic-grade output.",
+      "features": {
+        "Plates": "9 XL Matrix GRID™ Plates",
+        "Power": "504 Watts XL Power™ SMPS",
+        "pH Range": "2.0 – 11.5 pH",
+        "Max ORP": "Up to -811 mV",
+        "Warranty": "Lifetime Warranty",
+        "Colors": ["Black","White"]
+      }
+    },
+    {
+      "slug": "kyron-11",
+      "title": "Kyron-11",
+      "summary": "Large domestic model with wide pH control and advanced self-cleaning.",
+      "features": {
+        "Plates": "11 XL Matrix GRID™ Plates",
+        "Power": "800 Watts XL Power™ SMPS",
+        "pH Range": "2.0 – 12.0 pH",
+        "Max ORP": "Up to -880 mV",
+        "Warranty": "Lifetime Labor Warranty",
+        "Colors": ["Black","White"]
+      }
+    },
+    {
+      "slug": "kyron-13",
+      "title": "Kyron-13",
+      "summary": "Molecular hydrogen generation model with 13 plates and clinical-grade output.",
+      "features": {
+        "Plates": "13 XL Matrix GRID™ Plates",
+        "Power": "800 Watts XL Power™ SMPS",
+        "pH Range": "1.7 – 12.2 pH",
+        "Max ORP": "Up to -903 mV",
+        "Warranty": "Lifetime Labor Warranty",
+        "Colors": ["Black","White"]
+      }
+    },
+    {
+      "slug": "kyron-15",
+      "title": "Kyron-15",
+      "summary": "Under-counter powerhouse with 15 plates for heavy residential/commercial use.",
+      "features": {
+        "Plates": "15 XL Matrix GRID™ Plates",
+        "Power": "800 Watts XL Power™ SMPS",
+        "pH Range": "1.7 – 12.2 pH",
+        "Max ORP": "Up to -1003 mV",
+        "Warranty": "Lifetime Labor Warranty",
+        "Colors": ["Black","White"]
+      }
+    }
+  ]
+}
+

@@ -1,0 +1,245 @@
+{
+  "brand": "Life Ionizers India",
+  "models": [
+    {
+      "slug": "mxl-5",
+      "title": "LIFE WATER IONIZERS MXL-5",
+      "subtitle": "Alkaline Water Hydrogen Unit",
+      "features": {
+        "Installation": "Counter Top Installation",
+        "Plates": "5 XL Matrix GRID™ Plates",
+        "Power": "249 Watts XL Power™ SMPS",
+        "Membrane": "Life Micro Membrane™ Technology",
+        "pH Range": "3.0 – 9.8 pH",
+        "Max ORP": "Up to -507 mV",
+        "Drinkable ORP at 9.5 pH": "Up to -213 mV",
+        "Warranty": "7 Year Warranty",
+        "Filters": "Customized Filtration Pre-Filters; Top Loading One-Click Filter",
+        "Auto Clean": "Advanced RADC Self-Cleaning",
+        "Colors": ["Black/Graphite"],
+        "Dimensions": "12.5\" W x 6.25\" D x 15\" H",
+        "Voltage": "110–220V (International)",
+        "Design": "Designed in the USA; manufactured in South Korea"
+      },
+      "summary": "Compact counter-top ionizer delivering balanced alkaline water and hydrogen with advanced micro-membrane filtration and 5 XL plates. Efficient power and easy top-loading filters for fast maintenance."
+    },
+    {
+      "slug": "mxl-7",
+      "title": "LIFE WATER IONIZERS MXL-7",
+      "subtitle": "Alkaline Water Hydrogen Unit",
+      "features": {
+        "Installation": "Counter Top or Under Counter",
+        "Plates": "7 XL Matrix GRID™ Plates",
+        "Power": "450 Watts XL Power™ SMPS",
+        "Membrane": "Life Micro Membrane™ Technology",
+        "pH Range": "2.5 – 11.0 pH",
+        "Max ORP": "Up to -705 mV",
+        "Drinkable ORP at 9.5 pH": "Up to -307 mV",
+        "Warranty": "10 Year Parts | Lifetime Labor",
+        "Filters": "Customized Pre-Filters; Top Loading One-Click Filters™",
+        "Auto Clean": "Advanced RADC Self-Cleaning",
+        "Colors": ["Black/Graphite"],
+        "Dimensions": "12.5\" W x 6.25\" D x 15\" H",
+        "Voltage": "110–220V (International)",
+        "Design": "Designed in the USA; manufactured in South Korea"
+      },
+      "summary": "Higher-power dual-fit model for counter or under-counter installation. Delivers broader pH and stronger ORP performance for power users and light commercial use."
+    },
+    {
+      "slug": "mxl-9",
+      "title": "LIFE IONIZER MXL-9™",
+      "subtitle": "Alkaline Water Hydrogen Machine",
+      "features": {
+        "Installation": "Counter Top or Under Counter",
+        "Plates": "9 XL Matrix GRID™ Plates",
+        "Power": "504 Watts XL Power™ SMPS",
+        "Membrane": "Life Micro Membrane™ Technology",
+        "pH Range": "2.0 – 11.5 pH",
+        "Max ORP": "Up to -811 mV",
+        "Drinkable ORP at 9.5 pH": "Up to -411 mV",
+        "Warranty": "Lifetime Warranty",
+        "Filters": "Customized Pre-Filters; Top Loading One-Click Filters™",
+        "Auto Clean": "Advanced RADC Self-Cleaning",
+        "Colors": ["Black/Graphite"],
+        "Dimensions": "12.5\" W x 6.25\" D x 15\" H",
+        "Voltage": "110–220V (International)",
+        "Design": "Designed in the USA; manufactured in South Korea"
+      },
+      "summary": "High-performance nine-plate system engineered for households and light commercial environments needing consistent hydrogen output and ultra-low ORP."
+    },
+    {
+      "slug": "mxl-11",
+      "title": "LIFE IONIZER MXL-11™",
+      "subtitle": "Alkaline Water Hydrogen Machine",
+      "features": {
+        "Installation": "Counter Top or Under Counter",
+        "Plates": "11 XL Matrix GRID™ Plates",
+        "Power": "800 Watts XL Power™ SMPS",
+        "Membrane": "Life Micro Membrane™ Technology",
+        "pH Range": "2.0 – 12.0 pH",
+        "Max ORP": "Up to -880 mV",
+        "Drinkable ORP at 9.5 pH": "Up to -559 mV",
+        "Warranty": "Lifetime Labor Warranty",
+        "Filters": "Customized Pre-Filters; Top Loading One-Click Filters™",
+        "Auto Clean": "Advanced RADC Self-Cleaning",
+        "Colors": ["Black/Graphite"],
+        "Dimensions": "12.5\" W x 6.25\" D x 15\" H",
+        "Voltage": "110–220V (International)",
+        "Design": "Designed in the USA; manufactured in South Korea"
+      },
+      "summary": "Large domestic unit with industry-leading plate count and wide pH range for users demanding top-tier performance and long-term reliability."
+    },
+    {
+      "slug": "mxl-13",
+      "title": "LIFE IONIZER MXL-13",
+      "subtitle": "Alkaline Water Ionizer Molecular Hydrogen Machine",
+      "features": {
+        "Installation": "Counter Top or Under Counter",
+        "Plates": "13 XL Matrix GRID™ Plates",
+        "Power": "800 Watts XL Power™ SMPS",
+        "Membrane": "Life Micro Membrane™ Technology",
+        "pH Range": "1.7 – 12.2 pH",
+        "Max ORP": "Up to -903 mV",
+        "Drinkable ORP at 9.5 pH": "Up to -616 mV",
+        "Warranty": "Lifetime Labor Warranty",
+        "Filters": "Customized Pre-Filters; Top Loading One-Click Filters™",
+        "Auto Clean": "Advanced RADC Self-Cleaning",
+        "Colors": ["Black/Graphite"],
+        "Dimensions": "12.5\" W x 6.25\" D x 15\" H",
+        "Voltage": "110–220V (International)",
+        "Design": "Designed in the USA; manufactured in South Korea"
+      },
+      "summary": "Engineered for advanced molecular hydrogen generation — ideal for clinics and serious home users seeking the broadest pH and ORP control."
+    },
+    {
+      "slug": "mxl-15",
+      "title": "LIFE IONIZER MXL-15T",
+      "subtitle": "Undercounter Alkaline Water Ionizer",
+      "features": {
+        "Installation": "Counter Top or Under Counter",
+        "Plates": "15 XL Matrix GRID™ Plates",
+        "Power": "800 Watts XL Power™ SMPS",
+        "Membrane": "Life Micro Membrane™ Technology",
+        "pH Range": "1.7 – 12.2 pH",
+        "Max ORP": "Up to -1003 mV",
+        "Drinkable ORP at 9.5 pH": "Up to -966 mV",
+        "Warranty": "Lifetime Labor Warranty",
+        "Filters": "Customized Pre-Filters; Top Loading One-Click Filters™",
+        "Auto Clean": "Advanced RADC Self-Cleaning",
+        "Colors": ["Black/Graphite"],
+        "Dimensions": "12.5\" W x 6.25\" D x 15\" H",
+        "Voltage": "110–220V (International)",
+        "Design": "Designed in the USA; manufactured in South Korea"
+      },
+      "summary": "Premium under-counter solution with highest plate count for sustained heavy use and clinic-grade hydrogen production."
+    },
+    {
+      "slug": "lc-11",
+      "title": "LIFE IONIZER LC-11",
+      "subtitle": "Alkaline Water Ionizer",
+      "features": {
+        "Installation": "Counter Top Installation",
+        "Plates": "5 XL Matrix GRID™ Plates",
+        "Power": "249 Watts XL Power™ SMPS",
+        "Membrane": "Life Micro Membrane™ Technology",
+        "pH Range": "3.0 – 9.8 pH",
+        "Max ORP": "Up to -507 mV",
+        "Drinkable ORP at 9.5 pH": "Up to -213 mV",
+        "Warranty": "7 Year Warranty",
+        "Filters": "Customized Pre-Filters; Top Loading One-Click Filter",
+        "Auto Clean": "Advanced RADC Self-Cleaning",
+        "Colors": ["Black/Graphite"],
+        "Dimensions": "12.5\" W x 6.25\" D x 15\" H",
+        "Voltage": "110–220V (International)",
+        "Design": "Designed in the USA; manufactured in South Korea"
+      },
+      "summary": "Entry-level Life model — compact, reliable and ideal for users seeking simple countertop alkaline water and hydrogen benefits."
+    },
+    {
+      "slug": "lc-13",
+      "title": "LIFE IONIZER LC-13",
+      "subtitle": "Alkaline Water Ionizer",
+      "features": {
+        "Installation": "Counter Top Installation",
+        "Plates": "5 XL Matrix GRID™ Plates",
+        "Power": "249 Watts XL Power™ SMPS",
+        "Membrane": "Life Micro Membrane™ Technology",
+        "pH Range": "3.0 – 9.8 pH",
+        "Max ORP": "Up to -507 mV",
+        "Drinkable ORP at 9.5 pH": "Up to -213 mV",
+        "Warranty": "7 Year Warranty",
+        "Filters": "Customized Pre-Filters; Top Loading One-Click Filter",
+        "Auto Clean": "Advanced RADC Self-Cleaning",
+        "Colors": ["Black/Graphite"],
+        "Dimensions": "12.5\" W x 6.25\" D x 15\" H",
+        "Voltage": "110–220V (International)",
+        "Design": "Designed in the USA; manufactured in South Korea"
+      },
+      "summary": "Compact countertop model tuned for durability and clear operation, with clinical-level filtration."
+    },
+    {
+      "slug": "lc-30",
+      "title": "LIFE IONIZER LC-30",
+      "subtitle": "Alkaline Water Ionizer",
+      "features": {
+        "Installation": "Counter Top Installation",
+        "Plates": "30 XL Matrix GRID™ Plates",
+        "Power": "1000 Watts XL Power™ SMPS",
+        "Membrane": "Life Micro Membrane™ Technology",
+        "pH Range": "2.0 – 12.2 pH",
+        "Max ORP": "Up to -1005 mV",
+        "Warranty": "Lifetime Parts | 5 Year Labor",
+        "Filters": "Customized Pre-Filters; Top Loading One-Click Filter",
+        "Auto Clean": "Advanced RADC Self-Cleaning",
+        "Colors": ["Black/Graphite"],
+        "Dimensions": "13\" W x 13\" L x 13\" H",
+        "Voltage": "110–220V (International)",
+        "Design": "Designed in the USA; manufactured in South Korea"
+      },
+      "summary": "High-capacity LC line for commercial or heavy residential use — exceptional plate count and power for constant demand."
+    },
+    {
+      "slug": "lc-60",
+      "title": "LIFE IONIZER LC-60",
+      "subtitle": "Water Ionizer",
+      "features": {
+        "Installation": "Counter Top Installation",
+        "Plates": "60 XL Matrix GRID™ Plates",
+        "Power": "1500 Watts XL Power™ SMPS",
+        "Membrane": "Life Micro Membrane™ Technology",
+        "pH Range": "2.0 – 12.2 pH",
+        "Max ORP": "Up to -1193 mV",
+        "Warranty": "Lifetime Parts | 5 Year Labor",
+        "Filters": "Customized Pre-Filters; Top Loading One-Click Filter",
+        "Auto Clean": "Advanced RADC Self-Cleaning",
+        "Colors": ["Black/Graphite"],
+        "Dimensions": "15.5\" W x 23\" L x 13\" H",
+        "Voltage": "110–220V (International)",
+        "Design": "Designed in the USA; manufactured in South Korea"
+      },
+      "summary": "Large-scale system with very high plate count and power for institutional use and heavy throughput."
+    },
+    {
+      "slug": "lc-90",
+      "title": "LIFE IONIZER LC-90",
+      "subtitle": "Water Ionizer",
+      "features": {
+        "Installation": "Counter Top Installation",
+        "Plates": "90 XL Matrix GRID™ Plates",
+        "Power": "2000 Watts XL Power™ SMPS",
+        "Membrane": "Life Micro Membrane™ Technology",
+        "pH Range": "2.0 – 12.2 pH",
+        "Max ORP": "Up to -1193 mV",
+        "Warranty": "Lifetime Parts | 5 Year Labor",
+        "Filters": "Customized Pre-Filters; Top Loading One-Click Filter",
+        "Auto Clean": "Advanced RADC Self-Cleaning",
+        "Colors": ["Black/Graphite"],
+        "Dimensions": "15.5\" W x 23\" L x 13\" H",
+        "Voltage": "110–220V (International)",
+        "Design": "Designed in the USA; manufactured in South Korea"
+      },
+      "summary": "Top-tier heavy-duty ionizer built for high-capacity industrial or commercial installations."
+    }
+  ]
+}
+

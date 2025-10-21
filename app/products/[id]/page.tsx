@@ -1,0 +1,93 @@
+"use client";
+import Image from "next/image";
+import { notFound } from "next/navigation";
+import products from "@/data/products";
+
+export default function ProductDetails({ params }: { params: { id: string } }) {
+  const product = products.find((p) => p.id === params.id);
+  if (!product) return notFound();
+
+  const openWhatsApp = () => {
+    const message = encodeURIComponent(
+      `Hi, I'm interested in ${product.name}. Please share more details.`
+    );
+    window.open(`https://wa.me/917993004900?text=${message}`, "_blank");
+  };
+
+  return (
+    <section className="min-h-screen py-16 px-6 bg-gradient-to-b from-[#0b0520] to-[#1b0030] text-white">
+      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10">
+        <div className="p-4 bg-white/5 rounded-2xl">
+          <Image
+            src={product.image || '/images/placeholder.png'}
+            alt={product.name}
+            width={600}
+            height={500}
+            className="rounded-xl object-contain"
+          />
+        </div>
+
+        <div>
+          <h1 className="text-4xl font-extrabold mb-3">{product.name}</h1>
+          <p className="text-white/70 mb-6">
+            {product.series ? `${product.series} - ` : ''}Premium alkaline water ionizer with advanced technology
+          </p>
+
+          <div className="grid grid-cols-2 gap-4 mb-6">
+            <div>
+              <span className="text-white/60 text-sm">Plates</span>
+              <div className="text-lg font-semibold">{product.specs?.plates || "—"}</div>
+            </div>
+            <div>
+              <span className="text-white/60 text-sm">pH Range</span>
+              <div className="text-lg font-semibold">{product.specs?.phRange || "—"}</div>
+            </div>
+            <div>
+              <span className="text-white/60 text-sm">ORP</span>
+              <div className="text-lg font-semibold">{product.specs?.orpMax || "—"}</div>
+            </div>
+            <div>
+              <span className="text-white/60 text-sm">Category</span>
+              <div className="text-lg font-semibold">{product.category || "—"}</div>
+            </div>
+          </div>
+
+          {product.highlights && product.highlights.length > 0 && (
+            <div className="mb-6">
+              <h3 className="text-lg font-semibold mb-3">Key Highlights</h3>
+              <ul className="space-y-2">
+                {product.highlights.map((highlight, index) => (
+                  <li key={index} className="flex items-center gap-2">
+                    <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                    <span className="text-white/80">{highlight}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {product.features && product.features.length > 0 && (
+            <div className="mb-6">
+              <h3 className="text-lg font-semibold mb-3">Features</h3>
+              <ul className="space-y-2">
+                {product.features.map((feature, index) => (
+                  <li key={index} className="flex items-center gap-2">
+                    <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                    <span className="text-white/80">{feature}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          <button
+            onClick={openWhatsApp}
+            className="bg-gradient-to-r from-green-500 to-emerald-600 px-6 py-3 rounded-full font-semibold hover:scale-105 transition"
+          >
+            Enquire on WhatsApp
+          </button>
+        </div>
+      </div>
+    </section>
+  );
+}
