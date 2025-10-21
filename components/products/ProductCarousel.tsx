@@ -68,8 +68,7 @@ export default function ProductCarousel({ products, onViewDetails, onEnquire }: 
       >
         {products.map((product, index) => {
           const isHovered = hoveredProduct === product.id;
-          const selectedVariant = selectedVariants[product.id] || product.variants?.[0];
-          const currentImage = selectedVariant?.image || product.image || '/images/placeholder.png';
+          const currentImage = product.image || '/images/placeholder.png';
 
           return (
             <div
@@ -94,12 +93,10 @@ export default function ProductCarousel({ products, onViewDetails, onEnquire }: 
                   />
                 </div>
 
-                {/* Series Badge */}
-                {product.series && (
-                  <div className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-gradient-to-r from-blue-500/20 to-purple-500/20 border border-blue-400/30 text-blue-200 mb-3">
-                    {product.series}
-                  </div>
-                )}
+                {/* Brand Badge */}
+                <div className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-gradient-to-r from-blue-500/20 to-purple-500/20 border border-blue-400/30 text-blue-200 mb-3">
+                  {product.brand}
+                </div>
 
                 {/* Product Name */}
                 <h3 className="text-xl font-bold text-white mb-3 group-hover:text-blue-100 transition-colors">
@@ -111,56 +108,25 @@ export default function ProductCarousel({ products, onViewDetails, onEnquire }: 
                   <div className="flex flex-col items-center px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-center">
                     <span className="text-xs text-white/60">Plates</span>
                     <span className="text-sm font-semibold text-white">
-                      {product.specs?.plates || "N/A"}
+                      {product.plates || "N/A"}
                     </span>
                   </div>
 
                   <div className="flex flex-col items-center px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-center">
                     <span className="text-xs text-white/60">pH</span>
                     <span className="text-sm font-semibold text-white">
-                      {product.specs?.phRange || "N/A"}
+                      {product.phRange || "N/A"}
                     </span>
                   </div>
 
                   <div className="flex flex-col items-center px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-center">
                     <span className="text-xs text-white/60">ORP</span>
                     <span className="text-sm font-semibold text-white">
-                      {product.specs?.orpMax || "N/A"}
+                      {product.orp || "N/A"}
                     </span>
                   </div>
                 </div>
 
-                {/* Color Variants */}
-                {product.variants && product.variants.length > 1 && (
-                  <div className="mb-4">
-                    <div className="flex items-center gap-2 mb-2">
-                      <Palette className="w-4 h-4 text-white/60" />
-                      <span className="text-sm text-white/80">Colors</span>
-                    </div>
-                    <div className="flex gap-2">
-                      {product.variants.map((variant) => (
-                        <button
-                          key={variant.color}
-                          onClick={() => selectVariant(product.id, variant)}
-                          className={cn(
-                            "w-8 h-8 rounded-full border-2 transition-all",
-                            selectedVariant?.color === variant.color
-                              ? 'border-blue-400 scale-110'
-                              : 'border-white/30 hover:border-white/50'
-                          )}
-                          title={variant.color}
-                        >
-                          <span
-                            className={cn(
-                              "block w-full h-full rounded-full",
-                              variant.color === "black" ? "bg-black" : "bg-white"
-                            )}
-                          />
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-                )}
 
                 {/* Action Buttons */}
                 <div className="flex gap-3 mb-5">
@@ -209,7 +175,7 @@ export default function ProductCarousel({ products, onViewDetails, onEnquire }: 
 
                 {/* Price / CTA */}
                 <p className="text-center text-sm text-white/90 font-semibold">
-                  {product.price ? `₹${product.price}` : "Contact for Price"}
+                  Contact for Price
                 </p>
               </div>
             </div>

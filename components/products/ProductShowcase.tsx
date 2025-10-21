@@ -30,7 +30,7 @@ export default function ProductShowcase() {
       const q = query.toLowerCase();
       list = list.filter(p =>
         p.name.toLowerCase().includes(q) ||
-        (p.series || '').toLowerCase().includes(q) ||
+        (p.brand || '').toLowerCase().includes(q) ||
         (p.category || '').toLowerCase().includes(q)
       );
     }
@@ -40,9 +40,9 @@ export default function ProductShowcase() {
   const brandsList = useMemo(() => {
     if (brand === 'all') {
       const groups: Record<string, any[]> = {};
-      PRODUCTS.forEach(p => {
-        groups[p.brandId] = groups[p.brandId] || [];
-        groups[p.brandId].push(p);
+      products.forEach(p => {
+        groups[p.brand] = groups[p.brand] || [];
+        groups[p.brand].push(p);
       });
       return groups;
     } else {

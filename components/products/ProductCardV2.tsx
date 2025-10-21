@@ -28,7 +28,7 @@ export default function ProductCardV2({ product, onQuickView, onCompare, isCompa
 
       {/* Series Label */}
       <span className="inline-block px-3 py-1 text-xs font-semibold text-white/80 bg-white/10 rounded-full mb-3">
-        {product.series || 'Default Series'}
+        {product.brand || 'Default Series'}
       </span>
 
       {/* Product Name */}
@@ -41,21 +41,21 @@ export default function ProductCardV2({ product, onQuickView, onCompare, isCompa
         <div className="flex flex-col items-center px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-center">
           <span className="text-xs text-white/60">Plates</span>
           <span className="text-sm font-semibold text-white">
-            {product.specs?.plates || "N/A"}
+            {product.plates || "N/A"}
           </span>
         </div>
 
         <div className="flex flex-col items-center px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-center">
           <span className="text-xs text-white/60">pH</span>
           <span className="text-sm font-semibold text-white">
-            {product.specs?.phRange || "N/A"}
+            {product.phRange || "N/A"}
           </span>
         </div>
 
         <div className="flex flex-col items-center px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-center">
           <span className="text-xs text-white/60">ORP</span>
           <span className="text-sm font-semibold text-white">
-            {product.specs?.orpMax || "N/A"}
+            {product.orp || "N/A"}
           </span>
         </div>
       </div>
@@ -111,7 +111,7 @@ export default function ProductCardV2({ product, onQuickView, onCompare, isCompa
 
       {/* Price / CTA */}
       <p className="text-center text-sm text-white/90 font-semibold">
-        {product.price ? `₹${product.price}` : "Contact for Price"}
+        Contact for Price
       </p>
     </div>
   );

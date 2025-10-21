@@ -30,17 +30,7 @@ export function hasVariant(productId: string, variant: VariantColor): boolean {
  * Get the variant image for a product
  */
 export function getVariantImage(product: Product, variant: VariantColor): string {
-  if (!Array.isArray(product.variants) || product.variants.length === 0) {
-    return product.image || '/images/placeholder.png';
-  }
-
-  // Find the variant with the matching color
-  const matchingVariant = product.variants.find(v => v.color === variant);
-  if (matchingVariant?.image) {
-    return matchingVariant.image;
-  }
-
-  // Fallback to product image or placeholder
+  // Since products don't have variants, just return the product image
   return product.image || '/images/placeholder.png';
 }
 
@@ -48,15 +38,8 @@ export function getVariantImage(product: Product, variant: VariantColor): string
  * Get unique color variants from a product
  */
 export function getUniqueColors(product: Product): Variant[] {
-  if (!Array.isArray(product.variants) || product.variants.length === 0) {
-    return [];
-  }
-  
-  const map = new Map<string, Variant>();
-  product.variants.forEach(v => { 
-    if (!map.has(v.color)) map.set(v.color, v); 
-  });
-  return Array.from(map.values());
+  // Since products don't have variants, return empty array
+  return [];
 }
 
 /**
@@ -71,5 +54,6 @@ export function getDisplayImage(product: Product, selectedVariant: Variant | nul
  * Check if a product has color variants
  */
 export function hasColorVariants(product: Product): boolean {
-  return Array.isArray(product.variants) && product.variants.length > 0;
+  // Since products don't have variants, return false
+  return false;
 }
