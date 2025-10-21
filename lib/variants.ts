@@ -1,4 +1,5 @@
-import type { Product, Variant } from '@/data/schema';
+import type { Product } from '@/data/products';
+import type { Variant } from '@/data/schema';
 
 export type VariantColor = "black" | "white";
 

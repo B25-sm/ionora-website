@@ -4,7 +4,8 @@ import { useState, useRef, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, Eye, MessageCircle, Palette } from 'lucide-react';
 import Image from 'next/image';
 import { cn } from '@/lib/utils';
-import type { Product, Variant } from '@/data/schema';
+import type { Product } from '@/data/products';
+import type { Variant } from '@/data/schema';
 
 type Props = {
   products: Product[];
