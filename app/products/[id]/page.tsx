@@ -31,25 +31,41 @@ export default async function ProductDetails({ params }: { params: Promise<{ id:
         <div>
           <h1 className="text-4xl font-extrabold mb-3">{product.name}</h1>
           <p className="text-white/70 mb-6">
-            {product.series ? `${product.series} - ` : ''}Premium alkaline water ionizer with advanced technology
+            Premium alkaline water ionizer with advanced technology
           </p>
 
           <div className="grid grid-cols-2 gap-4 mb-6">
             <div>
               <span className="text-white/60 text-sm">Plates</span>
-              <div className="text-lg font-semibold">{product.specs?.plates || "—"}</div>
+              <div className="text-lg font-semibold">{product.plates || "—"}</div>
             </div>
             <div>
               <span className="text-white/60 text-sm">pH Range</span>
-              <div className="text-lg font-semibold">{product.specs?.phRange || "—"}</div>
+              <div className="text-lg font-semibold">{product.phRange || "—"}</div>
             </div>
             <div>
               <span className="text-white/60 text-sm">ORP</span>
-              <div className="text-lg font-semibold">{product.specs?.orpMax || "—"}</div>
+              <div className="text-lg font-semibold">{product.orp || "—"}</div>
             </div>
             <div>
-              <span className="text-white/60 text-sm">Category</span>
-              <div className="text-lg font-semibold">{product.category || "—"}</div>
+              <span className="text-white/60 text-sm">Power</span>
+              <div className="text-lg font-semibold">{product.power || "—"}</div>
+            </div>
+            <div>
+              <span className="text-white/60 text-sm">Warranty</span>
+              <div className="text-lg font-semibold">{product.warranty || "—"}</div>
+            </div>
+            <div>
+              <span className="text-white/60 text-sm">Installation</span>
+              <div className="text-lg font-semibold">{product.installation || "—"}</div>
+            </div>
+            <div>
+              <span className="text-white/60 text-sm">Dimensions</span>
+              <div className="text-lg font-semibold">{product.dimensions || "—"}</div>
+            </div>
+            <div>
+              <span className="text-white/60 text-sm">Color Options</span>
+              <div className="text-lg font-semibold">{product.colorOptions || "—"}</div>
             </div>
           </div>
 
