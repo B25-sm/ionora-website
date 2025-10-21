@@ -550,4 +550,10 @@ export const products = [
 ];
 
 export type Product = (typeof products)[number];
+
+// Helper function to get products by brand
+export function productsByBrand(brandId: string) {
+  return products.filter(product => product.brand === brandId);
+}
+
 export default products;
