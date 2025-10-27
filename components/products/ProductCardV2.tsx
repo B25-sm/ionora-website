@@ -111,7 +111,7 @@ export default function ProductCardV2({ product, onQuickView, onCompare, isCompa
 
       {/* Price / CTA */}
       <p className="text-center text-sm text-white/90 font-semibold">
-        Contact for Price
+        {product.price ? `₹${product.price.toLocaleString()}` : 'Contact for Price'}
       </p>
     </div>
   );

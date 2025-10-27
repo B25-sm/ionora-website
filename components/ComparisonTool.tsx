@@ -25,7 +25,7 @@ export default function ComparisonTool() {
           <div className="mt-4">
             <a 
               href={`/products/compare?products=${selected.join(',')}`}
-              className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg font-semibold hover:from-blue-700 hover:to-purple-700 transition-colors"
+              className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-[#EBEBEB] to-[#C9CFD7] text-[#0A2238] rounded-lg font-semibold hover:from-[#C9CFD7] hover:to-[#EBEBEB] transition-all"
             >
               View Full Comparison →
             </a>
@@ -35,7 +35,7 @@ export default function ComparisonTool() {
         <div className="mt-6 flex flex-wrap gap-2">
           {productsData.slice(0,12).map(p=>(
             <button key={p.id} onClick={()=>toggle(p.id)}
-              className={`rounded-xl border px-3 py-2 text-sm ${selected.includes(p.id) ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white border-transparent' : 'border-white/15 bg-white/10 text-white/90 hover:bg-white/20'}`}>
+              className={`rounded-xl border px-3 py-2 text-sm transition-all ${selected.includes(p.id) ? 'bg-gradient-to-r from-[#EBEBEB] to-[#C9CFD7] text-[#0A2238] border-transparent font-semibold' : 'border-white/15 bg-white/10 text-white/90 hover:bg-white/20 hover:border-white/30'}`}>
               {p.name}
             </button>
           ))}

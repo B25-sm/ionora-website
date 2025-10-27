@@ -6,7 +6,7 @@ const config: Config = {
     container: { center: true, padding: { DEFAULT: "1rem", sm: "1rem", md: "1.25rem", lg: "1.5rem", xl: "2rem", "2xl": "2rem" } },
     extend: {
       colors: {
-        // Background - Deep Navy
+        // Background - Dark Blue
         bg: {
           DEFAULT: '#0A2238',
         },
@@ -24,7 +24,7 @@ const config: Config = {
           800: '#040D17',
           900: '#02060B',
         },
-        // Accent - Primary shade
+        // Accent - Light Grey
         accent: {
           DEFAULT: '#EBEBEB',
           50: '#E4E7EB',
@@ -75,6 +75,9 @@ const config: Config = {
         xl: "1280px",
         "2xl": "1536px",
         "3xl": "1920px",
+        "4xl": "2560px",
+        "5xl": "3840px", // 4K screens
+        "6xl": "5120px", // 5K+ screens
       },
     },
   },

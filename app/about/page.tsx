@@ -8,60 +8,76 @@ import ClosingCTA from "@/components/about/ClosingCTA";
 export const metadata: Metadata = {
   title: "About IONORA",
   description:
-    "IONORA is a curated marketplace connecting global ionizer brands with customers—delivering premium hydration experiences with transparent specs and beautiful design.",
+    "Ionora International Private Limited transforms water into life-enhancing energy through trusted alkaline water ionizers from Life Ionizers, Mediqua and Medisoul.",
 };
 
 export default function AboutPage() {
   return (
-    <main className="relative">
-      {/* HERO */}
-      <section className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-accent pointer-events-none" />
-        <div className="relative mx-auto max-w-7xl px-6 pt-20 pb-14 md:pt-28 md:pb-20">
-          <div className="max-w-3xl">
-            <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight leading-[1.1]">
-              <span className="text-white drop-shadow-2xl">
+    <main className="relative min-h-screen">
+      {/* HERO SECTION */}
+      <section className="relative overflow-hidden bg-[#0A0F2C]">
+        <div className="relative mx-auto max-w-7xl px-6 pt-24 pb-20 md:pt-32 md:pb-28">
+          <div className="max-w-4xl">
+            {/* Badge */}
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#EBEBEB] border border-[#EBEBEB] mb-8">
+              <div className="w-2 h-2 bg-[#0A0F2C] rounded-full" />
+              <span className="text-sm font-medium text-[#0A0F2C] tracking-wide">
+                THE ELITE MARKETPLACE
+              </span>
+            </div>
+
+            <h1 className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tight leading-[0.9] mb-6">
+              <span className="text-white">
                 About IONORA
               </span>
             </h1>
-            <p className="mt-4 text-lg md:text-xl text-white drop-shadow-xl">
-              Curated excellence in water ionization, design and wellness.
+            
+            <p className="text-xl md:text-2xl text-[#E5E5E5] leading-relaxed max-w-2xl mb-8">
+              Trusted alkaline water ionizers from Life Ionizers, Mediqua and Medisoul.
             </p>
+
+            {/* Scroll Indicator */}
+            <div className="flex items-center gap-3 text-[#E5E5E5] text-sm font-medium">
+              <div className="w-6 h-10 border-2 border-[#E5E5E5] rounded-full flex justify-center">
+                <div className="w-1 h-3 bg-[#EBEBEB] rounded-full mt-2 animate-bounce" />
+              </div>
+              <span>Scroll to explore</span>
+            </div>
           </div>
         </div>
       </section>
 
       {/* EDITOR DESK */}
-      <section className="relative -mt-8 md:-mt-10">
+      <section className="relative -mt-16 md:-mt-20">
         <div className="mx-auto max-w-7xl px-6">
           <EditorDesk />
         </div>
       </section>
 
       {/* PILLARS */}
-      <section className="relative">
-        <div className="mx-auto max-w-7xl px-6 py-12 md:py-16">
+      <section className="relative py-20 md:py-28 bg-gradient-to-b from-[#E5E5E5]/5 to-transparent">
+        <div className="mx-auto max-w-7xl px-6">
           <BrandPillars />
         </div>
       </section>
 
       {/* STATS */}
-      <section className="relative">
-        <div className="mx-auto max-w-7xl px-6 pb-10 md:pb-14">
+      <section className="relative py-16 md:py-20">
+        <div className="mx-auto max-w-7xl px-6">
           <StatsBar />
         </div>
       </section>
 
       {/* HERITAGE */}
-      <section className="relative">
-        <div className="mx-auto max-w-7xl px-6 pb-8 md:pb-12">
+      <section className="relative py-16 md:py-20 bg-gradient-to-b from-transparent to-[#E5E5E5]/5">
+        <div className="mx-auto max-w-7xl px-6">
           <HeritageStrip />
         </div>
       </section>
 
       {/* CTA */}
-      <section className="relative">
-        <div className="mx-auto max-w-7xl px-6 pb-20">
+      <section className="relative py-20 md:py-28">
+        <div className="mx-auto max-w-7xl px-6">
           <ClosingCTA />
         </div>
       </section>

@@ -4,7 +4,7 @@ export const products = [
     id: "mxl-5",
     brand: "life",
     name: "LIFE WATER IONIZER MXL-5",
-    image: "/images/products/life/mxl5.png",
+    image: "/images/products/life/MXL-5.png",
     category: "Residential",
     plates: "5 XL Matrix GRID™ Plates",
     phRange: "3.0 – 9.8 pH",
@@ -19,13 +19,14 @@ export const products = [
     filters: "Customized Filtration Pre-Filters",
     oneClickFilter: "Top Loading One-Click Filter",
     cleaning: "Advanced RADC Self-Cleaning",
-    colorOptions: "Black / Graphite"
+    colorOptions: "Black / Graphite",
+    price: 153000
   },
   {
     id: "mxl-7",
     brand: "life",
     name: "LIFE WATER IONIZER MXL-7",
-    image: "/images/products/life/mxl7.png",
+    image: "/images/products/life/MXL-7.png",
     category: "Residential",
     plates: "7 XL Matrix GRID™ Plates",
     phRange: "2.5 – 11.0 pH",
@@ -40,13 +41,14 @@ export const products = [
     filters: "Customized Filtration Pre-Filters",
     oneClickFilter: "Top Loading One-Click Filter",
     cleaning: "Advanced RADC Self-Cleaning",
-    colorOptions: "Black / Graphite"
+    colorOptions: "Black / Graphite",
+    price: 205000
   },
   {
     id: "mxl-9",
     brand: "life",
     name: "LIFE WATER IONIZER MXL-9",
-    image: "/images/products/life/mxl9.png",
+    image: "/images/products/life/MXL-9 Counter.png",
     category: "Residential",
     plates: "9 XL Matrix GRID™ Plates",
     phRange: "2.0 – 11.5 pH",
@@ -61,13 +63,14 @@ export const products = [
     filters: "Customized Filtration Pre-Filters",
     oneClickFilter: "Top Loading One-Click Filter",
     cleaning: "Advanced RADC Self-Cleaning",
-    colorOptions: "Black / Graphite"
+    colorOptions: "Black / Graphite",
+    price: 256000
   },
   {
     id: "mxl-11",
     brand: "life",
     name: "LIFE WATER IONIZER MXL-11",
-    image: "/images/products/life/mxl11.png",
+    image: "/images/products/life/MXL-11 counter.png",
     category: "Residential",
     plates: "11 XL Matrix GRID™ Plates",
     phRange: "2.0 – 12.0 pH",
@@ -82,13 +85,14 @@ export const products = [
     filters: "Customized Filtration Pre-Filters",
     oneClickFilter: "Top Loading One-Click Filter",
     cleaning: "Advanced RADC Self-Cleaning",
-    colorOptions: "Black / Graphite"
+    colorOptions: "Black / Graphite",
+    price: 307000
   },
   {
     id: "mxl-13",
     brand: "life",
     name: "LIFE WATER IONIZER MXL-13",
-    image: "/images/products/life/mxl13.png",
+    image: "/images/products/life/MXL-13 counter.png",
     category: "Residential",
     plates: "13 XL Matrix GRID™ Plates",
     phRange: "1.7 – 12.2 pH",
@@ -103,13 +107,14 @@ export const products = [
     filters: "Customized Filtration Pre-Filters",
     oneClickFilter: "Top Loading One-Click Filter",
     cleaning: "Advanced RADC Self-Cleaning",
-    colorOptions: "Black / Graphite"
+    colorOptions: "Black / Graphite",
+    price: 359000
   },
   {
     id: "mxl-15",
     brand: "life",
     name: "LIFE WATER IONIZER MXL-15",
-    image: "/images/products/life/mxl5.png", // Using mxl5 as placeholder since mxl15 doesn't exist
+    image: "/images/products/life/MXL-5.png", // Using mxl5 as placeholder since mxl15 doesn't exist
     category: "Residential",
     plates: "15 XL Matrix GRID™ Plates",
     phRange: "1.7 – 12.2 pH",
@@ -124,7 +129,8 @@ export const products = [
     filters: "Customized Filtration Pre-Filters",
     oneClickFilter: "Top Loading One-Click Filter",
     cleaning: "Advanced RADC Self-Cleaning",
-    colorOptions: "Black / Graphite"
+    colorOptions: "Black / Graphite",
+    price: 410000
   },
 
   // Life commercial LC series
@@ -132,7 +138,7 @@ export const products = [
     id: "lc-11", 
     brand: "life", 
     name: "LIFE IONIZER LC-11", 
-    image: "/images/products/life/lc11.png",
+    image: "/images/products/life/LC-11.png",
     category: "Commercial", 
     plates: "5 XL Matrix GRID™ Plates", 
     phRange: "3.0 – 9.8 pH", 
@@ -146,13 +152,14 @@ export const products = [
     filters: "Customized Filtration Pre-Filters", 
     oneClickFilter: "Top Loading One-Click Filter", 
     cleaning: "Advanced RADC Self-Cleaning", 
-    colorOptions: "Black / Graphite" 
+    colorOptions: "Black / Graphite",
+    price: 410000
   },
   { 
     id: "lc-13", 
     brand: "life", 
     name: "LIFE IONIZER LC-13", 
-    image: "/images/products/life/lc13.png",
+    image: "/images/products/life/LC-11.png",
     category: "Commercial", 
     plates: "5 XL Matrix GRID™ Plates", 
     phRange: "3.0 – 9.8 pH", 
@@ -166,13 +173,14 @@ export const products = [
     filters: "Customized Filtration Pre-Filters", 
     oneClickFilter: "Top Loading One-Click Filter", 
     cleaning: "Advanced RADC Self-Cleaning", 
-    colorOptions: "Black / Graphite" 
+    colorOptions: "Black / Graphite",
+    price: 461000
   },
   { 
     id: "lc-30", 
     brand: "life", 
     name: "LIFE IONIZER LC-30", 
-    image: "/images/products/life/lc30.png",
+    image: "/images/products/life/LC-30.png",
     category: "Commercial", 
     plates: "30 XL Matrix GRID™ Plates", 
     phRange: "2.0 – 12.2 pH", 
@@ -186,13 +194,14 @@ export const products = [
     filters: "Customized Filtration Pre-Filters", 
     oneClickFilter: "Top Loading One-Click Filter", 
     cleaning: "Advanced RADC Self-Cleaning", 
-    colorOptions: "Black / Graphite" 
+    colorOptions: "Black / Graphite",
+    price: 718000
   },
   { 
     id: "lc-60", 
     brand: "life", 
     name: "LIFE IONIZER LC-60", 
-    image: "/images/products/life/lc60.png",
+    image: "/images/products/life/LC-60.png",
     category: "Commercial", 
     plates: "60 XL Matrix GRID™ Plates", 
     phRange: "2.0 – 12.2 pH", 
@@ -206,13 +215,14 @@ export const products = [
     filters: "Customized Filtration Pre-Filters", 
     oneClickFilter: "Top Loading One-Click Filter", 
     cleaning: "Advanced RADC Self-Cleaning", 
-    colorOptions: "Black / Graphite" 
+    colorOptions: "Black / Graphite",
+    price: 1026000
   },
   { 
     id: "lc-90", 
     brand: "life", 
     name: "LIFE IONIZER LC-90", 
-    image: "/images/products/life/lc90.png",
+    image: "/images/products/life/LC-90 counter.png",
     category: "Commercial", 
     plates: "90 XL Matrix GRID™ Plates", 
     phRange: "2.0 – 12.2 pH", 
@@ -226,7 +236,92 @@ export const products = [
     filters: "Customized Filtration Pre-Filters", 
     oneClickFilter: "Top Loading One-Click Filter", 
     cleaning: "Advanced RADC Self-Cleaning", 
-    colorOptions: "Black / Graphite" 
+    colorOptions: "Black / Graphite",
+    price: 1539000
+  },
+  { 
+    id: "commercial-water", 
+    brand: "life", 
+    name: "Commercial Water", 
+    image: "/images/products/life/LC-90 counter.png", // Using lc90 as placeholder
+    category: "Commercial", 
+    plates: "Commercial Grade", 
+    phRange: "2.0 – 12.2 pH", 
+    orp: "Up to -1193 mV", 
+    power: "Commercial Power", 
+    warranty: "Commercial Warranty", 
+    installation: "Commercial Installation", 
+    dimensions: "Commercial Dimensions", 
+    internationalVoltage: "110–220 V", 
+    microMembrane: "Life Micro Membrane™ Technology", 
+    filters: "Commercial Filtration", 
+    oneClickFilter: "Commercial Filter System", 
+    cleaning: "Commercial Self-Cleaning", 
+    colorOptions: "Commercial Finish",
+    price: 3078000
+  },
+  { 
+    id: "dolphin-whole-home", 
+    brand: "life", 
+    name: "Salt-Free Dolphin Whole Home Filtration Set", 
+    image: "/images/products/life/LC-90 counter.png", // Using lc90 as placeholder
+    category: "Filtration", 
+    plates: "Whole Home Filtration", 
+    phRange: "Neutral pH", 
+    orp: "Neutral ORP", 
+    power: "No Power Required", 
+    warranty: "Filtration Warranty", 
+    installation: "Whole Home Installation", 
+    dimensions: "Whole Home System", 
+    internationalVoltage: "N/A", 
+    microMembrane: "Advanced Filtration", 
+    filters: "Salt-Free Filtration", 
+    oneClickFilter: "Whole Home Filter", 
+    cleaning: "Self-Cleaning", 
+    colorOptions: "System Finish",
+    price: 615000
+  },
+  { 
+    id: "dolphin-well-water", 
+    brand: "life", 
+    name: "The Dolphin Well Water Solution", 
+    image: "/images/products/life/LC-90 counter.png", // Using lc90 as placeholder
+    category: "Filtration", 
+    plates: "Well Water Filtration", 
+    phRange: "Well Water pH", 
+    orp: "Well Water ORP", 
+    power: "No Power Required", 
+    warranty: "Filtration Warranty", 
+    installation: "Well Water Installation", 
+    dimensions: "Well Water System", 
+    internationalVoltage: "N/A", 
+    microMembrane: "Well Water Filtration", 
+    filters: "Well Water Filters", 
+    oneClickFilter: "Well Water Filter", 
+    cleaning: "Self-Cleaning", 
+    colorOptions: "System Finish",
+    price: 307000
+  },
+  { 
+    id: "dolphin-voc-filter", 
+    brand: "life", 
+    name: "The Dolphin VOC Filter", 
+    image: "/images/products/life/LC-90 counter.png", // Using lc90 as placeholder
+    category: "Filtration", 
+    plates: "VOC Filtration", 
+    phRange: "VOC Filtered pH", 
+    orp: "VOC Filtered ORP", 
+    power: "No Power Required", 
+    warranty: "Filtration Warranty", 
+    installation: "VOC Filter Installation", 
+    dimensions: "VOC Filter System", 
+    internationalVoltage: "N/A", 
+    microMembrane: "VOC Filtration", 
+    filters: "VOC Filters", 
+    oneClickFilter: "VOC Filter", 
+    cleaning: "Self-Cleaning", 
+    colorOptions: "System Finish",
+    price: 307000
   },
 
   // Medisoul MSL series
@@ -244,7 +339,8 @@ export const products = [
     installation: "Counter Top", 
     dimensions: "12.5\" W x 6.25\" D x 15\" H", 
     filters: "Customized Filtration Pre-Filters", 
-    colorOptions: "Black, White" 
+    colorOptions: "Black, White",
+    price: 135000
   },
   { 
     id: "msl-7", 
@@ -260,7 +356,8 @@ export const products = [
     installation: "Counter Top or Under Counter", 
     dimensions: "12.5\" W x 6.25\" D x 15\" H", 
     filters: "Customized Filtration Pre-Filters", 
-    colorOptions: "Black, White" 
+    colorOptions: "Black, White",
+    price: 180000
   },
   { 
     id: "msl-9", 
@@ -276,7 +373,8 @@ export const products = [
     installation: "Counter Top or Under Counter", 
     dimensions: "12.5\" W x 6.25\" D x 15\" H", 
     filters: "Customized Filtration Pre-Filters", 
-    colorOptions: "Black, White" 
+    colorOptions: "Black, White",
+    price: 225000
   },
   { 
     id: "msl-11", 
@@ -292,7 +390,8 @@ export const products = [
     installation: "Counter Top or Under Counter", 
     dimensions: "12.5\" W x 6.25\" D x 15\" H", 
     filters: "Customized Filtration Pre-Filters", 
-    colorOptions: "Black, White" 
+    colorOptions: "Black, White",
+    price: 270000
   },
   { 
     id: "msl-13", 
@@ -308,7 +407,8 @@ export const products = [
     installation: "Counter Top or Under Counter", 
     dimensions: "12.5\" W x 6.25\" D x 15\" H", 
     filters: "Customized Filtration Pre-Filters", 
-    colorOptions: "Black, White" 
+    colorOptions: "Black, White",
+    price: 315000
   },
   { 
     id: "msl-15", 
@@ -324,7 +424,8 @@ export const products = [
     installation: "Counter Top or Under Counter", 
     dimensions: "12.5\" W x 6.25\" D x 15\" H", 
     filters: "Customized Filtration Pre-Filters", 
-    colorOptions: "Black, White" 
+    colorOptions: "Black, White",
+    price: 360000
   },
 
   // Kyron series
@@ -341,7 +442,8 @@ export const products = [
     warranty: "7 Year Warranty", 
     installation: "Counter Top", 
     dimensions: "12.5\" W x 6.25\" D x 15\" H", 
-    colorOptions: "White" 
+    colorOptions: "White",
+    price: 120000
   },
   { 
     id: "kyron-7", 
@@ -356,7 +458,8 @@ export const products = [
     warranty: "10 Year Parts | Lifetime Labor", 
     installation: "Counter Top or Under Counter", 
     dimensions: "12.5\" W x 6.25\" D x 15\" H", 
-    colorOptions: "White" 
+    colorOptions: "White",
+    price: 160000
   },
   { 
     id: "kyron-9", 
@@ -371,7 +474,8 @@ export const products = [
     warranty: "Lifetime Warranty", 
     installation: "Counter Top or Under Counter", 
     dimensions: "12.5\" W x 6.25\" D x 15\" H", 
-    colorOptions: "White" 
+    colorOptions: "White",
+    price: 200000
   },
   { 
     id: "kyron-11", 
@@ -386,7 +490,8 @@ export const products = [
     warranty: "Lifetime Labor Warranty", 
     installation: "Counter Top or Under Counter", 
     dimensions: "12.5\" W x 6.25\" D x 15\" H", 
-    colorOptions: "White" 
+    colorOptions: "White",
+    price: 240000
   },
   { 
     id: "kyron-13", 
@@ -401,7 +506,8 @@ export const products = [
     warranty: "Lifetime Labor Warranty", 
     installation: "Counter Top or Under Counter", 
     dimensions: "12.5\" W x 6.25\" D x 15\" H", 
-    colorOptions: "White" 
+    colorOptions: "White",
+    price: 280000
   },
   { 
     id: "kyron-15", 
@@ -416,7 +522,8 @@ export const products = [
     warranty: "Lifetime Labor Warranty", 
     installation: "Counter Top or Under Counter", 
     dimensions: "12.5\" W x 6.25\" D x 15\" H", 
-    colorOptions: "White" 
+    colorOptions: "White",
+    price: 320000
   },
 
   // Tycoon Commercial
@@ -433,7 +540,8 @@ export const products = [
     warranty: "Lifetime on parts | 5 year labor", 
     installation: "Counter Top", 
     dimensions: "13\" W x 13\" L x 13\" H", 
-    colorOptions: "Black / Graphite" 
+    colorOptions: "Black / Graphite",
+    price: 600000
   },
   { 
     id: "tycoon-60", 
@@ -448,7 +556,8 @@ export const products = [
     warranty: "Lifetime on parts | 5 year labor", 
     installation: "Counter Top", 
     dimensions: "15.5\" W x 23\" L x 13\" H", 
-    colorOptions: "Black / Graphite" 
+    colorOptions: "Black / Graphite",
+    price: 850000
   },
   { 
     id: "tycoon-90", 
@@ -463,7 +572,8 @@ export const products = [
     warranty: "Lifetime on parts | 5 year labor", 
     installation: "Counter Top", 
     dimensions: "15.5\" W x 23\" L x 13\" H", 
-    colorOptions: "Black / Graphite" 
+    colorOptions: "Black / Graphite",
+    price: 1200000
   },
 
   // Mediqua products
@@ -478,7 +588,8 @@ export const products = [
     orp: "Up to -1250 mV", 
     hydrogen: "1800 ppb", 
     warranty: "5 years machine | 25 years plates", 
-    dimensions: "35 x 35 x 15 cm" 
+    dimensions: "35 x 35 x 15 cm",
+    price: 180000
   },
   { 
     id: "mediqua-ak-3000", 
@@ -491,7 +602,8 @@ export const products = [
     orp: "Up to -1250 mV", 
     hydrogen: "1850 ppb", 
     warranty: "5 years machine | 25 years plates", 
-    dimensions: "35 x 35 x 15 cm" 
+    dimensions: "35 x 35 x 15 cm",
+    price: 220000
   },
   { 
     id: "mediqua-ak-5000", 
@@ -504,7 +616,8 @@ export const products = [
     orp: "Around -400 mV", 
     hydrogen: "1000 ppb", 
     warranty: "5 years machine | 25 years plates", 
-    dimensions: "19 x 37.5 x 25 cm" 
+    dimensions: "19 x 37.5 x 25 cm",
+    price: 150000
   },
   { 
     id: "mediqua-ak-101", 
@@ -517,7 +630,8 @@ export const products = [
     orp: "-400 mV", 
     hydrogen: "1000 ppb", 
     warranty: "5 years", 
-    dimensions: "19 x 37.5 x 25 cm" 
+    dimensions: "19 x 37.5 x 25 cm",
+    price: 95000
   },
   { 
     id: "mediqua-ak-9000", 
@@ -531,7 +645,8 @@ export const products = [
     hydrogen: "1800 ppb", 
     warranty: "5 years machine | 25 years plates", 
     installation: "Counter Top & Under Sink", 
-    dimensions: "35 x 35 x 15 cm" 
+    dimensions: "35 x 35 x 15 cm",
+    price: 280000
   },
   { 
     id: "mediqua-hy-101", 
@@ -544,7 +659,8 @@ export const products = [
     orp: "-450 mV", 
     hydrogen: "1450 ppb", 
     warranty: "5 years", 
-    dimensions: "120 x 290 x 15 mm" 
+    dimensions: "120 x 290 x 15 mm",
+    price: 75000
   },
   { 
     id: "mediqua-hy-4000", 
@@ -557,7 +673,8 @@ export const products = [
     orp: "Up to -1250 mV", 
     hydrogen: "1800 ppb", 
     warranty: "5 years", 
-    dimensions: "350 x 350 x 150 mm" 
+    dimensions: "350 x 350 x 150 mm",
+    price: 200000
   },
   { 
     id: "mediqua-m14", 
@@ -570,7 +687,8 @@ export const products = [
     orp: "-600 mV", 
     hydrogen: "1400 ppb", 
     warranty: "1 year machine | 5 years plates", 
-    dimensions: "19 x 37.5 x 25 cm" 
+    dimensions: "19 x 37.5 x 25 cm",
+    price: 110000
   },
   { 
     id: "mediqua-undersink-faucet", 
@@ -580,7 +698,8 @@ export const products = [
     category: "Accessory", 
     installation: "Under-sink compatible", 
     colorOptions: "Chrome", 
-    warranty: "1 year" 
+    warranty: "1 year",
+    price: 25000
   }
 ];
 

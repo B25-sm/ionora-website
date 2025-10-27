@@ -88,7 +88,7 @@ export default function ProductSpecs({ model }: { model: Model }) {
           </a>
 
           <a
-            href="https://wa.me/917993004900"
+            href="https://wa.me/9230123451"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-white/15 text-white/90 bg-white/5"

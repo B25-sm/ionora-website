@@ -1,4 +1,4 @@
-export type BrandId = 'life-ionizers-india' | 'mediqua-india' | 'medisoul-india';
+export type BrandId = 'life-ionizers-india' | 'mediqua-india' | 'medisoul-india' | 'kyron-india' | 'tycoon-india';
 
 export type Variant = {
   color: "black" | "white";   // standardized color values
@@ -11,7 +11,7 @@ export type Product = {
   name: string;
   image?: string;        // single-image products
   variants?: Variant[];  // color/image variants
-  price?: string;
+  price?: number;
   series?: string;
   category?: 'Residential' | 'Commercial' | 'Accessory' | 'Other';
   specs?: Record<string, string | number>;

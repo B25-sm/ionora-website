@@ -14,6 +14,7 @@
   
   /* ==== Fluid type scales (clamp) ==== */
   :root {
+    --step--2: clamp(0.64rem, 0.60rem + 0.20vw, 0.80rem);
     --step--1: clamp(0.79rem, 0.76rem + 0.14vw, 0.90rem);
     --step-0:  clamp(0.94rem, 0.89rem + 0.25vw, 1.13rem);
     --step-1:  clamp(1.13rem, 1.04rem + 0.43vw, 1.40rem);
@@ -21,14 +22,27 @@
     --step-3:  clamp(1.62rem, 1.42rem + 1.07vw, 2.19rem);
     --step-4:  clamp(1.94rem, 1.66rem + 1.63vw, 2.73rem);
     --step-5:  clamp(2.33rem, 1.94rem + 2.43vw, 3.42rem);
+    --step-6:  clamp(2.80rem, 2.33rem + 2.50vw, 4.28rem);
+    --step-7:  clamp(3.36rem, 2.80rem + 3.00vw, 5.35rem);
+    --step-8:  clamp(4.03rem, 3.36rem + 3.50vw, 6.69rem);
   }
 
   h1 { font-size: var(--step-5); line-height: 1.05; }
   h2 { font-size: var(--step-4); line-height: 1.1; }
   h3 { font-size: var(--step-3); line-height: 1.15; }
-  h4 { font-size: var(--step-2); }
-  h5 { font-size: var(--step-1); }
-  h6 { font-size: var(--step-0); }
+  h4 { font-size: var(--step-2); line-height: 1.2; }
+  h5 { font-size: var(--step-1); line-height: 1.25; }
+  h6 { font-size: var(--step-0); line-height: 1.3; }
+  
+  /* Large display typography for TV screens */
+  @media (min-width: 2560px) {
+    h1 { font-size: var(--step-8); }
+    h2 { font-size: var(--step-7); }
+    h3 { font-size: var(--step-6); }
+    h4 { font-size: var(--step-5); }
+    h5 { font-size: var(--step-4); }
+    h6 { font-size: var(--step-3); }
+  }
 
   /* Safe-area padding for mobile notches */
   :root { --safe-top: env(safe-area-inset-top); --safe-bottom: env(safe-area-inset-bottom); }
@@ -56,8 +70,49 @@
   }
   
   /* Reusable layout helpers */
-  .page-wrap { @apply container mx-auto; }
-  .section-pad { @apply py-12 xs:py-14 md:py-16 lg:py-20; }
+  .page-wrap { @apply container mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-20 3xl:px-24 4xl:px-32 5xl:px-40 6xl:px-48; }
+  .section-pad { @apply py-8 xs:py-10 sm:py-12 md:py-16 lg:py-20 xl:py-24 2xl:py-28 3xl:py-32 4xl:py-40 5xl:py-48 6xl:py-56; }
+  
+  /* Responsive text utilities */
+  .text-responsive-xs { font-size: var(--step--2); }
+  .text-responsive-sm { font-size: var(--step--1); }
+  .text-responsive-base { font-size: var(--step-0); }
+  .text-responsive-lg { font-size: var(--step-1); }
+  .text-responsive-xl { font-size: var(--step-2); }
+  .text-responsive-2xl { font-size: var(--step-3); }
+  .text-responsive-3xl { font-size: var(--step-4); }
+  .text-responsive-4xl { font-size: var(--step-5); }
+  .text-responsive-5xl { font-size: var(--step-6); }
+  .text-responsive-6xl { font-size: var(--step-7); }
+  .text-responsive-7xl { font-size: var(--step-8); }
+  
+  /* Responsive spacing utilities */
+  .space-responsive-xs { @apply space-y-2 xs:space-y-3 sm:space-y-4 md:space-y-6 lg:space-y-8 xl:space-y-10 2xl:space-y-12 3xl:space-y-16 4xl:space-y-20 5xl:space-y-24 6xl:space-y-28; }
+  .space-responsive-sm { @apply space-y-4 xs:space-y-5 sm:space-y-6 md:space-y-8 lg:space-y-10 xl:space-y-12 2xl:space-y-16 3xl:space-y-20 4xl:space-y-24 5xl:space-y-28 6xl:space-y-32; }
+  .space-responsive-md { @apply space-y-6 xs:space-y-8 sm:space-y-10 md:space-y-12 lg:space-y-16 xl:space-y-20 2xl:space-y-24 3xl:space-y-28 4xl:space-y-32 5xl:space-y-36 6xl:space-y-40; }
+  .space-responsive-lg { @apply space-y-8 xs:space-y-10 sm:space-y-12 md:space-y-16 lg:space-y-20 xl:space-y-24 2xl:space-y-28 3xl:space-y-32 4xl:space-y-36 5xl:space-y-40 6xl:space-y-44; }
+  
+  /* Responsive image utilities */
+  .img-responsive { @apply w-full h-auto object-cover; }
+  .img-responsive-contain { @apply w-full h-auto object-contain; }
+  .img-responsive-cover { @apply w-full h-auto object-cover; }
+  
+  /* Responsive grid utilities */
+  .grid-responsive-1 { @apply grid-cols-1; }
+  .grid-responsive-2 { @apply grid-cols-1 xs:grid-cols-2; }
+  .grid-responsive-3 { @apply grid-cols-1 xs:grid-cols-2 sm:grid-cols-3; }
+  .grid-responsive-4 { @apply grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4; }
+  .grid-responsive-5 { @apply grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5; }
+  .grid-responsive-6 { @apply grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6; }
+  .grid-responsive-8 { @apply grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7 3xl:grid-cols-8; }
+  .grid-responsive-10 { @apply grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7 3xl:grid-cols-8 4xl:grid-cols-9 5xl:grid-cols-10; }
+  
+  /* Responsive gap utilities */
+  .gap-responsive-xs { @apply gap-1 xs:gap-2 sm:gap-3 md:gap-4 lg:gap-5 xl:gap-6 2xl:gap-7 3xl:gap-8 4xl:gap-9 5xl:gap-10 6xl:gap-12; }
+  .gap-responsive-sm { @apply gap-2 xs:gap-3 sm:gap-4 md:gap-5 lg:gap-6 xl:gap-7 2xl:gap-8 3xl:gap-9 4xl:gap-10 5xl:gap-12 6xl:gap-14; }
+  .gap-responsive-md { @apply gap-3 xs:gap-4 sm:gap-5 md:gap-6 lg:gap-7 xl:gap-8 2xl:gap-9 3xl:gap-10 4xl:gap-12 5xl:gap-14 6xl:gap-16; }
+  .gap-responsive-lg { @apply gap-4 xs:gap-5 sm:gap-6 md:gap-7 lg:gap-8 xl:gap-9 2xl:gap-10 3xl:gap-12 4xl:gap-14 5xl:gap-16 6xl:gap-18; }
+  .gap-responsive-xl { @apply gap-5 xs:gap-6 sm:gap-7 md:gap-8 lg:gap-9 xl:gap-10 2xl:gap-12 3xl:gap-14 4xl:gap-16 5xl:gap-18 6xl:gap-20; }
 }
 
 @layer utilities {
@@ -69,6 +124,47 @@
     background-size: 200% auto;
     animation: gradient 3s linear infinite;
   }
+  
+  /* Responsive container utilities */
+  .container-responsive { @apply container mx-auto px-2 xs:px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-20 3xl:px-24 4xl:px-32 5xl:px-40 6xl:px-48; }
+  
+  /* Responsive padding utilities */
+  .p-responsive-xs { @apply p-2 xs:p-3 sm:p-4 md:p-5 lg:p-6 xl:p-7 2xl:p-8 3xl:p-9 4xl:p-10 5xl:p-12 6xl:p-14; }
+  .p-responsive-sm { @apply p-3 xs:p-4 sm:p-5 md:p-6 lg:p-7 xl:p-8 2xl:p-9 3xl:p-10 4xl:p-12 5xl:p-14 6xl:p-16; }
+  .p-responsive-md { @apply p-4 xs:p-5 sm:p-6 md:p-7 lg:p-8 xl:p-9 2xl:p-10 3xl:p-12 4xl:p-14 5xl:p-16 6xl:p-18; }
+  .p-responsive-lg { @apply p-5 xs:p-6 sm:p-7 md:p-8 lg:p-9 xl:p-10 2xl:p-12 3xl:p-14 4xl:p-16 5xl:p-18 6xl:p-20; }
+  .p-responsive-xl { @apply p-6 xs:p-8 sm:p-10 md:p-12 lg:p-14 xl:p-16 2xl:p-18 3xl:p-20 4xl:p-24 5xl:p-28 6xl:p-32; }
+  
+  /* Responsive margin utilities */
+  .m-responsive-xs { @apply m-2 xs:m-3 sm:m-4 md:m-5 lg:m-6 xl:m-7 2xl:m-8 3xl:m-9 4xl:m-10 5xl:m-12 6xl:m-14; }
+  .m-responsive-sm { @apply m-3 xs:m-4 sm:m-5 md:m-6 lg:m-7 xl:m-8 2xl:m-9 3xl:m-10 4xl:m-12 5xl:m-14 6xl:m-16; }
+  .m-responsive-md { @apply m-4 xs:m-5 sm:m-6 md:m-7 lg:m-8 xl:m-9 2xl:m-10 3xl:m-12 4xl:m-14 5xl:m-16 6xl:m-18; }
+  .m-responsive-lg { @apply m-5 xs:m-6 sm:m-7 md:m-8 lg:m-9 xl:m-10 2xl:m-12 3xl:m-14 4xl:m-16 5xl:m-18 6xl:m-20; }
+  .m-responsive-xl { @apply m-6 xs:m-8 sm:m-10 md:m-12 lg:m-14 xl:m-16 2xl:m-18 3xl:m-20 4xl:m-24 5xl:m-28 6xl:m-32; }
+  
+  /* Responsive width utilities */
+  .w-responsive-xs { @apply w-16 xs:w-20 sm:w-24 md:w-28 lg:w-32 xl:w-36 2xl:w-40 3xl:w-44 4xl:w-48 5xl:w-52 6xl:w-56; }
+  .w-responsive-sm { @apply w-20 xs:w-24 sm:w-28 md:w-32 lg:w-36 xl:w-40 2xl:w-44 3xl:w-48 4xl:w-52 5xl:w-56 6xl:w-60; }
+  .w-responsive-md { @apply w-24 xs:w-28 sm:w-32 md:w-36 lg:w-40 xl:w-44 2xl:w-48 3xl:w-52 4xl:w-56 5xl:w-60 6xl:w-64; }
+  .w-responsive-lg { @apply w-28 xs:w-32 sm:w-36 md:w-40 lg:w-44 xl:w-48 2xl:w-52 3xl:w-56 4xl:w-60 5xl:w-64 6xl:w-68; }
+  .w-responsive-xl { @apply w-32 xs:w-36 sm:w-40 md:w-44 lg:w-48 xl:w-52 2xl:w-56 3xl:w-60 4xl:w-64 5xl:w-68 6xl:w-72; }
+  
+  /* Responsive height utilities */
+  .h-responsive-xs { @apply h-16 xs:h-20 sm:h-24 md:h-28 lg:h-32 xl:h-36 2xl:h-40 3xl:h-44 4xl:h-48 5xl:h-52 6xl:h-56; }
+  .h-responsive-sm { @apply h-20 xs:h-24 sm:h-28 md:h-32 lg:h-36 xl:h-40 2xl:h-44 3xl:h-48 4xl:h-52 5xl:h-56 6xl:h-60; }
+  .h-responsive-md { @apply h-24 xs:h-28 sm:h-32 md:h-36 lg:h-40 xl:h-44 2xl:h-48 3xl:h-52 4xl:h-56 5xl:h-60 6xl:h-64; }
+  .h-responsive-lg { @apply h-28 xs:h-32 sm:h-36 md:h-40 lg:h-44 xl:h-48 2xl:h-52 3xl:h-56 4xl:h-60 5xl:h-64 6xl:h-68; }
+  .h-responsive-xl { @apply h-32 xs:h-36 sm:h-40 md:h-44 lg:h-48 xl:h-52 2xl:h-56 3xl:h-60 4xl:h-64 5xl:h-68 6xl:h-72; }
+  
+  /* Mobile-first responsive utilities */
+  .mobile-hidden { @apply hidden xs:block; }
+  .mobile-only { @apply block xs:hidden; }
+  .tablet-hidden { @apply hidden sm:block; }
+  .tablet-only { @apply block sm:hidden; }
+  .desktop-hidden { @apply hidden lg:block; }
+  .desktop-only { @apply block lg:hidden; }
+  .tv-hidden { @apply hidden 4xl:block; }
+  .tv-only { @apply block 4xl:hidden; }
 }
 
 @keyframes float {
@@ -98,6 +194,7 @@
   .preserve-3d { transform-style: preserve-3d; }
   .backface-hidden { backface-visibility: hidden; }
   .rotate-y-180 { transform: rotateY(180deg); }
+  .bg-gradient-radial { background: radial-gradient(circle, var(--tw-gradient-stops)); }
 }
 
 @keyframes float-slow {

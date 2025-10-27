@@ -1,9 +1,9 @@
-import HeroSection from '@/components/HeroSection'
+import ProductSlider from '@/components/ProductSlider'
 
 export default function Home() {
   return (
     <>
-      <HeroSection />
+      <ProductSlider />
     </>
   )
 }

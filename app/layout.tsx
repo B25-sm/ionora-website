@@ -23,14 +23,17 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" data-scroll-behavior="smooth">
-      <body className={inter.className}>
+      <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
+      </head>
+      <body className={inter.className} suppressHydrationWarning={true}>
         {/* Solid background */}
-        <div className="min-h-dvh bg-bg text-primary">
+        <div className="min-h-dvh bg-bg text-primary overflow-x-hidden">
           {/* Sticky global navbar */}
           <Navigation />
 
           {/* Page content (offset for fixed nav) */}
-          <main className="pt-20">
+          <main className="pt-16 sm:pt-18 md:pt-20 lg:pt-24 xl:pt-28 2xl:pt-32">
             {children}
           </main>
 

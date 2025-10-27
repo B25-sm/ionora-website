@@ -6,7 +6,7 @@ import productsData, { Product } from "../data/products";
 
 function openWhatsApp(productName: string) {
   const msg = encodeURIComponent(`Hello, I'm interested in ${productName}. Please share pricing and details.`);
-  window.open(`https://wa.me/917993004900?text=${msg}`, "_blank");
+  window.open(`https://wa.me/9230123451?text=${msg}`, "_blank");
 }
 
 export default function ProductCompare() {

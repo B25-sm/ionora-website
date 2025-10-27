@@ -5,7 +5,7 @@ import React from "react";
 const brands = [
   { id: "life", title: "Life Ionizers India", subtitle: "Pioneer of Innovation", models: 11, country: "India", colorFrom: "bg-primary", colorTo: "" },
   { id: "mediqua", title: "Mediqua India", subtitle: "Clinical Precision", models: 8, country: "Korea", colorFrom: "bg-primary", colorTo: "" },
-  { id: "medisoul", title: "Medisoul India", subtitle: "Wellness Engineering", models: 15, country: "India", colorFrom: "bg-primary", colorTo: "" },
+  { id: "medisoul", title: "Medisoul India", subtitle: "Wellness Engineering (incl. Kyron & Tycoon)", models: 24, country: "Korea", colorFrom: "bg-primary", colorTo: "" },
 ];
 
 function InitialBadge({ title, from, to }: { title: string; from: string; to: string }) {

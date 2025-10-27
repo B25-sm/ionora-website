@@ -16,25 +16,25 @@ export default function CompareTray({ items, onRemove, onCompare }: Props) {
 
   return (
     <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-[70]">
-      <div className="flex items-center gap-3 rounded-2xl border border-[#B45253]/20 bg-white/90 backdrop-blur-xl p-3 text-[#B45253] shadow-lg">
+      <div className="flex items-center gap-3 rounded-2xl border border-[#0A2238]/20 bg-white/90 backdrop-blur-xl p-3 text-[#0A2238] shadow-lg">
         {items.map((p) => (
-          <div key={p.id} className="relative flex items-center gap-2 rounded-xl border border-[#B45253]/20 bg-white/80 p-2">
-            <div className="relative w-10 h-10 rounded-lg overflow-hidden border border-[#B45253]/20 bg-white/80">
+          <div key={p.id} className="relative flex items-center gap-2 rounded-xl border border-[#0A2238]/20 bg-white/80 p-2">
+            <div className="relative w-10 h-10 rounded-lg overflow-hidden border border-[#0A2238]/20 bg-white/80">
               <Image src={p.image} alt={p.name} fill sizes="40px" className="object-contain p-1" />
             </div>
-            <span className="text-sm max-w-[160px] truncate text-[#B45253]">{p.name}</span>
+            <span className="text-sm max-w-[160px] truncate text-[#0A2238]">{p.name}</span>
             <button
-              className="p-1 rounded-lg bg-[#B45253]/10 hover:bg-[#B45253]/20 border border-[#B45253]/20"
+              className="p-1 rounded-lg bg-[#0A2238]/10 hover:bg-[#0A2238]/20 border border-[#0A2238]/20"
               onClick={() => onRemove(p.id)}
               aria-label={`Remove ${p.name}`}
             >
-              <X className="w-4 h-4 text-[#B45253]"/>
+              <X className="w-4 h-4 text-[#0A2238]"/>
             </button>
           </div>
         ))}
         <button
           onClick={onCompare}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-[#B45253]/50 text-white bg-[#B45253] hover:bg-[#B45253]/80 shadow-lg"
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-[#0A2238]/50 text-white bg-[#0A2238] hover:bg-[#0A2238]/80 shadow-lg"
         >
           <Scale className="w-4 h-4" />
           Compare {items.length}

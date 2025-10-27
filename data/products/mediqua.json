@@ -5,6 +5,7 @@
       "slug": "ak-2000",
       "title": "Mediqua AK-2000",
       "summary": "Compact Korean-engineered ionizer with UV light technology and dual filtration.",
+      "image": "/images/products/mediqua/Ak-2000.png",
       "features": {
         "Electrodes": "7 / 9 cell electrodes (Titanium with platinum coating)",
         "UV": "UV disinfection",
@@ -22,6 +23,7 @@
       "slug": "ak-3000",
       "title": "Mediqua AK-3000",
       "summary": "Advanced touch-controlled model with voice automation and impressive hydrogen production.",
+      "image": "/images/products/mediqua/ak-3000.png",
       "features": {
         "Display": "LCD + touch sensor",
         "UV": "UV disinfection",
@@ -38,6 +40,7 @@
       "slug": "ak-5000",
       "title": "Mediqua AK-5000",
       "summary": "Nine-level water producer with premium platinum-coated titanium plates and dual filtration.",
+      "image": "/images/products/mediqua/ak-5000.png",
       "features": {
         "Plates": "5 / 7 platinum-coated titanium",
         "pH Range": "3.5 – 10.5",
@@ -52,6 +55,7 @@
       "slug": "ak-101",
       "title": "Mediqua AK-101",
       "summary": "Small footprint model with manual pH control and 3-cell platinum-coated electrodes.",
+      "image": "/images/products/mediqua/ak-101.jpg",
       "features": {
         "Plates": "3 large sized platinum-coated plates",
         "pH Range": "3.5 – 10.5",
@@ -66,6 +70,7 @@
       "slug": "hy-101",
       "title": "Mediqua HY-101",
       "summary": "Nano-bubble function, SPE membrane and zero-wastage design for RO integration.",
+      "image": "/images/products/mediqua/hy-101.png",
       "features": {
         "Touch": "One-touch sensor",
         "NanoBubble": "Nano Bubble function",
@@ -81,6 +86,7 @@
       "slug": "hy-4000",
       "title": "Mediqua HY-4000",
       "summary": "Wall-mountable purifier with UV lamp and advanced sterilization modes.",
+      "image": "/images/products/mediqua/hy-4000.png",
       "features": {
         "Features": "Ozone sterilization, UV lamp, touch sensor",
         "Power": "100W",
@@ -93,6 +99,7 @@
       "slug": "ak-9000",
       "title": "Mediqua AK-9000",
       "summary": "Fully featured premium system with 7–9 plates, big touchscreen, RFID filter tracking and programmable pH/ORP.",
+      "image": "/images/products/mediqua/AK-9000.png",
       "features": {
         "Installation": "Counter Top & Under Sink",
         "Plates": "7 / 9 platinum-coated plates",
@@ -108,6 +115,7 @@
       "slug": "m14",
       "title": "M-14",
       "summary": "Compact M-series model, ideal for small spaces; good hydrogen and ORP performance.",
+      "image": "/images/products/mediqua/m14.png",
       "features": {
         "ORP": "-600 mV",
         "pH Range": "3.5 – 11",
@@ -122,6 +130,7 @@
       "slug": "undersink-faucet",
       "title": "Mediqua Undersink Faucet",
       "summary": "Under-sink faucet with touch sensor, LED display, and 9 water level options.",
+      "image": "/images/products/mediqua/undersink-faucet.png",
       "features": {
         "Installation": "Under-sink compatible",
         "Levels": "9 water levels (4 alkaline, 4 acidic, 1 purified)",
