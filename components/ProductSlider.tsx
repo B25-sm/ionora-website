@@ -232,7 +232,6 @@ export default function ProductSlider() {
           ref={videoRefCallback}
           src={BRAND_CATEGORIES[activeCategory].video}
           autoPlay
-          muted
           loop
           playsInline
           preload="auto"
