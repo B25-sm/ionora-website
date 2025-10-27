@@ -4,9 +4,9 @@ import { useState, useEffect } from 'react';
 import { products, productsByBrand } from '@/data/products';
 
 const BRAND_CATEGORIES = [
+  { id: 'medisoul', name: 'Medisoul', color: '#E5E5E5', video: '/videos/Ionora.mp4' },
   { id: 'life', name: 'Life Ionizers', color: '#EBEBEB', video: '/videos/lifeionizer.mp4' },
-  { id: 'mediqua', name: 'Mediqua', color: '#0A0F2C', video: '/videos/mediqua.mp4' },
-  { id: 'medisoul', name: 'Medisoul', color: '#E5E5E5', video: '/videos/Ionora.mp4' }
+  { id: 'mediqua', name: 'Mediqua', color: '#0A0F2C', video: '/videos/mediqua.mp4' }
 ];
 
 export default function ProductSlider() {
