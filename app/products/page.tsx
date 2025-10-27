@@ -46,7 +46,7 @@ export default function ProductsPage() {
   return (
     <Suspense fallback={
       <main className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white/30"></div>
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#B45253]/30"></div>
       </main>
     }>
       <ProductsContent />

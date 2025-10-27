@@ -81,24 +81,24 @@ export default function ModernTechTabs() {
   const activeTabData = tabs.find(tab => tab.id === activeTab);
 
   return (
-    <section ref={sectionRef} className="relative min-h-screen bg-gradient-to-br from-slate-900 via-blue-900/20 to-purple-900/20">
+    <section ref={sectionRef} className="relative min-h-screen bg-gradient-to-br from-[#FFE797] via-white to-[#B45253]">
       {/* Background Effects */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#B45253]/10 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-[#FFE797]/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
       </div>
 
       <div className="relative max-w-7xl mx-auto px-4 py-20">
         {/* Header */}
         <div className={`text-center mb-16 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          <h1 className="text-5xl md:text-7xl font-extrabold bg-gradient-to-r from-white via-blue-100 to-purple-100 bg-clip-text text-transparent mb-6">
+          <h1 className="text-5xl md:text-7xl font-extrabold text-[#B45253] mb-6 drop-shadow-lg">
             Advanced
             <br />
-            <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+            <span className="text-[#B45253]">
               Technology
             </span>
           </h1>
-          <p className="text-xl text-white/70 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-xl text-[#B45253] max-w-3xl mx-auto leading-relaxed drop-shadow-md">
             Discover the science behind water ionization and how our cutting-edge technology 
             transforms ordinary water into a powerful health and wellness tool.
           </p>
@@ -120,8 +120,8 @@ export default function ModernTechTabs() {
                 onClick={() => setActiveTab(tab.id)}
                 className={`group relative px-6 py-4 rounded-2xl border backdrop-blur-xl transition-all duration-500 ${
                   isActive
-                    ? 'bg-gradient-to-r from-blue-500/20 to-purple-500/20 border-blue-400/50 text-white shadow-[0_0_30px_rgba(59,130,246,0.3)]'
-                    : 'bg-white/5 border-white/15 text-white/80 hover:bg-white/10 hover:border-white/25'
+                    ? 'bg-gradient-to-r from-[#B45253]/20 to-[#FFE797]/20 border-[#B45253]/50 text-[#B45253] shadow-[0_0_30px_rgba(180,82,83,0.3)]'
+                    : 'bg-white/80 border-[#B45253]/15 text-[#B45253]/80 hover:bg-[#FFE797]/20 hover:border-[#B45253]/25'
                 }`}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -134,13 +134,13 @@ export default function ModernTechTabs() {
                     animate={isActive ? { rotate: 360 } : { rotate: 0 }}
                     transition={{ duration: 0.6 }}
                   >
-                    <Icon className={`w-5 h-5 transition-transform group-hover:scale-110 ${isActive ? 'text-blue-300' : 'text-white/70'}`} />
+                    <Icon className={`w-5 h-5 transition-transform group-hover:scale-110 ${isActive ? 'text-[#B45253]' : 'text-[#B45253]/70'}`} />
                   </motion.div>
                   <span className="font-medium">{tab.label}</span>
                 </div>
                 {isActive && (
                   <motion.div 
-                    className="absolute inset-0 rounded-2xl bg-gradient-to-r from-blue-500/10 to-purple-500/10"
+                    className="absolute inset-0 rounded-2xl bg-gradient-to-r from-[#B45253]/10 to-[#FFE797]/10"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 0.3 }}
@@ -164,14 +164,14 @@ export default function ModernTechTabs() {
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeTab}
-                className="rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl p-8"
+                className="rounded-3xl border border-[#B45253]/20 bg-white/90 backdrop-blur-xl p-8 shadow-lg"
                 initial={{ opacity: 0, y: 20, scale: 0.95 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: -20, scale: 0.95 }}
                 transition={{ duration: 0.5, ease: "easeInOut" }}
               >
                 <motion.h2 
-                  className="text-3xl font-bold text-white mb-4"
+                  className="text-3xl font-bold text-[#B45253] mb-4 drop-shadow-sm"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.2 }}
@@ -179,7 +179,7 @@ export default function ModernTechTabs() {
                   {activeTabData?.label}
                 </motion.h2>
                 <motion.p 
-                  className="text-white/80 text-lg leading-relaxed mb-6"
+                  className="text-[#B45253] text-lg leading-relaxed mb-6 drop-shadow-sm"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.3 }}
@@ -187,7 +187,7 @@ export default function ModernTechTabs() {
                   {activeTabData?.description}
                 </motion.p>
                 <motion.p 
-                  className="text-white/70"
+                  className="text-[#B45253]/80"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.4 }}
@@ -212,21 +212,21 @@ export default function ModernTechTabs() {
                   return (
                     <motion.div
                       key={index}
-                      className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl p-4 text-center group hover:bg-white/10 transition-all duration-300"
+                      className="rounded-2xl border border-[#B45253]/20 bg-white/90 backdrop-blur-xl p-4 text-center group hover:bg-[#FFE797]/20 transition-all duration-300 shadow-lg"
                       initial={{ opacity: 0, scale: 0.8 }}
                       animate={{ opacity: 1, scale: 1 }}
                       transition={{ delay: 0.1 * index }}
                       whileHover={{ scale: 1.05, y: -5 }}
                     >
                       <motion.div 
-                        className="w-12 h-12 mx-auto mb-3 rounded-full bg-white/10 flex items-center justify-center group-hover:scale-110 transition-transform"
+                        className="w-12 h-12 mx-auto mb-3 rounded-full bg-[#B45253]/10 flex items-center justify-center group-hover:scale-110 transition-transform"
                         whileHover={{ rotate: 360 }}
                         transition={{ duration: 0.6 }}
                       >
-                        <Icon className={`w-6 h-6 ${benefit.color}`} />
+                        <Icon className={`w-6 h-6 text-[#B45253]`} />
                       </motion.div>
-                      <div className="text-sm text-white/80 mb-1">{benefit.text}</div>
-                      <div className={`text-lg font-bold ${benefit.color}`}>{benefit.value}</div>
+                      <div className="text-sm text-[#B45253] mb-1 drop-shadow-sm">{benefit.text}</div>
+                      <div className="text-lg font-bold text-[#B45253] drop-shadow-sm">{benefit.value}</div>
                     </motion.div>
                   );
                 })}
@@ -252,7 +252,7 @@ export default function ModernTechTabs() {
           transition={{ duration: 0.8, delay: 1.0 }}
         >
           <motion.h3 
-            className="text-3xl font-bold text-center text-white mb-12"
+            className="text-3xl font-bold text-center text-[#B45253] mb-12 drop-shadow-lg"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1.2 }}
@@ -274,14 +274,14 @@ export default function ModernTechTabs() {
             ].map((benefit, index) => (
               <motion.div
                 key={index}
-                className="rounded-xl border border-white/10 bg-white/5 backdrop-blur-xl p-4 text-center hover:bg-white/10 transition-all duration-300 group"
+                className="rounded-xl border border-[#B45253]/20 bg-white/90 backdrop-blur-xl p-4 text-center hover:bg-[#FFE797]/20 transition-all duration-300 group shadow-lg"
                 initial={{ opacity: 0, scale: 0.8, y: 20 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 transition={{ delay: 1.3 + index * 0.05 }}
                 whileHover={{ scale: 1.05, y: -5 }}
               >
                 <motion.div 
-                  className="text-sm text-white/80 group-hover:text-white transition-colors"
+                  className="text-sm text-[#B45253] group-hover:text-[#B45253] transition-colors drop-shadow-sm"
                   whileHover={{ scale: 1.1 }}
                 >
                   {benefit}

@@ -49,15 +49,15 @@ export default function ProductCarousel({ products, onViewDetails, onEnquire }: 
       {/* Navigation Arrows */}
       <button
         onClick={prevSlide}
-        className="absolute left-4 top-1/2 -translate-y-1/2 z-10 p-3 rounded-full bg-white/10 backdrop-blur-xl border border-white/20 hover:bg-white/20 transition-all"
+        className="absolute left-4 top-1/2 -translate-y-1/2 z-10 p-3 rounded-full bg-white/90 backdrop-blur-xl border border-[#B45253]/20 hover:bg-[#FFE797]/20 transition-all shadow-lg"
       >
-        <ChevronLeft className="w-6 h-6 text-white" />
+        <ChevronLeft className="w-6 h-6 text-[#B45253]" />
       </button>
       <button
         onClick={nextSlide}
-        className="absolute right-4 top-1/2 -translate-y-1/2 z-10 p-3 rounded-full bg-white/10 backdrop-blur-xl border border-white/20 hover:bg-white/20 transition-all"
+        className="absolute right-4 top-1/2 -translate-y-1/2 z-10 p-3 rounded-full bg-white/90 backdrop-blur-xl border border-[#B45253]/20 hover:bg-[#FFE797]/20 transition-all shadow-lg"
       >
-        <ChevronRight className="w-6 h-6 text-white" />
+        <ChevronRight className="w-6 h-6 text-[#B45253]" />
       </button>
 
       {/* Carousel Container */}
@@ -78,12 +78,12 @@ export default function ProductCarousel({ products, onViewDetails, onEnquire }: 
               onMouseLeave={() => setHoveredProduct(null)}
             >
               {/* Card Container */}
-              <div className="relative rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl p-6 transition-all duration-500 hover:scale-105 hover:shadow-[0_25px_50px_rgba(0,0,0,0.25)] hover:shadow-blue-500/10">
+              <div className="relative rounded-3xl border border-[#B45253]/20 bg-white/90 backdrop-blur-xl p-6 transition-all duration-500 hover:scale-105 hover:shadow-[0_25px_50px_rgba(180,82,83,0.15)] hover:shadow-[#B45253]/10">
                 {/* Glow Effect */}
-                <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-blue-500/10 via-purple-500/10 to-pink-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-[#B45253]/10 via-[#FFE797]/10 to-[#B45253]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 
                 {/* Product Image */}
-                <div className="relative aspect-[4/3] w-full rounded-2xl overflow-hidden border border-white/10 bg-white/5 mb-4">
+                <div className="relative aspect-[4/3] w-full rounded-2xl overflow-hidden border border-[#B45253]/20 bg-white/80 mb-4">
                   <Image
                     src={currentImage}
                     alt={product.name}
@@ -94,34 +94,34 @@ export default function ProductCarousel({ products, onViewDetails, onEnquire }: 
                 </div>
 
                 {/* Brand Badge */}
-                <div className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-gradient-to-r from-blue-500/20 to-purple-500/20 border border-blue-400/30 text-blue-200 mb-3">
+                <div className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-gradient-to-r from-[#B45253]/20 to-[#FFE797]/20 border border-[#B45253]/30 text-[#B45253] mb-3">
                   {product.brand}
                 </div>
 
                 {/* Product Name */}
-                <h3 className="text-xl font-bold text-white mb-3 group-hover:text-blue-100 transition-colors">
+                <h3 className="text-xl font-bold text-[#B45253] mb-3 group-hover:text-[#B45253]/80 transition-colors drop-shadow-sm">
                   {product.name}
                 </h3>
 
                 {/* Specification Chips */}
                 <div className="flex flex-wrap gap-3 mb-6">
-                  <div className="flex flex-col items-center px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-center">
-                    <span className="text-xs text-white/60">Plates</span>
-                    <span className="text-sm font-semibold text-white">
+                  <div className="flex flex-col items-center px-4 py-2 rounded-xl bg-[#B45253]/10 border border-[#B45253]/20 text-center">
+                    <span className="text-xs text-[#B45253]/70">Plates</span>
+                    <span className="text-sm font-semibold text-[#B45253]">
                       {product.plates || "N/A"}
                     </span>
                   </div>
 
-                  <div className="flex flex-col items-center px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-center">
-                    <span className="text-xs text-white/60">pH</span>
-                    <span className="text-sm font-semibold text-white">
+                  <div className="flex flex-col items-center px-4 py-2 rounded-xl bg-[#B45253]/10 border border-[#B45253]/20 text-center">
+                    <span className="text-xs text-[#B45253]/70">pH</span>
+                    <span className="text-sm font-semibold text-[#B45253]">
                       {product.phRange || "N/A"}
                     </span>
                   </div>
 
-                  <div className="flex flex-col items-center px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-center">
-                    <span className="text-xs text-white/60">ORP</span>
-                    <span className="text-sm font-semibold text-white">
+                  <div className="flex flex-col items-center px-4 py-2 rounded-xl bg-[#B45253]/10 border border-[#B45253]/20 text-center">
+                    <span className="text-xs text-[#B45253]/70">ORP</span>
+                    <span className="text-sm font-semibold text-[#B45253]">
                       {product.orp || "N/A"}
                     </span>
                   </div>
@@ -132,7 +132,7 @@ export default function ProductCarousel({ products, onViewDetails, onEnquire }: 
                 <div className="flex gap-3 mb-5">
                   <button
                     onClick={() => onViewDetails(product)}
-                    className="flex-1 flex items-center justify-center gap-2 px-4 py-2 rounded-xl bg-white/10 text-white hover:bg-white/20 transition"
+                    className="flex-1 flex items-center justify-center gap-2 px-4 py-2 rounded-xl bg-[#B45253]/10 text-[#B45253] hover:bg-[#B45253]/20 transition border border-[#B45253]/20"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -153,7 +153,7 @@ export default function ProductCarousel({ products, onViewDetails, onEnquire }: 
 
                   <button
                     onClick={() => onEnquire(product)}
-                    className="flex-1 flex items-center justify-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-indigo-500 to-violet-500 text-white font-medium hover:scale-[1.02] transition"
+                    className="flex-1 flex items-center justify-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-[#B45253] to-[#B45253]/80 text-white font-medium hover:scale-[1.02] transition shadow-lg"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -174,7 +174,7 @@ export default function ProductCarousel({ products, onViewDetails, onEnquire }: 
                 </div>
 
                 {/* Price / CTA */}
-                <p className="text-center text-sm text-white/90 font-semibold">
+                <p className="text-center text-sm text-[#B45253] font-semibold">
                   Contact for Price
                 </p>
               </div>
@@ -191,8 +191,8 @@ export default function ProductCarousel({ products, onViewDetails, onEnquire }: 
             onClick={() => scrollToIndex(index)}
             className={`w-2 h-2 rounded-full transition-all ${
               index === currentIndex
-                ? 'bg-blue-400 scale-125'
-                : 'bg-white/30 hover:bg-white/50'
+                ? 'bg-[#B45253] scale-125'
+                : 'bg-[#B45253]/30 hover:bg-[#B45253]/50'
             }`}
           />
         ))}

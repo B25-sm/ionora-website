@@ -5,8 +5,8 @@ export default function BrandsPage(){
     <main className="min-h-screen">
       <div className="page-wrap">
         <div className="mb-6">
-          <h1 className="text-4xl md:text-6xl font-extrabold text-white">Brands</h1>
-          <p className="mt-2 text-white/70">Life Ionizers India, Mediqua India, Medisoul India.</p>
+          <h1 className="text-4xl md:text-6xl font-extrabold text-[#B45253] drop-shadow-lg">Brands</h1>
+          <p className="mt-2 text-[#B45253] drop-shadow-md">Life Ionizers India, Mediqua India, Medisoul India.</p>
         </div>
         <BrandShowcase />
       </div>

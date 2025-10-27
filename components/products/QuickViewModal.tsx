@@ -21,24 +21,24 @@ export default function QuickViewModal({ product, onClose }: Props) {
       role="dialog"
     >
       <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={onClose} />
-      <div className="relative w-[92vw] max-w-5xl rounded-3xl border border-white/15 bg-white/5 backdrop-blur-xl p-4 md:p-6 text-white">
+      <div className="relative w-[92vw] max-w-5xl rounded-3xl border border-[#B45253]/20 bg-white/95 backdrop-blur-xl p-4 md:p-6 text-[#B45253]">
         <button
           onClick={onClose}
-          className="absolute top-3 right-3 p-2 rounded-xl bg-white/10 border border-white/15 hover:bg-white/15"
+          className="absolute top-3 right-3 p-2 rounded-xl bg-[#B45253]/10 border border-[#B45253]/20 hover:bg-[#B45253]/20"
           aria-label="Close"
         >
-          <X className="w-5 h-5" />
+          <X className="w-5 h-5 text-[#B45253]" />
         </button>
 
         <div className="grid md:grid-cols-2 gap-6">
           {/* left: gallery */}
           <div className="space-y-3">
-            <div className="relative aspect-[4/3] w-full rounded-2xl overflow-hidden border border-white/10 bg-white/5">
+            <div className="relative aspect-[4/3] w-full rounded-2xl overflow-hidden border border-[#B45253]/20 bg-white/80">
               <Image src={gallery[0]} alt={product.name} fill sizes="(max-width: 768px) 100vw, 50vw" className="object-contain p-6" />
             </div>
             <div className="grid grid-cols-4 gap-3">
               {gallery.slice(1,5).map((src, i) => (
-                <div key={i} className="relative aspect-square rounded-xl overflow-hidden border border-white/10 bg-white/5">
+                <div key={i} className="relative aspect-square rounded-xl overflow-hidden border border-[#B45253]/20 bg-white/80">
                   <Image src={src} alt={`${product.name} ${i}`} fill sizes="(max-width: 768px) 25vw, 12.5vw" className="object-contain p-2" />
                 </div>
               ))}
@@ -47,12 +47,12 @@ export default function QuickViewModal({ product, onClose }: Props) {
 
           {/* right: info */}
           <div>
-            <h3 className="text-2xl md:text-3xl font-bold">{product.name}</h3>
-            {product.series && <p className="text-white/70 mt-1">{product.series}</p>}
-            {product.price && <p className="mt-3 text-lg">{product.price}</p>}
+            <h3 className="text-2xl md:text-3xl font-bold text-[#B45253] drop-shadow-sm">{product.name}</h3>
+            {product.series && <p className="text-[#B45253]/70 mt-1">{product.series}</p>}
+            {product.price && <p className="mt-3 text-lg text-[#B45253]">{product.price}</p>}
 
             {product.features?.length ? (
-              <ul className="mt-4 list-disc list-inside space-y-1 text-white/85">
+              <ul className="mt-4 list-disc list-inside space-y-1 text-[#B45253]">
                 {product.features.slice(0,6).map((f:string, i:number) => <li key={i}>{f}</li>)}
               </ul>
             ) : null}
@@ -60,9 +60,9 @@ export default function QuickViewModal({ product, onClose }: Props) {
             {product.specs ? (
               <div className="mt-6 grid grid-cols-2 gap-3">
                 {Object.entries(product.specs).slice(0,8).map(([k,v]) => (
-                  <div key={k} className="rounded-xl border border-white/10 bg-white/5 px-3 py-2">
-                    <div className="text-white/60 text-xs">{k}</div>
-                    <div className="font-medium">{String(v)}</div>
+                  <div key={k} className="rounded-xl border border-[#B45253]/20 bg-[#B45253]/10 px-3 py-2">
+                    <div className="text-[#B45253]/60 text-xs">{k}</div>
+                    <div className="font-medium text-[#B45253]">{String(v)}</div>
                   </div>
                 ))}
               </div>

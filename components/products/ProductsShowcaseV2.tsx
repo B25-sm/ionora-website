@@ -94,17 +94,17 @@ export default function ProductsShowcaseV2({ initialBrand }: Props) {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900/20 to-purple-900/20 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-[#FFE797] via-white to-[#B45253] flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white/30 mx-auto mb-4"></div>
-          <p className="text-white/60">Loading products...</p>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#B45253]/30 mx-auto mb-4"></div>
+          <p className="text-[#B45253]/60">Loading products...</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900/20 to-purple-900/20">
+    <div className="min-h-screen bg-gradient-to-br from-[#FFE797] via-white to-[#B45253]">
       {/* Hero Section */}
       <ProductsHero
         activeBrand={activeBrand}
@@ -119,10 +119,10 @@ export default function ProductsShowcaseV2({ initialBrand }: Props) {
           <div key={brandId} className="mb-20">
             {/* Brand Header */}
             <div className="text-center mb-12">
-              <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent mb-4">
+              <h2 className="text-4xl md:text-5xl font-bold text-[#B45253] mb-4 drop-shadow-lg">
                 {brandId.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase())}
               </h2>
-              <p className="text-white/60 text-lg">
+              <p className="text-[#B45253] text-lg drop-shadow-md">
                 {products.length} premium models available
               </p>
             </div>
@@ -140,8 +140,8 @@ export default function ProductsShowcaseV2({ initialBrand }: Props) {
         {Object.keys(productsByBrand).length === 0 && (
           <div className="text-center py-20">
             <div className="text-6xl mb-4">🔍</div>
-            <h3 className="text-2xl font-bold text-white/80 mb-2">No products found</h3>
-            <p className="text-white/60">Try adjusting your search or filter criteria</p>
+            <h3 className="text-2xl font-bold text-[#B45253] mb-2 drop-shadow-lg">No products found</h3>
+            <p className="text-[#B45253] drop-shadow-md">Try adjusting your search or filter criteria</p>
           </div>
         )}
       </div>

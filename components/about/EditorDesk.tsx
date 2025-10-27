@@ -9,21 +9,21 @@ export default function EditorDesk() {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.3 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
-      className="relative rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl shadow-[inset_0_0_0_1px_rgba(255,255,255,0.04)] p-6 md:p-10"
+      className="relative rounded-3xl border border-[#B45253]/20 bg-white/95 backdrop-blur-xl shadow-xl p-6 md:p-10"
     >
       {/* top label */}
       <div className="flex items-center gap-3">
-        <div className="rounded-full px-3 py-1 text-xs font-semibold tracking-wide bg-white/10 border border-white/15 text-white/90">
+        <div className="rounded-full px-3 py-1 text-xs font-semibold tracking-wide bg-[#B45253]/10 border border-[#B45253]/20 text-[#B45253]">
           FROM THE EDITOR'S DESK
         </div>
-        <div className="h-px flex-1 bg-gradient-to-r from-white/20 to-transparent" />
+        <div className="h-px flex-1 bg-gradient-to-r from-[#B45253]/20 to-transparent" />
       </div>
 
-      <h2 className="mt-4 text-2xl md:text-[28px] font-extrabold text-white">
+      <h2 className="mt-4 text-2xl md:text-[28px] font-extrabold text-[#B45253] drop-shadow-sm">
         WELCOME to Life Ionizers
       </h2>
 
-      <div className="prose prose-invert max-w-none mt-4 md:mt-6 leading-relaxed text-white/90">
+      <div className="prose max-w-none mt-4 md:mt-6 leading-relaxed text-[#B45253]">
         <p>
           At Life Ionizers, we believe that the essence of true health, vitality, and longevity flows
           from the purest gift of nature – water. For over two decades, we have stood as pioneers of

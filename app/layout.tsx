@@ -22,15 +22,15 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className="dark" data-scroll-behavior="smooth">
+    <html lang="en" data-scroll-behavior="smooth">
       <body className={inter.className}>
-        {/* Global gradient background */}
-        <div className="min-h-dvh bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
+        {/* Gradient background */}
+        <div className="min-h-dvh bg-gradient-to-br from-[#FFE797] to-[#B45253]">
           {/* Sticky global navbar */}
           <Navigation />
 
           {/* Page content (offset for fixed nav) */}
-          <main className="pt-24">
+          <main className="pt-20">
             {children}
           </main>
 
