@@ -9,8 +9,34 @@ import FABs from '@/components/FABs'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://ionora.in'),
   title: 'IONORA - Premium Water Ionizer Marketplace',
   description: 'Discover premium water ionizers from world-leading brands',
+  keywords: ['water ionizer', 'alkaline water', 'ionized water', 'Life Ionizers', 'Mediqua', 'Medisoul', 'Tycoon', 'Kyron'],
+  authors: [{ name: 'IONORA' }],
+  creator: 'IONORA',
+  publisher: 'IONORA',
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  alternates: {
+    canonical: 'https://ionora.in',
+  },
+  openGraph: {
+    type: 'website',
+    locale: 'en_IN',
+    url: 'https://ionora.in',
+    siteName: 'IONORA',
+    title: 'IONORA - Premium Water Ionizer Marketplace',
+    description: 'Discover premium water ionizers from world-leading brands',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'IONORA - Premium Water Ionizer Marketplace',
+    description: 'Discover premium water ionizers from world-leading brands',
+  },
   icons: {
     icon: '/favicon.ico',
   },
