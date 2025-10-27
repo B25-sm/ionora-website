@@ -33,7 +33,7 @@ const pillars = [
 export default function BrandPillars() {
   return (
     <div>
-      <h3 className="text-xl md:text-2xl font-bold text-[#B45253] mb-5 drop-shadow-sm">
+      <h3 className="text-xl md:text-2xl font-bold text-accent mb-5 drop-shadow-sm">
         Our Pillars
       </h3>
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5 md:gap-6">
@@ -44,11 +44,11 @@ export default function BrandPillars() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
             transition={{ delay: idx * 0.05, duration: 0.5 }}
-            className="relative overflow-hidden rounded-2xl border border-[#B45253]/20 bg-white/90 backdrop-blur-xl p-5 shadow-lg"
+            className="relative overflow-hidden rounded-2xl border border-accent/20 bg-white/90 backdrop-blur-xl p-5 shadow-lg"
           >
-            <div className={`absolute inset-x-0 -top-1 h-[2px] bg-gradient-to-r from-[#B45253] to-[#FFE797] opacity-70`} />
-            <div className="text-lg font-semibold text-[#B45253] drop-shadow-sm">{p.title}</div>
-            <div className="mt-1 text-sm text-[#B45253]/80 drop-shadow-sm">{p.subtitle}</div>
+            <div className={`absolute inset-x-0 -top-1 h-[2px] bg-accent opacity-70`} />
+            <div className="text-lg font-semibold text-accent drop-shadow-sm">{p.title}</div>
+            <div className="mt-1 text-sm text-accent/80 drop-shadow-sm">{p.subtitle}</div>
           </motion.div>
         ))}
       </div>

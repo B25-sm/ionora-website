@@ -24,8 +24,8 @@ export default function RootLayout({
   return (
     <html lang="en" data-scroll-behavior="smooth">
       <body className={inter.className}>
-        {/* Gradient background */}
-        <div className="min-h-dvh bg-gradient-to-br from-[#FFE797] to-[#B45253]">
+        {/* Solid background */}
+        <div className="min-h-dvh bg-bg text-primary">
           {/* Sticky global navbar */}
           <Navigation />
 

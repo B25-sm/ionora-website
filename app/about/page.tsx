@@ -16,7 +16,7 @@ export default function AboutPage() {
     <main className="relative">
       {/* HERO */}
       <section className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-[#B45253] via-[#B45253]/80 to-[#FFE797] pointer-events-none" />
+        <div className="absolute inset-0 bg-accent pointer-events-none" />
         <div className="relative mx-auto max-w-7xl px-6 pt-20 pb-14 md:pt-28 md:pb-20">
           <div className="max-w-3xl">
             <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight leading-[1.1]">

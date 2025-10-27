@@ -5,9 +5,9 @@ import Image from 'next/image';
 
 export default function HeroSection() {
   return (
-    <section className="relative min-h-screen bg-gradient-to-br from-[#FFE797] to-[#B45253]">
+    <section className="relative min-h-screen bg-bg">
       {/* Top accent bar */}
-      <div className="h-1 bg-[#B45253]"></div>
+      <div className="h-1 bg-accent"></div>
       
       {/* Main content area */}
       <div className="flex flex-col items-center justify-center min-h-[calc(100vh-4px)] px-4">
@@ -26,20 +26,20 @@ export default function HeroSection() {
 
         {/* Simple call-to-action */}
         <div className="text-center space-y-6">
-          <h1 className="text-2xl md:text-3xl font-light text-[#B45253] tracking-wide drop-shadow-lg">
+          <h1 className="text-2xl md:text-3xl font-light text-primary tracking-wide drop-shadow-lg">
             Pure Water, Pure Life
           </h1>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link 
               href="/products"
-              className="px-8 py-3 bg-[#B45253] text-white font-medium hover:bg-[#B45253]/90 transition-colors duration-200 rounded-lg shadow-lg"
+              className="px-8 py-3 bg-primary text-bg font-medium hover:bg-primary/90 transition-colors duration-200 rounded-lg shadow-lg"
             >
               Shop Products
             </Link>
             <Link 
               href="/about"
-              className="px-8 py-3 border-2 border-[#B45253] text-[#B45253] font-medium hover:bg-[#B45253] hover:text-white transition-colors duration-200 rounded-lg shadow-lg"
+              className="px-8 py-3 border-2 border-primary text-primary font-medium hover:bg-primary hover:text-bg transition-colors duration-200 rounded-lg shadow-lg"
             >
               Learn More
             </Link>

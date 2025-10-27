@@ -41,15 +41,15 @@ export default function WhatsAppButton({
 
   // Variant classes
   const variantClasses = {
-    floating: 'rounded-full bg-gradient-to-r from-emerald-600 to-emerald-500 text-white shadow-2xl hover:shadow-emerald-500/25',
-    inline: 'rounded-lg bg-gradient-to-r from-emerald-600 to-emerald-500 text-white shadow-lg hover:shadow-emerald-500/25'
+    floating: 'rounded-full bg-accent text-white shadow-2xl hover:shadow-accent/25',
+    inline: 'rounded-lg bg-accent text-white shadow-lg hover:shadow-accent/25'
   };
 
   const baseClasses = `
     relative overflow-hidden
     transition-all duration-200 ease-out
     hover:scale-105 active:scale-95
-    focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-offset-2 focus:ring-offset-transparent
+    focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-transparent
     ${sizeClasses[size]}
     ${variantClasses[variant]}
     ${className}

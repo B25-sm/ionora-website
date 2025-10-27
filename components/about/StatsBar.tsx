@@ -21,10 +21,10 @@ export default function StatsBar() {
       {stats.map((s) => (
         <div
           key={s.label}
-          className="rounded-2xl border border-[#B45253]/20 bg-white/90 backdrop-blur-xl px-5 py-6 text-center shadow-lg"
+          className="rounded-2xl border border-accent/20 bg-white/90 backdrop-blur-xl px-5 py-6 text-center shadow-lg"
         >
-          <div className="text-3xl md:text-4xl font-extrabold text-[#B45253] drop-shadow-sm">{s.value}</div>
-          <div className="mt-1 text-xs md:text-sm text-[#B45253]/80 drop-shadow-sm">{s.label}</div>
+          <div className="text-3xl md:text-4xl font-extrabold text-accent drop-shadow-sm">{s.value}</div>
+          <div className="mt-1 text-xs md:text-sm text-accent/80 drop-shadow-sm">{s.label}</div>
         </div>
       ))}
     </motion.div>

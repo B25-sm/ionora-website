@@ -4,13 +4,13 @@
 
 @layer base {
   body {
-    @apply bg-slate-900 text-white antialiased;
+    @apply bg-bg text-secondary antialiased;
   }
   
   /* ==== Native form controls visibility fixes ==== */
-  select { color: #e5e7eb; }               /* closed control text (white-ish) */
-  option { color: #0f172a; background:#fff; } /* opened list items: dark text on white */
-  input::placeholder, textarea::placeholder { color: rgba(255,255,255,0.55); }
+  select { color: #EBEBEB; }               /* closed control text (light) */
+  option { color: #0A2238; background:#FFFFFF; } /* opened list items: dark text on white */
+  input::placeholder, textarea::placeholder { color: rgba(235,235,235,0.55); }
   
   /* ==== Fluid type scales (clamp) ==== */
   :root {
@@ -37,10 +37,10 @@
 
 @layer components {
   .ui-input {
-    @apply rounded-xl border border-white/15 bg-white/10 px-4 py-3 text-white/90 placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-purple-500/40;
+    @apply rounded-xl border border-secondary/30 bg-white/80 px-4 py-3 text-secondary/90 placeholder-accent/60 focus:outline-none focus:ring-2 focus:ring-cta/40;
   }
   .ui-select {
-    @apply rounded-xl border border-white/15 bg-white/10 px-4 py-3 text-white/90 focus:outline-none focus:ring-2 focus:ring-purple-500/40;
+    @apply rounded-xl border border-secondary/30 bg-white/80 px-4 py-3 text-secondary/90 focus:outline-none focus:ring-2 focus:ring-cta/40;
     /* remove default arrow spacing issues on Safari/Edge */
     appearance: none;
     background-image:
@@ -89,8 +89,8 @@
 @layer components {
   .page-wrap { @apply container mx-auto; }
   .section-pad { @apply py-10 xs:py-12 md:py-16 lg:py-20; }
-  .glass-nav { @apply rounded-2xl backdrop-blur-xl bg-white/10 border border-white/15 shadow-2xl; }
-  .card-glass { @apply rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl; }
+  .glass-nav { @apply rounded-2xl backdrop-blur-xl bg-white/90 border border-secondary/20 shadow-2xl; }
+  .card-glass { @apply rounded-3xl border border-secondary/20 bg-white/80 backdrop-blur-xl; }
 }
 
 @layer utilities {

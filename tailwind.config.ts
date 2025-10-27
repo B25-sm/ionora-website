@@ -5,6 +5,68 @@ const config: Config = {
   theme: {
     container: { center: true, padding: { DEFAULT: "1rem", sm: "1rem", md: "1.25rem", lg: "1.5rem", xl: "2rem", "2xl": "2rem" } },
     extend: {
+      colors: {
+        // Background - Deep Navy
+        bg: {
+          DEFAULT: '#0A2238',
+        },
+        // Primary - Light Grey
+        primary: {
+          DEFAULT: '#EBEBEB',
+          50: '#E4E7EB',
+          100: '#C9CFD7',
+          200: '#939FAF',
+          300: '#5D6F87',
+          400: '#335070',
+          500: '#0A2238',
+          600: '#081B2D',
+          700: '#061422',
+          800: '#040D17',
+          900: '#02060B',
+        },
+        // Accent - Primary shade
+        accent: {
+          DEFAULT: '#EBEBEB',
+          50: '#E4E7EB',
+          100: '#C9CFD7',
+          200: '#939FAF',
+          300: '#5D6F87',
+          400: '#335070',
+          500: '#0A2238',
+          600: '#081B2D',
+          700: '#061422',
+          800: '#040D17',
+          900: '#02060B',
+        },
+        // Secondary - Light Grey shades
+        secondary: {
+          DEFAULT: '#EBEBEB',
+          50: '#EBEBEB',
+          100: '#D1D1D1',
+          200: '#A3A3A3',
+          300: '#757575',
+          400: '#474747',
+          500: '#0A2238',
+          600: '#081B2D',
+          700: '#061422',
+          800: '#040D17',
+          900: '#02060B',
+        },
+        // Button/CTA - Primary
+        cta: {
+          DEFAULT: '#EBEBEB',
+          50: '#E4E7EB',
+          100: '#C9CFD7',
+          200: '#939FAF',
+          300: '#5D6F87',
+          400: '#335070',
+          500: '#0A2238',
+          600: '#081B2D',
+          700: '#061422',
+          800: '#040D17',
+          900: '#02060B',
+        },
+      },
       screens: {
         xs: "360px",
         sm: "480px",

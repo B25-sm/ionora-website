@@ -11,17 +11,17 @@ export default function Navigation() {
   const pathname = usePathname();
 
   const link = (href: string) =>
-    `px-4 py-3 text-[#B45253] hover:text-[#B45253]/70 hover:bg-[#B45253]/5 transition rounded-lg ${
-      pathname === href ? 'text-[#B45253] font-medium bg-[#B45253]/10' : ''
+    `px-4 py-3 text-primary hover:text-bg hover:bg-primary/10 transition rounded-lg ${
+      pathname === href ? 'text-bg font-medium bg-primary/10' : ''
     }`;
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 bg-gradient-to-r from-[#FFE797] to-white">
+    <header className="fixed inset-x-0 top-0 z-50 bg-bg shadow-lg">
       {/* Top accent bar */}
-      <div className="h-1 bg-[#B45253]"></div>
+      <div className="h-1 bg-primary"></div>
       
       {/* Main navigation */}
-      <div className="bg-gradient-to-r from-[#FFE797] to-white border-b border-[#B45253]/20">
+      <div className="bg-bg border-b border-primary/20">
         <div className="max-w-7xl mx-auto px-4 py-3">
           <nav className="relative flex items-center justify-center">
             {/* Center - Logo */}
@@ -43,7 +43,7 @@ export default function Navigation() {
             {/* Right side - Menu button */}
             <button
               onClick={() => setMenuOpen(!menuOpen)}
-              className="absolute right-0 p-3 text-[#B45253] hover:text-[#B45253]/70 hover:bg-[#B45253]/10 transition rounded-lg"
+              className="absolute right-0 p-3 text-primary hover:text-bg hover:bg-primary/10 transition rounded-lg"
               aria-label="Open menu"
             >
               {menuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
@@ -52,7 +52,7 @@ export default function Navigation() {
 
           {/* Dropdown menu */}
           {menuOpen && (
-            <div className="absolute right-4 top-full mt-2 w-64 bg-white rounded-lg shadow-lg border border-[#B45253]/20 py-2 z-50">
+            <div className="absolute right-4 top-full mt-2 w-64 bg-bg rounded-lg shadow-xl border border-primary/20 py-2 z-50">
               <div className="flex flex-col">
                 <Link 
                   href="/products" 
@@ -82,8 +82,8 @@ export default function Navigation() {
                 >
                   About
                 </Link>
-                <div className="border-t border-[#B45253]/20 my-2"></div>
-                <button className="px-4 py-3 text-[#B45253] hover:text-[#B45253]/70 hover:bg-[#B45253]/5 transition rounded-lg flex items-center gap-2">
+                <div className="border-t border-primary/20 my-2"></div>
+                <button className="px-4 py-3 text-primary hover:text-bg hover:bg-primary/10 transition rounded-lg flex items-center gap-2">
                   <ShoppingBag className="h-5 w-5" />
                   Shopping Cart
                 </button>
