@@ -124,7 +124,7 @@ export default function Navigation() {
   return (
     <header className="fixed inset-x-0 top-0 z-50 bg-transparent">
       {/* Main navigation */}
-      <div className="w-full px-2 xs:px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-20 3xl:px-24 4xl:px-32 5xl:px-40 6xl:px-48 py-1">
+      <div className="w-full px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 py-2">
           <nav className="relative flex items-center justify-between">
             {/* Left side - Logo */}
             <Link
@@ -135,9 +135,9 @@ export default function Navigation() {
             <Image
               src="/images/ionora-logo.png"
               alt="IONORA"
-              width={400}
-              height={120}
-              className="h-8 xs:h-10 sm:h-12 md:h-14 lg:h-16 xl:h-18 2xl:h-20 3xl:h-24 4xl:h-28 5xl:h-32 6xl:h-36 w-auto"
+              width={200}
+              height={60}
+              className="h-8 sm:h-10 md:h-12 lg:h-14 w-auto"
               priority
             />
             </Link>
@@ -145,16 +145,16 @@ export default function Navigation() {
           {/* Menu Button - Always visible */}
           <button
             onClick={() => setMenuOpen(!menuOpen)}
-            className="p-2 xs:p-3 sm:p-4 md:p-5 lg:p-6 xl:p-7 2xl:p-8 3xl:p-10 4xl:p-12 5xl:p-14 6xl:p-16 text-white hover:text-accent hover:bg-white/10 transition rounded-lg"
+            className="p-2 text-white hover:text-accent hover:bg-white/10 transition rounded-lg"
             aria-label="Open menu"
           >
-            {menuOpen ? <X className="h-6 w-6 xs:h-7 xs:w-7 sm:h-8 sm:w-8 md:h-9 md:w-9 lg:h-10 lg:w-10 xl:h-11 xl:w-11 2xl:h-12 2xl:w-12 3xl:h-14 3xl:w-14 4xl:h-16 4xl:w-16 5xl:h-18 5xl:w-18 6xl:h-20 6xl:w-20" /> : <Menu className="h-6 w-6 xs:h-7 xs:w-7 sm:h-8 sm:w-8 md:h-9 md:w-9 lg:h-10 lg:w-10 xl:h-11 xl:w-11 2xl:h-12 2xl:w-12 3xl:h-14 3xl:w-14 4xl:h-16 4xl:w-16 5xl:h-18 5xl:w-18 6xl:h-20 6xl:w-20" />}
+            {menuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
           </nav>
 
         {/* Dropdown menu - Always visible when open */}
         {menuOpen && (
-          <div ref={menuRef} className="absolute right-2 xs:right-4 sm:right-6 md:right-8 lg:right-12 xl:right-16 2xl:right-20 3xl:right-24 4xl:right-32 5xl:right-40 6xl:right-48 top-full mt-1 w-64 xs:w-72 sm:w-80 md:w-96 lg:w-[28rem] xl:w-[32rem] 2xl:w-[36rem] 3xl:w-[40rem] 4xl:w-[44rem] 5xl:w-[48rem] 6xl:w-[52rem] bg-white/95 backdrop-blur-sm rounded-lg shadow-xl border border-white/20 py-1 z-50 animate-in slide-in-from-top-2 duration-200">
+          <div ref={menuRef} className="absolute right-0 top-full mt-2 w-80 bg-white/95 backdrop-blur-sm rounded-xl shadow-2xl border border-white/20 py-2 z-50 animate-in slide-in-from-top-2 duration-200">
             <div className="flex flex-col">
               {/* Products with Brands Dropdown */}
               <div 
@@ -164,8 +164,8 @@ export default function Navigation() {
               >
                 <Link 
                   href="/products" 
-                className={`px-3 xs:px-4 sm:px-5 md:px-6 lg:px-7 xl:px-8 2xl:px-9 3xl:px-10 4xl:px-12 5xl:px-14 6xl:px-16 py-1.5 xs:py-2 sm:py-2.5 md:py-3 lg:py-3.5 xl:py-4 2xl:py-4.5 3xl:py-5 4xl:py-6 5xl:py-7 6xl:py-8 text-gray-800 hover:text-blue-600 hover:bg-white/20 transition-all duration-200 rounded-lg text-sm xs:text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl 3xl:text-5xl 4xl:text-6xl 5xl:text-7xl 6xl:text-8xl ${
-                  pathname === '/products' ? 'text-blue-600 font-medium bg-white/10' : ''
+                className={`px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/20 transition-all duration-200 rounded-lg text-base font-medium ${
+                  pathname === '/products' ? 'text-blue-600 bg-blue-50' : ''
                 }`}
                 >
                   <span>Products</span>
@@ -173,7 +173,7 @@ export default function Navigation() {
                 
                 {/* Brands Dropdown */}
                 {productsHovered && (
-                  <div className="absolute right-full top-0 mr-2 w-64 xs:w-72 sm:w-80 md:w-96 lg:w-[28rem] xl:w-[32rem] 2xl:w-[36rem] 3xl:w-[40rem] 4xl:w-[44rem] 5xl:w-[48rem] 6xl:w-[52rem] bg-white/95 backdrop-blur-sm rounded-lg shadow-xl border border-white/20 py-1 z-50 animate-in slide-in-from-right-2 duration-200">
+                  <div className="absolute right-full top-0 mr-2 w-72 bg-white/95 backdrop-blur-sm rounded-lg shadow-xl border border-white/20 py-1 z-50 animate-in slide-in-from-right-2 duration-200">
                     <div className="flex flex-col">
                       {BRANDS.filter(brand => brand.featured === true || brand.featured === undefined).map((brand) => (
                         <div
@@ -200,8 +200,8 @@ export default function Navigation() {
 
               <Link 
                 href="/brands" 
-                className={`px-3 xs:px-4 sm:px-5 md:px-6 lg:px-7 xl:px-8 2xl:px-9 3xl:px-10 4xl:px-12 5xl:px-14 6xl:px-16 py-1.5 xs:py-2 sm:py-2.5 md:py-3 lg:py-3.5 xl:py-4 2xl:py-4.5 3xl:py-5 4xl:py-6 5xl:py-7 6xl:py-8 text-gray-800 hover:text-blue-600 hover:bg-white/20 transition-all duration-200 rounded-lg text-sm xs:text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl 3xl:text-5xl 4xl:text-6xl 5xl:text-7xl 6xl:text-8xl ${
-                  pathname === '/brands' ? 'text-blue-600 font-medium bg-white/10' : ''
+                className={`px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/20 transition-all duration-200 rounded-lg text-base font-medium ${
+                  pathname === '/brands' ? 'text-blue-600 bg-blue-50' : ''
                 }`}
                 onClick={() => setMenuOpen(false)}
               >
@@ -209,8 +209,8 @@ export default function Navigation() {
               </Link>
               <Link 
                 href="/technology" 
-                className={`px-3 xs:px-4 sm:px-5 md:px-6 lg:px-7 xl:px-8 2xl:px-9 3xl:px-10 4xl:px-12 5xl:px-14 6xl:px-16 py-1.5 xs:py-2 sm:py-2.5 md:py-3 lg:py-3.5 xl:py-4 2xl:py-4.5 3xl:py-5 4xl:py-6 5xl:py-7 6xl:py-8 text-gray-800 hover:text-blue-600 hover:bg-white/20 transition-all duration-200 rounded-lg text-sm xs:text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl 3xl:text-5xl 4xl:text-6xl 5xl:text-7xl 6xl:text-8xl ${
-                  pathname === '/technology' ? 'text-blue-600 font-medium bg-white/10' : ''
+                className={`px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/20 transition-all duration-200 rounded-lg text-base font-medium ${
+                  pathname === '/technology' ? 'text-blue-600 bg-blue-50' : ''
                 }`}
                 onClick={() => setMenuOpen(false)}
               >
@@ -218,8 +218,8 @@ export default function Navigation() {
               </Link>
               <Link 
                 href="/about" 
-                className={`px-3 xs:px-4 sm:px-5 md:px-6 lg:px-7 xl:px-8 2xl:px-9 3xl:px-10 4xl:px-12 5xl:px-14 6xl:px-16 py-1.5 xs:py-2 sm:py-2.5 md:py-3 lg:py-3.5 xl:py-4 2xl:py-4.5 3xl:py-5 4xl:py-6 5xl:py-7 6xl:py-8 text-gray-800 hover:text-blue-600 hover:bg-white/20 transition-all duration-200 rounded-lg text-sm xs:text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl 3xl:text-5xl 4xl:text-6xl 5xl:text-7xl 6xl:text-8xl ${
-                  pathname === '/about' ? 'text-blue-600 font-medium bg-white/10' : ''
+                className={`px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/20 transition-all duration-200 rounded-lg text-base font-medium ${
+                  pathname === '/about' ? 'text-blue-600 bg-blue-50' : ''
                 }`}
                 onClick={() => setMenuOpen(false)}
               >
@@ -233,8 +233,8 @@ export default function Navigation() {
               >
                 <Link 
                   href="/ionizer" 
-                  className={`px-3 xs:px-4 sm:px-5 md:px-6 lg:px-7 xl:px-8 2xl:px-9 3xl:px-10 4xl:px-12 5xl:px-14 6xl:px-16 py-1.5 xs:py-2 sm:py-2.5 md:py-3 lg:py-3.5 xl:py-4 2xl:py-4.5 3xl:py-5 4xl:py-6 5xl:py-7 6xl:py-8 text-gray-800 hover:text-blue-600 hover:bg-white/20 transition-all duration-200 rounded-lg text-sm xs:text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl 3xl:text-5xl 4xl:text-6xl 5xl:text-7xl 6xl:text-8xl ${
-                    pathname === '/ionizer' ? 'text-blue-600 font-medium bg-white/10' : ''
+                  className={`px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/20 transition-all duration-200 rounded-lg text-base font-medium ${
+                    pathname === '/ionizer' ? 'text-blue-600 bg-blue-50' : ''
                   }`}
                   onClick={() => setMenuOpen(false)}
                 >
@@ -243,7 +243,7 @@ export default function Navigation() {
                 
                 {/* Ionizer Dropdown */}
                 {ionizerHovered && (
-                  <div className="absolute right-full top-0 mr-2 w-64 xs:w-72 sm:w-80 md:w-96 lg:w-[28rem] xl:w-[32rem] 2xl:w-[36rem] 3xl:w-[40rem] 4xl:w-[44rem] 5xl:w-[48rem] 6xl:w-[52rem] bg-white/95 backdrop-blur-sm rounded-lg shadow-xl border border-white/20 py-1 z-50 animate-in slide-in-from-right-2 duration-200">
+                  <div className="absolute right-full top-0 mr-2 w-72 bg-white/95 backdrop-blur-sm rounded-lg shadow-xl border border-white/20 py-1 z-50 animate-in slide-in-from-right-2 duration-200">
                     <div className="flex flex-col">
                       <Link 
                         href="/ionizer/ph"
@@ -286,8 +286,8 @@ export default function Navigation() {
               >
                 <Link 
                   href="/properties" 
-                  className={`px-3 xs:px-4 sm:px-5 md:px-6 lg:px-7 xl:px-8 2xl:px-9 3xl:px-10 4xl:px-12 5xl:px-14 6xl:px-16 py-1.5 xs:py-2 sm:py-2.5 md:py-3 lg:py-3.5 xl:py-4 2xl:py-4.5 3xl:py-5 4xl:py-6 5xl:py-7 6xl:py-8 text-gray-800 hover:text-blue-600 hover:bg-white/20 transition-all duration-200 rounded-lg text-sm xs:text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl 3xl:text-5xl 4xl:text-6xl 5xl:text-7xl 6xl:text-8xl ${
-                    pathname === '/properties' ? 'text-blue-600 font-medium bg-white/10' : ''
+                  className={`px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/20 transition-all duration-200 rounded-lg text-base font-medium ${
+                    pathname === '/properties' ? 'text-blue-600 bg-blue-50' : ''
                   }`}
                   onClick={() => setMenuOpen(false)}
                 >
@@ -296,7 +296,7 @@ export default function Navigation() {
                 
                 {/* Properties Dropdown */}
                 {propertiesHovered && (
-                  <div className="absolute right-full top-0 mr-2 w-64 xs:w-72 sm:w-80 md:w-96 lg:w-[28rem] xl:w-[32rem] 2xl:w-[36rem] 3xl:w-[40rem] 4xl:w-[44rem] 5xl:w-[48rem] 6xl:w-[52rem] bg-white/95 backdrop-blur-sm rounded-lg shadow-xl border border-white/20 py-1 z-50 animate-in slide-in-from-right-2 duration-200">
+                  <div className="absolute right-full top-0 mr-2 w-72 bg-white/95 backdrop-blur-sm rounded-lg shadow-xl border border-white/20 py-1 z-50 animate-in slide-in-from-right-2 duration-200">
                     <div className="flex flex-col">
                       <Link 
                         href="/properties/micro-cluster"
@@ -367,8 +367,8 @@ export default function Navigation() {
               >
                 <Link 
                   href="/uses" 
-                  className={`px-3 xs:px-4 sm:px-5 md:px-6 lg:px-7 xl:px-8 2xl:px-9 3xl:px-10 4xl:px-12 5xl:px-14 6xl:px-16 py-1.5 xs:py-2 sm:py-2.5 md:py-3 lg:py-3.5 xl:py-4 2xl:py-4.5 3xl:py-5 4xl:py-6 5xl:py-7 6xl:py-8 text-gray-800 hover:text-blue-600 hover:bg-white/20 transition-all duration-200 rounded-lg text-sm xs:text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl 3xl:text-5xl 4xl:text-6xl 5xl:text-7xl 6xl:text-8xl ${
-                    pathname === '/uses' ? 'text-blue-600 font-medium bg-white/10' : ''
+                  className={`px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/20 transition-all duration-200 rounded-lg text-base font-medium ${
+                    pathname === '/uses' ? 'text-blue-600 bg-blue-50' : ''
                   }`}
                   onClick={() => setMenuOpen(false)}
                 >
@@ -377,7 +377,7 @@ export default function Navigation() {
                 
                 {/* Uses Dropdown */}
                 {usesHovered && (
-                  <div className="absolute right-full top-0 mr-2 w-64 xs:w-72 sm:w-80 md:w-96 lg:w-[28rem] xl:w-[32rem] 2xl:w-[36rem] 3xl:w-[40rem] 4xl:w-[44rem] 5xl:w-[48rem] 6xl:w-[52rem] bg-white/95 backdrop-blur-sm rounded-lg shadow-xl border border-white/20 py-1 z-50 animate-in slide-in-from-right-2 duration-200">
+                  <div className="absolute right-full top-0 mr-2 w-72 bg-white/95 backdrop-blur-sm rounded-lg shadow-xl border border-white/20 py-1 z-50 animate-in slide-in-from-right-2 duration-200">
                     <div className="flex flex-col">
                       <Link 
                         href="/uses/food-livestock-agricultural"
@@ -406,8 +406,8 @@ export default function Navigation() {
               </div>
               <Link 
                 href="/products/compare" 
-                className={`px-3 xs:px-4 sm:px-5 md:px-6 lg:px-7 xl:px-8 2xl:px-9 3xl:px-10 4xl:px-12 5xl:px-14 6xl:px-16 py-1.5 xs:py-2 sm:py-2.5 md:py-3 lg:py-3.5 xl:py-4 2xl:py-4.5 3xl:py-5 4xl:py-6 5xl:py-7 6xl:py-8 text-gray-800 hover:text-blue-600 hover:bg-white/20 transition-all duration-200 rounded-lg text-sm xs:text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl 3xl:text-5xl 4xl:text-6xl 5xl:text-7xl 6xl:text-8xl ${
-                  pathname === '/products/compare' ? 'text-blue-600 font-medium bg-white/10' : ''
+                className={`px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/20 transition-all duration-200 rounded-lg text-base font-medium ${
+                  pathname === '/products/compare' ? 'text-blue-600 bg-blue-50' : ''
                 }`}
                 onClick={() => setMenuOpen(false)}
               >
@@ -415,10 +415,10 @@ export default function Navigation() {
               </Link>
               <div className="border-t border-gray-200 my-1"></div>
               <button 
-                className="px-3 xs:px-4 sm:px-5 md:px-6 lg:px-7 xl:px-8 2xl:px-9 3xl:px-10 4xl:px-12 5xl:px-14 6xl:px-16 py-1.5 xs:py-2 sm:py-2.5 md:py-3 lg:py-3.5 xl:py-4 2xl:py-4.5 3xl:py-5 4xl:py-6 5xl:py-7 6xl:py-8 text-gray-800 hover:text-blue-600 hover:bg-white/20 transition-all duration-200 rounded-lg flex items-center gap-2 text-sm xs:text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl 3xl:text-5xl 4xl:text-6xl 5xl:text-7xl 6xl:text-8xl"
+                className="px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/20 transition-all duration-200 rounded-lg flex items-center gap-2 text-base font-medium"
                 onClick={() => setMenuOpen(false)}
               >
-                <ShoppingBag className="h-4 w-4 xs:h-5 xs:w-5 sm:h-6 sm:w-6 md:h-7 md:w-7 lg:h-8 lg:w-8 xl:h-9 xl:w-9 2xl:h-10 2xl:w-10 3xl:h-11 3xl:w-11 4xl:h-12 4xl:w-12 5xl:h-14 5xl:w-14 6xl:h-16 6xl:w-16" />
+                <ShoppingBag className="h-5 w-5" />
                 Shopping Cart
               </button>
             </div>

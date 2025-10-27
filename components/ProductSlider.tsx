@@ -16,6 +16,7 @@ export default function ProductSlider() {
   const [touchEnd, setTouchEnd] = useState<number | null>(null);
   const [videoRef, setVideoRef] = useState<HTMLVideoElement | null>(null);
   const [isClient, setIsClient] = useState(false);
+  const [showPlayPrompt, setShowPlayPrompt] = useState(false);
 
   // Video ref callback to handle video element changes
   const videoRefCallback = (node: HTMLVideoElement | null) => {
@@ -44,10 +45,12 @@ export default function ProductSlider() {
     if (videoRef && videoRef.paused) {
       videoRef.play().then(() => {
         console.log('Video started playing with audio');
+        setShowPlayPrompt(false);
       }).catch((error) => {
         console.log('Video play on interaction failed:', error);
       });
     }
+    setShowPlayPrompt(false);
   };
 
   // Client-side detection to prevent hydration mismatches
@@ -66,7 +69,8 @@ export default function ProductSlider() {
       // Try to play video when loaded
       if (videoRef && isClient) {
         videoRef.play().catch((error) => {
-          console.log('Video autoplay blocked:', error);
+          console.log('Video autoplay blocked, showing play prompt:', error);
+          setShowPlayPrompt(true);
         });
       }
     };
@@ -231,8 +235,7 @@ export default function ProductSlider() {
           key={BRAND_CATEGORIES[activeCategory].id}
           ref={videoRefCallback}
           src={BRAND_CATEGORIES[activeCategory].video}
-          autoPlay
-          loop
+          autoPlay={isClient}
           playsInline
           preload="auto"
           className="min-w-full min-h-full w-auto h-auto max-w-none max-h-none transition-opacity duration-500"
@@ -250,6 +253,21 @@ export default function ProductSlider() {
         />
         {/* Dark overlay for better text readability */}
         <div className="absolute inset-0 bg-black/30"></div>
+        
+        {/* Subtle play prompt - only shows when autoplay is blocked */}
+        {showPlayPrompt && (
+          <div className="absolute inset-0 flex items-center justify-center z-20">
+            <div className="text-center text-white">
+              <div className="w-16 h-16 mx-auto mb-3 bg-white/10 rounded-full flex items-center justify-center backdrop-blur-sm border border-white/20">
+                <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M8 5v14l11-7z"/>
+                </svg>
+              </div>
+              <p className="text-sm font-medium opacity-90">Tap to play with sound</p>
+            </div>
+          </div>
+        )}
+        
       </div>
 
       {/* Main content area with overlay */}
