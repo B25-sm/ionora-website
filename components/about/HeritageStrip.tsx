@@ -44,10 +44,10 @@ export default function HeritageStrip() {
         transition={{ duration: 0.6 }}
         className="mb-16"
       >
-        <h2 className="text-4xl md:text-5xl font-black text-[#0A0F2C] mb-4">
-          Our <span className="text-[#EBEBEB]">Heritage</span>
+        <h2 className="text-4xl md:text-5xl font-black mb-4">
+          <span className="text-white">Our</span> <span className="text-[#EBEBEB]">Heritage</span>
         </h2>
-        <p className="text-xl text-[#0A0F2C]/70 max-w-2xl mx-auto">
+        <p className="text-xl text-[#E5E5E5] max-w-2xl mx-auto">
           Two decades of innovation in water ionization technology
         </p>
       </motion.div>
@@ -91,7 +91,7 @@ export default function HeritageStrip() {
                   </div>
 
                   {/* Year */}
-                  <div className="text-3xl font-black text-[#EBEBEB] mb-2">
+                  <div className="text-3xl font-black text-[#0A0F2C] mb-2">
                     {item.year}
                   </div>
 

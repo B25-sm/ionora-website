@@ -148,7 +148,7 @@ export default function ProductsShowcaseV2({ initialBrand }: Props) {
                 // Show regular brand header
                 <div className="text-center mb-12">
                   <h2 className="text-4xl md:text-5xl font-bold text-[#EBEBEB] mb-4">
-                    {brandId.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase())}
+                    {brandId === 'life' ? 'Lifeionizers' : brandId.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase())}
                   </h2>
                   <p className="text-[#EBEBEB] text-lg">
                     {products.length} premium models available

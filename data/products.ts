@@ -12,7 +12,7 @@ export const products = [
     orpDrink: "Up to -213 ORP @ 9.5 pH",
     power: "249 Watts XL Power™ SMPS",
     warranty: "7 Year Warranty",
-    installation: "Counter Top",
+    installation: "Counter Top or Under Counter",
     dimensions: "12.5\" W x 6.25\" D x 15\" H",
     internationalVoltage: "110–220 V",
     microMembrane: "Life Micro Membrane™ Technology",
@@ -20,7 +20,11 @@ export const products = [
     oneClickFilter: "Top Loading One-Click Filter",
     cleaning: "Advanced RADC Self-Cleaning",
     colorOptions: "Black / Graphite",
-    price: 153000
+    price: 153000,
+    installationVariants: [
+      { type: "counter", image: "/images/products/life/MXL-5.png", price: 153000 },
+      { type: "undercounter", image: "/images/products/life/MXL-5 Undercounter.png", price: 205000 }
+    ]
   },
   {
     id: "mxl-7",
@@ -42,7 +46,11 @@ export const products = [
     oneClickFilter: "Top Loading One-Click Filter",
     cleaning: "Advanced RADC Self-Cleaning",
     colorOptions: "Black / Graphite",
-    price: 205000
+    price: 205000,
+    installationVariants: [
+      { type: "counter", image: "/images/products/life/MXL-7.png", price: 205000 },
+      { type: "undercounter", image: "/images/products/life/MXL-7 Undercounter.png", price: 256000 }
+    ]
   },
   {
     id: "mxl-9",
@@ -64,7 +72,11 @@ export const products = [
     oneClickFilter: "Top Loading One-Click Filter",
     cleaning: "Advanced RADC Self-Cleaning",
     colorOptions: "Black / Graphite",
-    price: 256000
+    price: 256000,
+    installationVariants: [
+      { type: "counter", image: "/images/products/life/MXL-9 Counter.png", price: 256000 },
+      { type: "undercounter", image: "/images/products/life/MXL-9 Undercounter.png", price: 307000 }
+    ]
   },
   {
     id: "mxl-11",
@@ -86,7 +98,11 @@ export const products = [
     oneClickFilter: "Top Loading One-Click Filter",
     cleaning: "Advanced RADC Self-Cleaning",
     colorOptions: "Black / Graphite",
-    price: 307000
+    price: 307000,
+    installationVariants: [
+      { type: "counter", image: "/images/products/life/MXL-11 counter.png", price: 307000 },
+      { type: "undercounter", image: "/images/products/life/MXL-11 Undercounter.png", price: 359000 }
+    ]
   },
   {
     id: "mxl-13",
@@ -108,13 +124,17 @@ export const products = [
     oneClickFilter: "Top Loading One-Click Filter",
     cleaning: "Advanced RADC Self-Cleaning",
     colorOptions: "Black / Graphite",
-    price: 359000
+    price: 359000,
+    installationVariants: [
+      { type: "counter", image: "/images/products/life/MXL-13 counter.png", price: 359000 },
+      { type: "undercounter", image: "/images/products/life/MXL-13 Under counter.png", price: 410000 }
+    ]
   },
   {
     id: "mxl-15",
     brand: "life",
     name: "LIFE WATER IONIZER MXL-15",
-    image: "/images/products/life/MXL-5.png", // Using mxl5 as placeholder since mxl15 doesn't exist
+    image: "/images/products/life/MXL-15 Counter.png",
     category: "Residential",
     plates: "15 XL Matrix GRID™ Plates",
     phRange: "1.7 – 12.2 pH",
@@ -130,7 +150,11 @@ export const products = [
     oneClickFilter: "Top Loading One-Click Filter",
     cleaning: "Advanced RADC Self-Cleaning",
     colorOptions: "Black / Graphite",
-    price: 410000
+    price: 410000,
+    installationVariants: [
+      { type: "counter", image: "/images/products/life/MXL-15 Counter.png", price: 410000 },
+      { type: "undercounter", image: "/images/products/life/MXL-15 Undercounter.png", price: 461000 }
+    ]
   },
 
   // Life commercial LC series
@@ -242,8 +266,8 @@ export const products = [
   { 
     id: "commercial-water", 
     brand: "life", 
-    name: "Commercial Water", 
-    image: "/images/products/life/LC-90 counter.png", // Using lc90 as placeholder
+    name: "Commercial Water Ionizer", 
+    image: "/images/products/life/Commercial_Water_Ionizer.png",
     category: "Commercial", 
     plates: "Commercial Grade", 
     phRange: "2.0 – 12.2 pH", 
@@ -329,41 +353,49 @@ export const products = [
     id: "msl-5", 
     brand: "medisoul", 
     name: "MSL-5", 
-    image: "/images/products/medisoul/mslblack5.png",
+    image: "/images/products/medisoul/MSL-5 uppercounter.png",
     category: "Residential", 
     plates: "5 XL Matrix GRID™ Plates", 
     phRange: "3.0 – 9.8 pH", 
     orp: "Up to -507 mV", 
     power: "249 Watts XL Power™ SMPS", 
     warranty: "7 Year Warranty", 
-    installation: "Counter Top", 
+    installation: "Counter Top or Under Counter", 
     dimensions: "12.5\" W x 6.25\" D x 15\" H", 
     filters: "Customized Filtration Pre-Filters", 
     colorOptions: "Black, White",
-    price: 135000
+    price: 135000,
+    installationVariants: [
+      { type: "counter", image: "/images/products/medisoul/MSL-5 uppercounter.png", price: 135000 },
+      { type: "undercounter", image: "/images/products/medisoul/MSL-5 undercounter.png", price: 145000 }
+    ]
   },
   { 
     id: "msl-7", 
     brand: "medisoul", 
     name: "MSL-7", 
-    image: "/images/products/medisoul/mslblack7.png",
+    image: "/images/products/medisoul/MSL-7 uppercounter.png",
     category: "Residential", 
     plates: "7 XL Matrix GRID™ Plates", 
     phRange: "2.5 – 11.0 pH", 
     orp: "Up to -705 mV", 
-    power: "450 Watts", 
+    power: "450 Watts XL Power™ SMPS", 
     warranty: "10 Year Parts | Lifetime Labor", 
     installation: "Counter Top or Under Counter", 
     dimensions: "12.5\" W x 6.25\" D x 15\" H", 
     filters: "Customized Filtration Pre-Filters", 
     colorOptions: "Black, White",
-    price: 180000
+    price: 180000,
+    installationVariants: [
+      { type: "counter", image: "/images/products/medisoul/MSL-7 uppercounter.png", price: 180000 },
+      { type: "undercounter", image: "/images/products/medisoul/MSL-7 undercounter.png", price: 190000 }
+    ]
   },
   { 
     id: "msl-9", 
     brand: "medisoul", 
     name: "MSL-9", 
-    image: "/images/products/medisoul/mslblack9.png",
+    image: "/images/products/medisoul/MSL-9 uppercounter.png",
     category: "Residential", 
     plates: "9 XL Matrix GRID™ Plates", 
     phRange: "2.0 – 11.5 pH", 
@@ -374,13 +406,17 @@ export const products = [
     dimensions: "12.5\" W x 6.25\" D x 15\" H", 
     filters: "Customized Filtration Pre-Filters", 
     colorOptions: "Black, White",
-    price: 225000
+    price: 225000,
+    installationVariants: [
+      { type: "counter", image: "/images/products/medisoul/MSL-9 uppercounter.png", price: 225000 },
+      { type: "undercounter", image: "/images/products/medisoul/MSL-9 undercounter.png", price: 235000 }
+    ]
   },
   { 
     id: "msl-11", 
     brand: "medisoul", 
     name: "MSL-11", 
-    image: "/images/products/medisoul/mslblack11.png",
+    image: "/images/products/medisoul/MSL-11 uppercounter.png",
     category: "Residential", 
     plates: "11 XL Matrix GRID™ Plates", 
     phRange: "2.0 – 12.0 pH", 
@@ -391,13 +427,17 @@ export const products = [
     dimensions: "12.5\" W x 6.25\" D x 15\" H", 
     filters: "Customized Filtration Pre-Filters", 
     colorOptions: "Black, White",
-    price: 270000
+    price: 270000,
+    installationVariants: [
+      { type: "counter", image: "/images/products/medisoul/MSL-11 uppercounter.png", price: 270000 },
+      { type: "undercounter", image: "/images/products/medisoul/MSL-11 undercounter.png", price: 280000 }
+    ]
   },
   { 
     id: "msl-13", 
     brand: "medisoul", 
     name: "MSL-13", 
-    image: "/images/products/medisoul/mslblack13.png",
+    image: "/images/products/medisoul/MSL-13 uppercounter.png",
     category: "Residential", 
     plates: "13 XL Matrix GRID™ Plates", 
     phRange: "1.7 – 12.2 pH", 
@@ -408,13 +448,17 @@ export const products = [
     dimensions: "12.5\" W x 6.25\" D x 15\" H", 
     filters: "Customized Filtration Pre-Filters", 
     colorOptions: "Black, White",
-    price: 315000
+    price: 315000,
+    installationVariants: [
+      { type: "counter", image: "/images/products/medisoul/MSL-13 uppercounter.png", price: 315000 },
+      { type: "undercounter", image: "/images/products/medisoul/MSL-13 undercounter.png", price: 325000 }
+    ]
   },
   { 
     id: "msl-15", 
     brand: "medisoul", 
     name: "MSL-15", 
-    image: "/images/products/medisoul/mslblack15.png",
+    image: "/images/products/medisoul/MSL-15 uppercounter.png",
     category: "Residential", 
     plates: "15 XL Matrix GRID™ Plates", 
     phRange: "1.7 – 12.2 pH", 
@@ -425,7 +469,11 @@ export const products = [
     dimensions: "12.5\" W x 6.25\" D x 15\" H", 
     filters: "Customized Filtration Pre-Filters", 
     colorOptions: "Black, White",
-    price: 360000
+    price: 360000,
+    installationVariants: [
+      { type: "counter", image: "/images/products/medisoul/MSL-15 uppercounter.png", price: 360000 },
+      { type: "undercounter", image: "/images/products/medisoul/MSL-15 undercounter.png", price: 370000 }
+    ]
   },
 
   // Kyron series
@@ -438,12 +486,16 @@ export const products = [
     plates: "5 XL Matrix GRID™ Plates", 
     phRange: "3.0 – 9.8 pH", 
     orp: "Up to -507 mV", 
-    power: "249 Watts", 
+    power: "249 Watts XL Power™ SMPS", 
     warranty: "7 Year Warranty", 
-    installation: "Counter Top", 
+    installation: "Counter Top or Under Counter", 
     dimensions: "12.5\" W x 6.25\" D x 15\" H", 
     colorOptions: "White",
-    price: 120000
+    price: 120000,
+    installationVariants: [
+      { type: "counter", image: "/images/products/medisoul/kyron5.png", price: 120000 },
+      { type: "undercounter", image: "/images/products/medisoul/Kyron-5 undercounter.png", price: 130000 }
+    ]
   },
   { 
     id: "kyron-7", 
@@ -454,12 +506,16 @@ export const products = [
     plates: "7 XL Matrix GRID™ Plates", 
     phRange: "2.5 – 11.0 pH", 
     orp: "Up to -705 mV", 
-    power: "450 Watts", 
+    power: "450 Watts XL Power™ SMPS", 
     warranty: "10 Year Parts | Lifetime Labor", 
     installation: "Counter Top or Under Counter", 
     dimensions: "12.5\" W x 6.25\" D x 15\" H", 
     colorOptions: "White",
-    price: 160000
+    price: 160000,
+    installationVariants: [
+      { type: "counter", image: "/images/products/medisoul/kyron-7 uppercover.png", price: 160000 },
+      { type: "undercounter", image: "/images/products/medisoul/kyron-7 undercover.png", price: 170000 }
+    ]
   },
   { 
     id: "kyron-9", 
@@ -475,7 +531,11 @@ export const products = [
     installation: "Counter Top or Under Counter", 
     dimensions: "12.5\" W x 6.25\" D x 15\" H", 
     colorOptions: "White",
-    price: 200000
+    price: 200000,
+    installationVariants: [
+      { type: "counter", image: "/images/products/medisoul/kyron-9 undercover.png", price: 200000 },
+      { type: "undercounter", image: "/images/products/medisoul/kyron-9 undercover.png", price: 210000 }
+    ]
   },
   { 
     id: "kyron-11", 
@@ -491,7 +551,11 @@ export const products = [
     installation: "Counter Top or Under Counter", 
     dimensions: "12.5\" W x 6.25\" D x 15\" H", 
     colorOptions: "White",
-    price: 240000
+    price: 240000,
+    installationVariants: [
+      { type: "counter", image: "/images/products/medisoul/kyron-11 uppercover.png", price: 240000 },
+      { type: "undercounter", image: "/images/products/medisoul/kyron-11 undercover.png", price: 250000 }
+    ]
   },
   { 
     id: "kyron-13", 
@@ -507,7 +571,11 @@ export const products = [
     installation: "Counter Top or Under Counter", 
     dimensions: "12.5\" W x 6.25\" D x 15\" H", 
     colorOptions: "White",
-    price: 280000
+    price: 280000,
+    installationVariants: [
+      { type: "counter", image: "/images/products/medisoul/kyron-13 undercover.png", price: 280000 },
+      { type: "undercounter", image: "/images/products/medisoul/kyron-13 undercover.png", price: 290000 }
+    ]
   },
   { 
     id: "kyron-15", 
@@ -523,7 +591,11 @@ export const products = [
     installation: "Counter Top or Under Counter", 
     dimensions: "12.5\" W x 6.25\" D x 15\" H", 
     colorOptions: "White",
-    price: 320000
+    price: 320000,
+    installationVariants: [
+      { type: "counter", image: "/images/products/medisoul/kyron-15 uppercover.png", price: 320000 },
+      { type: "undercounter", image: "/images/products/medisoul/kyron-15 undercover.png", price: 330000 }
+    ]
   },
 
   // Tycoon Commercial
@@ -538,10 +610,14 @@ export const products = [
     orp: "Up to -1005 mV", 
     power: "1000 Watts XL Power™ SMPS", 
     warranty: "Lifetime on parts | 5 year labor", 
-    installation: "Counter Top", 
+    installation: "Counter Top or Under Counter", 
     dimensions: "13\" W x 13\" L x 13\" H", 
     colorOptions: "Black / Graphite",
-    price: 600000
+    price: 600000,
+    installationVariants: [
+      { type: "counter", image: "/images/products/medisoul/tycoon-30.png", price: 600000 },
+      { type: "undercounter", image: "/images/products/medisoul/tycoon-30.png", price: 650000 }
+    ]
   },
   { 
     id: "tycoon-60", 
@@ -554,10 +630,14 @@ export const products = [
     orp: "Up to -1193 mV", 
     power: "1500 Watts XL Power™ SMPS", 
     warranty: "Lifetime on parts | 5 year labor", 
-    installation: "Counter Top", 
+    installation: "Counter Top or Under Counter", 
     dimensions: "15.5\" W x 23\" L x 13\" H", 
     colorOptions: "Black / Graphite",
-    price: 850000
+    price: 850000,
+    installationVariants: [
+      { type: "counter", image: "/images/products/medisoul/tycoon-60.png", price: 850000 },
+      { type: "undercounter", image: "/images/products/medisoul/tycoon-60.png", price: 900000 }
+    ]
   },
   { 
     id: "tycoon-90", 
@@ -578,128 +658,280 @@ export const products = [
 
   // Mediqua products
   { 
-    id: "mediqua-ak-2000", 
+    id: "mediqua-ak-9000", 
     brand: "mediqua", 
-    name: "Mediqua AK - 2000", 
+    name: "Mediqua AK-9000", 
+    image: "/images/products/mediqua/AK-9000.png",
+    category: "Residential", 
+    plates: "9 platinum-coated titanium plates", 
+    phRange: "3.0 to 11.5", 
+    orp: "up to (-)850 mV", 
+    hydrogen: "1800 ppb", 
+    power: "200w",
+    warranty: "3 years", 
+    dimensions: "35.0cm x 35.0cm x 15.0cm",
+    price: 390000,
+    filters: "Dual filtration (UF + Multi Carbon), Filter capacity: 8000L",
+    flowRate: "1-4 l/min",
+    features: "Programmable pH/ORP (400 levels), UV, RFID filter indicator, 7\" display",
+    specs: {
+      "Electrode Surface Area": "na",
+      "Certifications": "Approved by Ministry of Food and Drug Safety (Korea). Manufacturer: 35 Years Experience, 27 Patents, 102 Awards, 57 Certifications"
+    }
+  },
+  { 
+    id: "mediqua-ak-9000-hybrid", 
+    brand: "mediqua", 
+    name: "Mediqua AK-9000 Hybrid", 
+    image: "/images/products/mediqua/AK-9000.png",
+    category: "Residential", 
+    plates: "9 platinum-coated titanium plates", 
+    phRange: "3.0 to 11.5", 
+    orp: "up to (-)850 mV", 
+    hydrogen: "1800 ppb", 
+    power: "200w",
+    warranty: "3 years", 
+    dimensions: "35.0cm x 35.0cm x 15.0cm",
+    price: 390000,
+    filters: "Dual filtration (UF + Multi Carbon), Filter capacity: 8000L",
+    flowRate: "1-4 l/min",
+    features: "Programmable pH/ORP (400 levels), UV, RFID filter indicator, 7\" display",
+    specs: {
+      "Electrode Surface Area": "na",
+      "Certifications": "Approved by Ministry of Food and Drug Safety (Korea) via strict test results. Marketed as medical device in Korea. 9 cell electrodes (platinum coated) / UV light / automatic filter indication"
+    }
+  },
+  { 
+    id: "mediqua-ak-2000-7", 
+    brand: "mediqua", 
+    name: "Mediqua AK-2000 (7 Plates)", 
     image: "/images/products/mediqua/Ak-2000.png",
     category: "Residential", 
-    plates: "7/9 cell electrodes (Ti Pt coated)", 
-    phRange: "2.5 – 11.5 pH", 
-    orp: "Up to -1250 mV", 
+    plates: "7 platinum-coated titanium plates", 
+    phRange: "3.0 to 11.5", 
+    orp: "up to (-)850 mV", 
     hydrogen: "1800 ppb", 
-    warranty: "5 years machine | 25 years plates", 
-    dimensions: "35 x 35 x 15 cm",
-    price: 180000
+    power: "na",
+    warranty: "3 years", 
+    dimensions: "35 x 15 x 35 cm",
+    price: 260000,
+    filters: "Dual filtration (UF + Multi Carbon), RFID filter indicator",
+    flowRate: "1-4 l/min",
+    features: "Programmable pH/ORP (400 levels), UV, 7\" display",
+    specs: {
+      "Electrode Surface Area": "na",
+      "Certifications": "CE, FDA, and possibly GMP or other certificates (for the AK-2000 9-plate variant). TradeKorea product listing mentions Certification: CE, FDA"
+    }
   },
   { 
-    id: "mediqua-ak-3000", 
+    id: "mediqua-ak-2000-9", 
     brand: "mediqua", 
-    name: "Mediqua AK - 3000", 
+    name: "Mediqua AK-2000 (9 Plates)", 
+    image: "/images/products/mediqua/Ak-2000.png",
+    category: "Residential", 
+    plates: "9 platinum-coated titanium plates", 
+    phRange: "3.0 to 11.5", 
+    orp: "up to (-)850 mV", 
+    hydrogen: "1800 ppb", 
+    power: "240w",
+    warranty: "3 years", 
+    dimensions: "35.0 cm × 35.0 cm × 15.0 cm",
+    price: 280000,
+    filters: "Dual filtration (UF + Multi Carbon). Filter 1 (UF): 4,000 L, Filter 2 (Multi Carbon): 8,000 L",
+    flowRate: "1 to 4 L/min (maximum flow)",
+    features: "Programmable pH/ORP (400 levels), UV, RFID filter indicator, 7\" display",
+    specs: {
+      "Electrode Surface Area": "na",
+      "Certifications": "Approved by Korean Ministry of Food and Drug Safety. CE certification claimed in Alibaba listing. Mediqua India lists AK 2000 among products under International Certificates"
+    }
+  },
+  { 
+    id: "mediqua-ak-3000-7", 
+    brand: "mediqua", 
+    name: "Mediqua AK-3000 (7 Plates)", 
     image: "/images/products/mediqua/ak-3000.png",
     category: "Residential", 
-    plates: "7/9 cell electrodes (Ti Pt coated)", 
-    phRange: "2.5 – 11.5 pH", 
-    orp: "Up to -1250 mV", 
-    hydrogen: "1850 ppb", 
-    warranty: "5 years machine | 25 years plates", 
-    dimensions: "35 x 35 x 15 cm",
-    price: 220000
+    plates: "7 platinum-coated titanium plates", 
+    phRange: "2.5–11.5", 
+    orp: "up to −1250 mV", 
+    hydrogen: "up to 1600 ppb", 
+    power: "200w",
+    warranty: "3 years", 
+    dimensions: "≈545 cm² (site lists 1083.3/545 cm²)",
+    price: 230000,
+    filters: "Dual filtration (Ultra fine + Multi Carbon). Filter capacities: 32,000 L for Filter 1 and 32,000 L for Filter 2",
+    flowRate: "2 L/min",
+    features: "LCD, touch sensor, dual (UF+MCF), auto cleaning",
+    specs: {
+      "Electrode Surface Area": "≈545 cm²",
+      "Certifications": "Mediqua India lists Certifications / International Certificates for its product line including AK-3000. Indian listings and sellers do not show explicit ISO / CE / FDA certificate numbers for this model"
+    }
   },
   { 
-    id: "mediqua-ak-5000", 
+    id: "mediqua-ak-3000-9", 
     brand: "mediqua", 
-    name: "Mediqua AK - 5000", 
+    name: "Mediqua AK-3000 (9 Plates)", 
+    image: "/images/products/mediqua/ak-3000.png",
+    category: "Residential", 
+    plates: "9 platinum-coated titanium plates", 
+    phRange: "2.5-11.5", 
+    orp: "up to (–)1250 mV", 
+    hydrogen: "up to 1550 ppb", 
+    power: "200w",
+    warranty: "3 years", 
+    dimensions: "1083.3 cm²",
+    price: 250000,
+    filters: "Filter 1: 32,000 L, Filter 2: 32,000 L",
+    flowRate: "1 – 4 L/min",
+    features: "LCD; touch sensor; dual filtration; auto-cleaning; UV; filter indicator; voice prompts",
+    specs: {
+      "Electrode Surface Area": "1083.3 cm²",
+      "Certifications": "US FDA Registration (No. 3005720077), ISO 13485 (No. MK0000124)"
+    }
+  },
+  { 
+    id: "mediqua-ak-5000-5", 
+    brand: "mediqua", 
+    name: "Mediqua AK-5000 (5 Plates)", 
     image: "/images/products/mediqua/ak-5000.png",
     category: "Residential", 
-    plates: "5/7 platinum-coated titanium", 
-    phRange: "3.5 – 10.5", 
-    orp: "Around -400 mV", 
-    hydrogen: "1000 ppb", 
-    warranty: "5 years machine | 25 years plates", 
-    dimensions: "19 x 37.5 x 25 cm",
-    price: 150000
+    plates: "5 platinum-coated titanium plates", 
+    phRange: "3.5-10.5", 
+    orp: "around (–)400 mV", 
+    hydrogen: "around 1000 ppb", 
+    power: "240w",
+    warranty: "3 years", 
+    dimensions: "387 cm²",
+    price: 170000,
+    filters: "Filter 1: 32,000 L, Filter 2: 32,000 L",
+    flowRate: "1 – 4 L/min",
+    features: "9 water levels; LCD; voice; Dual filtration; soft-touch sensor; auto-cleaning"
+  },
+  { 
+    id: "mediqua-ak-5000-7", 
+    brand: "mediqua", 
+    name: "Mediqua AK-5000 (7 Plates)", 
+    image: "/images/products/mediqua/ak-5000.png",
+    category: "Residential", 
+    plates: "7 platinum-coated titanium plates", 
+    phRange: "3.5–10.5", 
+    orp: "around (–)400 mV", 
+    hydrogen: "1850 ppb", 
+    power: "240w",
+    warranty: "3 years", 
+    dimensions: "1083.3 sq cm.",
+    price: 190000,
+    filters: "Filter 1: 32,000 L, Filter 2: 32,000 L",
+    flowRate: "1 – 4 L/min",
+    features: "9 water levels; LCD; voice; Dual filtration; soft-touch sensor; auto-cleaning"
   },
   { 
     id: "mediqua-ak-101", 
     brand: "mediqua", 
-    name: "Mediqua AK - 101", 
+    name: "Mediqua AK-101", 
     image: "/images/products/mediqua/ak-101.jpg",
     category: "Residential", 
-    plates: "3 large sized platinum-coated plates", 
-    phRange: "3.5 – 10.5", 
-    orp: "-400 mV", 
-    hydrogen: "1000 ppb", 
-    warranty: "5 years", 
-    dimensions: "19 x 37.5 x 25 cm",
-    price: 95000
-  },
-  { 
-    id: "mediqua-ak-9000", 
-    brand: "mediqua", 
-    name: "Mediqua AK - 9000", 
-    image: "/images/products/mediqua/AK-9000.png",
-    category: "Residential", 
-    plates: "7/9 platinum-coated plates", 
-    phRange: "2.5 – 11.5", 
-    orp: "Up to -850 mV", 
-    hydrogen: "1800 ppb", 
-    warranty: "5 years machine | 25 years plates", 
-    installation: "Counter Top & Under Sink", 
-    dimensions: "35 x 35 x 15 cm",
-    price: 280000
+    plates: "3 platinum-coated titanium plates", 
+    phRange: "3.5–10.5", 
+    orp: "around (–)400 mV", 
+    hydrogen: "around 1000 ppb", 
+    power: "30w",
+    warranty: "3 years", 
+    dimensions: "na",
+    price: 90000,
+    filters: "Filter 1: 32,000 L, Filter 2: 32,000 L",
+    flowRate: "1 – 4 L/min",
+    features: "5 water levels; LCD; manual pH; Dual filtration; soft-touch sensor"
   },
   { 
     id: "mediqua-hy-101", 
     brand: "mediqua", 
-    name: "Mediqua HY - 101", 
+    name: "Mediqua HY-101", 
     image: "/images/products/mediqua/hy-101.png",
     category: "Residential", 
-    plates: "3 cell electrodes", 
-    phRange: "3.5 – 10.5", 
-    orp: "-450 mV", 
-    hydrogen: "1450 ppb", 
-    warranty: "5 years", 
-    dimensions: "120 x 290 x 15 mm",
-    price: 75000
+    plates: "7 (hydrogen generator)", 
+    phRange: "(hydrogen generator)", 
+    orp: "around (–)450 mV", 
+    hydrogen: "around 1450 ppb", 
+    power: "100w",
+    warranty: "3 years", 
+    dimensions: "na",
+    price: 74990,
+    filters: "First filter: ~6 months, Second filter: ~12 months",
+    flowRate: "3 L/min",
+    features: "Hydrogen-rich (SPE/PEM); Platinum electrode; zero wastage; one-touch"
   },
   { 
     id: "mediqua-hy-4000", 
     brand: "mediqua", 
-    name: "Mediqua HY - 4000", 
+    name: "Mediqua HY-4000", 
     image: "/images/products/mediqua/hy-4000.png",
     category: "Residential", 
-    plates: "5 cell electrodes", 
-    phRange: "2.5 – 11.5", 
-    orp: "Up to -1250 mV", 
-    hydrogen: "1800 ppb", 
-    warranty: "5 years", 
-    dimensions: "350 x 350 x 150 mm",
-    price: 200000
-  },
-  { 
-    id: "mediqua-m14", 
-    brand: "mediqua", 
-    name: "M-14", 
-    image: "/images/products/mediqua/m14.png",
-    category: "Residential", 
-    plates: "5 cell electrodes", 
-    phRange: "3.5 – 11", 
-    orp: "-600 mV", 
-    hydrogen: "1400 ppb", 
-    warranty: "1 year machine | 5 years plates", 
-    dimensions: "19 x 37.5 x 25 cm",
-    price: 110000
+    plates: "7 (hydrogen generator)", 
+    phRange: "(hydrogen generator)", 
+    orp: "(-)450", 
+    hydrogen: "around 1450 ppb", 
+    power: "100w",
+    warranty: "3 years", 
+    dimensions: "na",
+    price: 145000,
+    filters: "First filter: ~6 months, Second filter: ~12 months",
+    flowRate: "3 L/min",
+    features: "Hydrogen-rich water; wall/desk mount; Ozone sterilization; UV lamp; touch sensor"
   },
   { 
     id: "mediqua-undersink-faucet", 
     brand: "mediqua", 
-    name: "Mediqua Under-Sink Faucet", 
+    name: "Mediqua Undersink Faucet", 
     image: "/images/products/mediqua/undersink-faucet.png",
     category: "Accessory", 
-    installation: "Under-sink compatible", 
-    colorOptions: "Chrome", 
-    warranty: "1 year",
-    price: 25000
+    plates: "na", 
+    phRange: "2.5-11.5", 
+    orp: "(-)400", 
+    hydrogen: "1000 ppb", 
+    power: "na",
+    warranty: "3 years", 
+    dimensions: "na",
+    price: 125000,
+    filters: "Filter 1: 32,000 L, Filter 2: 32,000 L",
+    flowRate: "3,000 L per hour",
+    features: "Controls 9 levels (4 alkaline, 4 acidic, 1 purified); Touch sensor; LED display; SUS304 body"
+  },
+  { 
+    id: "mediqua-m14", 
+    brand: "mediqua", 
+    name: "Mediqua MI-14", 
+    image: "/images/products/mediqua/m14.png",
+    category: "Commercial", 
+    plates: "14 platinum-coated titanium plates", 
+    phRange: "3.5- 11", 
+    orp: "-600", 
+    hydrogen: "1400 ppb", 
+    power: "200w",
+    warranty: "3 years", 
+    dimensions: "na",
+    price: 385000,
+    filters: "Filter 1: 32,000 L, Filter 2: 32,000 L",
+    flowRate: "3,000 L per hour",
+    features: "Alkaline & acidic simultaneously (commercial); Touch sensor; LED display; SUS304 body"
+  },
+  { 
+    id: "mediqua-ck-9000", 
+    brand: "mediqua", 
+    name: "Mediqua CK-9000", 
+    image: "/images/products/mediqua/AK-9000.png",
+    category: "Commercial", 
+    plates: "9 platinum-coated titanium plates", 
+    phRange: "7.5-10.0", 
+    orp: "adjustable ±500 mV or more", 
+    hydrogen: "1800 ppb", 
+    power: "200w",
+    warranty: "3 years", 
+    dimensions: "na",
+    price: 0,
+    filters: "NA",
+    flowRate: "3,000 L per hour",
+    features: "Alkaline & acidic simultaneously (commercial); Touch sensor; LED display; SUS304 body"
   }
 ];
 

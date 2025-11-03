@@ -45,10 +45,10 @@ export default function BrandPillars() {
         transition={{ duration: 0.6 }}
         className="mb-16"
       >
-        <h2 className="text-4xl md:text-5xl font-black text-[#0A0F2C] mb-4">
-          Our <span className="text-[#EBEBEB]">Pillars</span>
+        <h2 className="text-4xl md:text-5xl font-black mb-4">
+          <span className="text-white">Our</span> <span className="text-[#EBEBEB]">Pillars</span>
         </h2>
-        <p className="text-xl text-[#0A0F2C]/70 max-w-2xl mx-auto">
+        <p className="text-xl text-[#E5E5E5] max-w-2xl mx-auto">
           The foundation of excellence that drives everything we do
         </p>
       </motion.div>

@@ -68,7 +68,7 @@ export default function AdvancedWaterIonizationAnimation() {
   };
 
   return (
-    <div className="relative w-full h-96 bg-gradient-to-br from-blue-900/40 via-purple-900/40 to-pink-900/40 rounded-3xl border border-white/10 backdrop-blur-xl overflow-hidden">
+    <div className="relative w-full h-96 bg-gradient-to-br from-[#0A0F2C]/60 via-[#0A0F2C]/40 to-[#0A0F2C]/60 rounded-3xl border border-primary/20 backdrop-blur-xl overflow-hidden">
       {/* Background Particles */}
       <div className="absolute inset-0">
         {[...Array(30)].map((_, i) => (
@@ -135,7 +135,7 @@ export default function AdvancedWaterIonizationAnimation() {
           {/* Electrolysis Effect */}
           {isPlaying && (
             <motion.div
-              className="absolute inset-0 rounded-full border-2 border-yellow-400"
+              className="absolute inset-0 rounded-full border-2 border-[#FFD100]"
               animate={{
                 scale: [1, 1.2, 1],
                 opacity: [0.8, 0.3, 0.8],
@@ -288,8 +288,8 @@ export default function AdvancedWaterIonizationAnimation() {
               exit={{ opacity: 0, y: 20 }}
               transition={{ duration: 0.5 }}
             >
-              <div className="bg-white/10 backdrop-blur-xl rounded-2xl p-4 border border-white/20">
-                <div className="text-center text-white/80 text-sm mb-3">pH Scale</div>
+              <div className="bg-white/10 backdrop-blur-xl rounded-2xl p-4 border border-primary/20">
+                <div className="text-center text-primary text-sm mb-3">pH Scale</div>
                 <div className="flex items-center gap-1">
                   {pHScaleColors.map((item, index) => (
                     <motion.div
@@ -305,7 +305,7 @@ export default function AdvancedWaterIonizationAnimation() {
                     />
                   ))}
                 </div>
-                <div className="flex justify-between text-xs text-white/60 mt-2">
+                <div className="flex justify-between text-xs text-primary/70 mt-2">
                   <span>0</span>
                   <span>7 (Neutral)</span>
                   <span>14</span>
@@ -325,12 +325,12 @@ export default function AdvancedWaterIonizationAnimation() {
               exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.2 }}
             >
-              <div className="bg-white/10 backdrop-blur-xl rounded-xl p-4 border border-white/20 text-white">
+              <div className="bg-white/10 backdrop-blur-xl rounded-xl p-4 border border-primary/20 text-primary">
                 <div className="flex items-center gap-2 mb-2">
-                  <Info className="w-4 h-4" />
+                  <Info className="w-4 h-4 text-[#FFD100]" />
                   <span className="font-semibold capitalize">{hoveredStream.type} Stream</span>
                 </div>
-                <div className="text-sm text-white/80">
+                <div className="text-sm text-primary/80">
                   <div>pH Range: {hoveredStream.pH}</div>
                   <div className="text-xs mt-1">{hoveredStream.description}</div>
                 </div>
@@ -344,21 +344,21 @@ export default function AdvancedWaterIonizationAnimation() {
       <div className="absolute bottom-4 left-4 flex items-center gap-3">
         <motion.button
           onClick={toggleAnimation}
-          className="p-3 rounded-full bg-white/10 backdrop-blur-xl border border-white/20 hover:bg-white/20 transition-all"
+          className="p-3 rounded-full bg-white/10 backdrop-blur-xl border border-primary/20 hover:bg-[#FFD100]/20 transition-all"
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.95 }}
         >
-          {isPlaying ? <Pause className="w-5 h-5 text-white" /> : <Play className="w-5 h-5 text-white" />}
+          {isPlaying ? <Pause className="w-5 h-5 text-[#FFD100]" /> : <Play className="w-5 h-5 text-[#FFD100]" />}
         </motion.button>
         <motion.button
           onClick={resetAnimation}
-          className="p-3 rounded-full bg-white/10 backdrop-blur-xl border border-white/20 hover:bg-white/20 transition-all"
+          className="p-3 rounded-full bg-white/10 backdrop-blur-xl border border-primary/20 hover:bg-[#FFD100]/20 transition-all"
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.95 }}
         >
-          <RotateCcw className="w-5 h-5 text-white" />
+          <RotateCcw className="w-5 h-5 text-[#FFD100]" />
         </motion.button>
-        <div className="text-sm text-white/80">
+        <div className="text-sm text-primary/80">
           {isPlaying ? 'Ionization Active' : 'Ready to Ionize'}
         </div>
       </div>

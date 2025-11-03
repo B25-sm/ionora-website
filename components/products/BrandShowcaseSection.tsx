@@ -4,6 +4,8 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { ArrowRight, Star } from 'lucide-react';
 import { BRANDS } from '@/data/brands';
+import { useState } from 'react';
+import type { InstallationType } from '@/data/schema';
 
 type Props = {
   brandId: string;
@@ -24,10 +26,35 @@ export default function BrandShowcaseSection({
   const brand = BRANDS.find(b => b.id === brandId);
   const recommendedProducts = products.slice(0, 3);
   const hasMoreProducts = products.length > 3;
+  const [selectedInstallations, setSelectedInstallations] = useState<Record<string, InstallationType>>({});
 
   const handleViewMore = () => {
     const categoryParam = category !== 'all' ? `?category=${encodeURIComponent(category)}` : '';
     router.push(`/products/brand/${brandId}${categoryParam}`);
+  };
+
+  const selectInstallation = (productId: string, installationType: InstallationType) => {
+    setSelectedInstallations(prev => ({ ...prev, [productId]: installationType }));
+  };
+
+  // Get current display image for a product
+  const getProductImage = (product: any) => {
+    const selectedInstallation = selectedInstallations[product.id];
+    if (selectedInstallation && product.installationVariants) {
+      const variant = product.installationVariants.find((v: any) => v.type === selectedInstallation);
+      if (variant) return variant.image;
+    }
+    return product.image || '/images/placeholder.png';
+  };
+
+  // Get current display price for a product
+  const getProductPrice = (product: any) => {
+    const selectedInstallation = selectedInstallations[product.id];
+    if (selectedInstallation && product.installationVariants) {
+      const variant = product.installationVariants.find((v: any) => v.type === selectedInstallation);
+      if (variant && variant.price !== undefined) return variant.price;
+    }
+    return product.price;
   };
 
   if (!brand) return null;
@@ -52,7 +79,7 @@ export default function BrandShowcaseSection({
         </div>
         
         <h2 className="text-4xl md:text-5xl font-bold text-[#EBEBEB] mb-4">
-          {brand.name}
+          {brandId === 'life-ionizers-india' ? 'Lifeionizers' : brand.name}
         </h2>
         <p className="text-[#EBEBEB] text-lg mb-2">
           {products.length} premium models available
@@ -82,23 +109,34 @@ export default function BrandShowcaseSection({
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {recommendedProducts.map((product) => (
-              <div
-                key={product.id}
-                className="group bg-[#0A2238]/50 backdrop-blur-sm border border-[#EBEBEB]/10 rounded-2xl p-6 hover:border-[#EBEBEB]/30 transition-all duration-300 hover:shadow-xl hover:shadow-[#EBEBEB]/10 flex flex-col"
-              >
-                {/* Image - Fixed header */}
-                <div className="relative h-48 mb-4 rounded-xl overflow-hidden flex-shrink-0">
-                  <Image
-                    src={product.image}
-                    alt={product.name}
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
-                </div>
+            {recommendedProducts.map((product) => {
+              const hasInstallationVariants = product.installationVariants && product.installationVariants.length > 0;
+              
+              return (
+                <div
+                  key={product.id}
+                  className="group bg-[#0A2238]/50 backdrop-blur-sm border border-[#EBEBEB]/10 rounded-2xl p-6 hover:border-[#EBEBEB]/30 transition-all duration-300 hover:shadow-xl hover:shadow-[#EBEBEB]/10 flex flex-col"
+                >
+                  {/* Image - Fixed header */}
+                  <div className="w-full h-48 flex items-center justify-center mb-4 rounded-xl overflow-hidden flex-shrink-0 bg-white/5">
+                    <Image
+                      src={getProductImage(product)}
+                      alt={product.name}
+                      width={240}
+                      height={200}
+                      className="object-contain rounded-lg group-hover:scale-105 transition-all duration-300"
+                    />
+                  </div>
                 
                 {/* Content area - flex: 1 to push footer down */}
                 <div className="flex flex-col flex-1 min-h-0">
+                  <div className="flex gap-2 mb-2 flex-wrap">
+                    {product.category && (
+                      <span className="inline-block px-2 py-1 text-[10px] sm:text-xs font-medium text-[#EBEBEB]/90 bg-[#EBEBEB]/10 border border-[#EBEBEB]/30 rounded-md w-fit">
+                        {product.category}
+                      </span>
+                    )}
+                  </div>
                   <h4 className="text-lg font-semibold text-[#EBEBEB] mb-2 line-clamp-2">
                     {product.name}
                   </h4>
@@ -121,13 +159,7 @@ export default function BrandShowcaseSection({
 
                 {/* Footer - Pinned to bottom */}
                 <div className="flex-shrink-0">
-                  <div className="mb-4">
-                    <p className="text-center text-lg font-bold text-[#EBEBEB]">
-                      {product.price ? `₹${product.price.toLocaleString('en-IN')}` : 'Contact for Price'}
-                    </p>
-                  </div>
-                  
-                  <div className="flex gap-3">
+                  <div className="flex gap-3 mb-4">
                     <button
                       onClick={() => onViewDetails(product)}
                       className="flex-1 px-4 py-2 bg-[#EBEBEB] text-[#0A2238] rounded-lg font-medium hover:bg-[#EBEBEB]/90 transition-colors"
@@ -141,9 +173,35 @@ export default function BrandShowcaseSection({
                       Enquire
                     </button>
                   </div>
+
+                  {/* Counter/Undercounter Toggle */}
+                  {hasInstallationVariants && (
+                    <div className="flex gap-2 mb-4">
+                      {product.installationVariants?.map((variant: any) => (
+                        <button
+                          key={variant.type}
+                          onClick={() => selectInstallation(product.id, variant.type as InstallationType)}
+                          className={`flex-1 px-3 py-2 rounded-lg text-xs font-medium transition-all ${
+                            selectedInstallations[product.id] === variant.type
+                              ? 'bg-[#EBEBEB] text-[#0A2238] shadow-lg'
+                              : 'bg-[#0A2238]/50 border border-[#EBEBEB]/20 text-[#EBEBEB]/70 hover:bg-[#EBEBEB]/10'
+                          }`}
+                        >
+                          {variant.type === 'counter' ? 'Counter' : 'Undercounter'}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+
+                  <div className="mb-4">
+                    <p className="text-center text-lg font-bold text-[#EBEBEB]">
+                      {getProductPrice(product) ? `₹${getProductPrice(product)!.toLocaleString('en-IN')}` : 'Contact for Price'}
+                    </p>
+                  </div>
                 </div>
               </div>
-            ))}
+            );
+            })}
           </div>
         </div>
       )}

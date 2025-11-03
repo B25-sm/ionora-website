@@ -1,6 +1,6 @@
 import { BRANDS } from '@/data/brands';
 import { productsByBrand } from '@/data/products';
-import ProductCard from '@/components/ProductCard';
+import BrandProductsFilter from '@/components/brand/BrandProductsFilter';
 import Image from 'next/image';
 
 export default async function BrandPage({ params }: { params: Promise<{ brandId: string }> }) {
@@ -80,14 +80,7 @@ export default async function BrandPage({ params }: { params: Promise<{ brandId:
       </div>
 
       {/* Products Section */}
-      <div className="mt-12">
-        <h2 className="text-3xl font-bold text-white mb-8">Products</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4 md:gap-6">
-          {items.map(product => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-        </div>
-      </div>
+      <BrandProductsFilter products={items} />
     </section>
   );
 }

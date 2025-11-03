@@ -176,12 +176,13 @@ export default function BrandProductsPage({ category }: Props) {
                 className="group bg-[#0A2238]/50 backdrop-blur-sm border border-[#EBEBEB]/10 rounded-2xl p-6 hover:border-[#EBEBEB]/30 transition-all duration-300 hover:shadow-xl hover:shadow-[#EBEBEB]/10 flex flex-col h-full"
               >
                 {/* Image - Fixed header */}
-                <div className="relative h-48 mb-4 rounded-xl overflow-hidden flex-shrink-0">
+                <div className="w-full h-48 flex items-center justify-center mb-4 rounded-xl overflow-hidden flex-shrink-0 bg-white/5">
                   <Image
                     src={product.image}
                     alt={product.name}
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-300"
+                    width={240}
+                    height={200}
+                    className="object-contain rounded-lg group-hover:scale-105 transition-transform duration-300"
                   />
                 </div>
                 

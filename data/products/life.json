@@ -7,7 +7,7 @@
       "subtitle": "Alkaline Water Hydrogen Unit",
       "image": "/images/products/life/MXL-5.png",
       "features": {
-        "Installation": "Counter Top Installation",
+        "Installation": "Counter Top or Under Counter",
         "Plates": "5 XL Matrix GRID™ Plates",
         "Power": "249 Watts XL Power™ SMPS",
         "Membrane": "Life Micro Membrane™ Technology",
@@ -250,6 +250,28 @@
         "Design": "Designed in the USA; manufactured in South Korea"
       },
       "summary": "Top-tier heavy-duty ionizer built for high-capacity industrial or commercial installations."
+    },
+    {
+      "slug": "commercial-water-ionizer",
+      "title": "LIFE COMMERCIAL WATER IONIZER",
+      "subtitle": "Commercial Grade Water Ionizer",
+      "image": "/images/products/life/Commercial_Water_Ionizer.png",
+      "features": {
+        "Installation": "Commercial Installation",
+        "Plates": "Commercial Grade Plates",
+        "Power": "Commercial Power Supply",
+        "Membrane": "Life Micro Membrane™ Technology",
+        "pH Range": "2.0 – 12.2 pH",
+        "Max ORP": "Up to -1193 mV",
+        "Warranty": "Commercial Warranty",
+        "Filters": "Commercial Filtration System",
+        "Auto Clean": "Commercial Auto-Cleaning",
+        "Colors": ["Commercial Finish"],
+        "Dimensions": "Commercial Dimensions",
+        "Voltage": "110–220V (International)",
+        "Design": "Designed in the USA; manufactured in South Korea"
+      },
+      "summary": "Premium commercial-grade ionizer designed for high-capacity commercial and industrial applications requiring superior water ionization performance."
     }
   ]
 }

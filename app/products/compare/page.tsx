@@ -105,7 +105,7 @@ function ComparePageContent() {
   };
 
   const getBestValue = (specKey: string, products: Product[], currentProduct: Product) => {
-    const values = products.map(p => p[specKey as keyof Product]).filter(v => v !== undefined && v !== null && v !== 'N/A');
+    const values = products.map(p => p[specKey as keyof Product]).filter(v => v !== undefined && v !== null && v !== 'N/A' && !Array.isArray(v));
     
     if (values.length === 0) return false;
     
@@ -308,6 +308,14 @@ function ComparePageContent() {
                       {selectedProducts.map((product) => {
                         const value = product[spec.key as keyof Product];
                         const isBestValue = getBestValue(spec.key, selectedProducts, product);
+                        // Skip rendering if value is an array (like installationVariants)
+                        if (Array.isArray(value)) {
+                          return (
+                            <td key={`${product.id}-${spec.key}`} className="px-6 py-4 text-center">
+                              <span className="text-white/50">N/A</span>
+                            </td>
+                          );
+                        }
                         return (
                           <td key={`${product.id}-${spec.key}`} className="px-6 py-4 text-center">
                             {spec.key === 'price' && value ? (

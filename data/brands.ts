@@ -13,6 +13,9 @@ export const BRANDS: Array<{
   mainImage?: string;
   featured?: boolean;
   productCount?: number;
+  platesWarranty?: string;
+  partsWarranty?: string;
+  labourWarranty?: string;
 }> = [
   { 
     id: 'life-ionizers-india', 
@@ -31,7 +34,10 @@ export const BRANDS: Array<{
     logo: '/images/life/life-logo.png',
     mainImage: '/images/products/life/MXL-11 counter.png',
     featured: true,
-    productCount: 11
+    productCount: 12,
+    platesWarranty: '25 years',
+    partsWarranty: '7 years',
+    labourWarranty: '3 years (2 years in a year)'
   },
   { 
     id: 'mediqua-india', 
@@ -48,7 +54,10 @@ export const BRANDS: Array<{
     logo: '/images/products/mediqua/mediqua logo.avif',
     mainImage: '/images/products/mediqua/ak-3000.png',
     featured: true,
-    productCount: 8
+    productCount: 8,
+    platesWarranty: '15 years',
+    partsWarranty: '5 years',
+    labourWarranty: '3 years (2 years in a year)'
   },
   { 
     id: 'medisoul-india', 
@@ -67,7 +76,10 @@ export const BRANDS: Array<{
     logo: '/images/products/medisoul/medisoul-logo.png',
     mainImage: '/images/products/medisoul/mslblack11.png',
     featured: true,
-    productCount: 24
+    productCount: 24,
+    platesWarranty: '25 years',
+    partsWarranty: '7 years',
+    labourWarranty: '3 years (2 years in a year)'
   },
   { 
     id: 'kyron-india', 

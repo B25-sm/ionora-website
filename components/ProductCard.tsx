@@ -1,22 +1,14 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import { BarChart3 } from "lucide-react";
-
-type Product = {
-  id: string;
-  name: string;
-  image: string;
-  shortDescription?: string;
-  plates?: string;
-  ph?: string;
-  orp?: string;
-  price?: number;
-  brand?: string;
-};
+import type { Product } from "@/data/products";
+import type { InstallationType } from "@/data/schema";
 
 export default function ProductCard({ product }: { product: Product }) {
+  const [selectedInstallation, setSelectedInstallation] = useState<InstallationType | null>(null);
+
   const openWhatsApp = (productName: string) => {
     const message = encodeURIComponent(
       `Hello, I'd like to know more about ${productName}. Could you please share the details?`
@@ -24,17 +16,38 @@ export default function ProductCard({ product }: { product: Product }) {
     window.open(`https://wa.me/9230123451?text=${message}`, "_blank");
   };
 
+  // Check if product has installation variants
+  const hasInstallationVariants = product.installationVariants && product.installationVariants.length > 0;
+  
+  // Get current display image
+  const getDisplayImage = () => {
+    if (selectedInstallation && product.installationVariants) {
+      const variant = product.installationVariants.find(v => v.type === selectedInstallation);
+      if (variant) return variant.image;
+    }
+    return product.image || '';
+  };
+
+  // Get current display price
+  const getDisplayPrice = () => {
+    if (selectedInstallation && product.installationVariants) {
+      const variant = product.installationVariants.find(v => v.type === selectedInstallation);
+      if (variant && variant.price !== undefined) return variant.price;
+    }
+    return product.price;
+  };
+
   return (
     <article className="bg-primary/10 rounded-xl sm:rounded-2xl md:rounded-3xl p-3 sm:p-4 md:p-5 lg:p-6 flex flex-col h-full shadow-lg border border-primary/20 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
       {/* ✅ Product Image - Fixed header */}
       <div className="relative w-full h-40 sm:h-48 md:h-56 lg:h-64 mb-3 sm:mb-4 rounded-lg sm:rounded-xl overflow-hidden bg-bg flex items-center justify-center flex-shrink-0">
         <Image
-          src={product.image}
+          src={getDisplayImage()}
           alt={product.name}
           fill
           priority
           sizes="(max-width: 480px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
-          className="object-contain hover:scale-105 transition-transform duration-500"
+          className="object-contain hover:scale-105 transition-all duration-300"
         />
       </div>
 
@@ -44,9 +57,13 @@ export default function ProductCard({ product }: { product: Product }) {
         <h3 className="text-sm sm:text-base md:text-lg lg:text-xl font-semibold text-primary mb-2 sm:mb-3 tracking-tight">
           {product.name}
         </h3>
-        <p className="text-xs sm:text-sm md:text-base text-primary/70 mb-3 sm:mb-4 leading-relaxed line-clamp-2">
-          {product.shortDescription || "Premium alkaline water ionizer engineered for performance and wellness."}
-        </p>
+
+        {/* Category Badge */}
+        {product.category && (
+          <span className="inline-block px-2 py-1 text-[10px] sm:text-xs font-medium text-primary/90 bg-primary/10 border border-primary/30 rounded-md mb-2 sm:mb-3 w-fit">
+            {product.category}
+          </span>
+        )}
 
         {/* ✅ Key Specs */}
         <div className="flex justify-between text-xs sm:text-sm mb-3 sm:mb-4 gap-1 sm:gap-2">
@@ -56,7 +73,7 @@ export default function ProductCard({ product }: { product: Product }) {
           </div>
           <div className="bg-bg/30 p-2 sm:p-3 rounded-md text-center flex-1">
             <div className="text-primary/70 text-[10px] sm:text-xs">pH</div>
-            <div className="text-primary font-semibold">{product.ph || "—"}</div>
+            <div className="text-primary font-semibold">{product.phRange || "—"}</div>
           </div>
           <div className="bg-bg/30 p-2 sm:p-3 rounded-md text-center flex-1">
             <div className="text-primary/70 text-[10px] sm:text-xs">ORP</div>
@@ -92,8 +109,27 @@ export default function ProductCard({ product }: { product: Product }) {
         </button>
         </div>
 
+        {/* Counter/Undercounter Toggle */}
+        {hasInstallationVariants && (
+          <div className="flex gap-2 mb-3">
+            {product.installationVariants?.map((variant) => (
+              <button
+                key={variant.type}
+                onClick={() => setSelectedInstallation(variant.type as InstallationType)}
+                className={`flex-1 px-3 py-2 rounded-lg text-xs font-medium transition-all ${
+                  selectedInstallation === variant.type
+                    ? 'bg-primary text-bg shadow-lg'
+                    : 'bg-bg/30 border border-primary/20 text-primary/70 hover:bg-bg/40'
+                }`}
+              >
+                {variant.type === 'counter' ? 'Counter' : 'Undercounter'}
+              </button>
+            ))}
+          </div>
+        )}
+
         <p className="text-center text-xs sm:text-sm text-primary/70 mt-2 sm:mt-3">
-          {product.price ? `₹${product.price.toLocaleString('en-IN')}` : 'Contact for Price'}
+          {getDisplayPrice() ? `₹${getDisplayPrice()!.toLocaleString('en-IN')}` : 'Contact for Price'}
         </p>
       </div>
     </article>

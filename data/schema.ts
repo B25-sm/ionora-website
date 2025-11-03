@@ -5,12 +5,21 @@ export type Variant = {
   image: string;   // /images/... path
 };
 
+export type InstallationType = "counter" | "undercounter";
+
+export type InstallationVariant = {
+  type: InstallationType;
+  image: string;
+  price?: number;
+};
+
 export type Product = {
   id: string;
   brand: string;  // Changed from brandId to brand to match actual data
   name: string;
   image?: string;        // single-image products
   variants?: Variant[];  // color/image variants
+  installationVariants?: InstallationVariant[];  // counter/undercounter variants
   price?: number;
   series?: string;
   category?: 'Residential' | 'Commercial' | 'Accessory' | 'Other';

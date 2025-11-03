@@ -56,7 +56,7 @@ export default function AboutPage() {
       </section>
 
       {/* PILLARS */}
-      <section className="relative py-20 md:py-28 bg-gradient-to-b from-[#E5E5E5]/5 to-transparent">
+      <section className="relative py-20 md:py-28 bg-[#0A0F2C]">
         <div className="mx-auto max-w-7xl px-6">
           <BrandPillars />
         </div>
@@ -70,7 +70,7 @@ export default function AboutPage() {
       </section>
 
       {/* HERITAGE */}
-      <section className="relative py-16 md:py-20 bg-gradient-to-b from-transparent to-[#E5E5E5]/5">
+      <section className="relative py-16 md:py-20 bg-[#0A0F2C]">
         <div className="mx-auto max-w-7xl px-6">
           <HeritageStrip />
         </div>

@@ -19,7 +19,7 @@ import { ChevronLeft, ChevronRight, Eye, MessageCircle, Palette } from 'lucide-r
 import Image from 'next/image';
 import { cn } from '@/lib/utils';
 import type { Product } from '@/data/products';
-import type { Variant } from '@/data/schema';
+import type { Variant, InstallationType } from '@/data/schema';
 
 type Props = {
   products: Product[];
@@ -31,6 +31,7 @@ export default function ProductCarousel({ products, onViewDetails, onEnquire }: 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [hoveredProduct, setHoveredProduct] = useState<string | null>(null);
   const [selectedVariants, setSelectedVariants] = useState<Record<string, Variant>>({});
+  const [selectedInstallations, setSelectedInstallations] = useState<Record<string, InstallationType>>({});
   const scrollRef = useRef<HTMLDivElement>(null);
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
 
@@ -112,6 +113,30 @@ export default function ProductCarousel({ products, onViewDetails, onEnquire }: 
     setSelectedVariants(prev => ({ ...prev, [productId]: variant }));
   };
 
+  const selectInstallation = (productId: string, installationType: InstallationType) => {
+    setSelectedInstallations(prev => ({ ...prev, [productId]: installationType }));
+  };
+
+  // Get current display image for a product
+  const getProductImage = (product: Product) => {
+    const selectedInstallation = selectedInstallations[product.id];
+    if (selectedInstallation && product.installationVariants) {
+      const variant = product.installationVariants.find(v => v.type === selectedInstallation);
+      if (variant) return variant.image;
+    }
+    return product.image || '/images/placeholder.png';
+  };
+
+  // Get current display price for a product
+  const getProductPrice = (product: Product) => {
+    const selectedInstallation = selectedInstallations[product.id];
+    if (selectedInstallation && product.installationVariants) {
+      const variant = product.installationVariants.find(v => v.type === selectedInstallation);
+      if (variant && variant.price !== undefined) return variant.price;
+    }
+    return product.price;
+  };
+
   return (
     <div className="relative">
       {/* Navigation Arrows */}
@@ -136,7 +161,8 @@ export default function ProductCarousel({ products, onViewDetails, onEnquire }: 
       >
         {products.map((product, index) => {
           const isHovered = hoveredProduct === product.id;
-          const currentImage = product.image || '/images/placeholder.png';
+          const currentImage = getProductImage(product);
+          const hasInstallationVariants = product.installationVariants && product.installationVariants.length > 0;
 
           return (
             <div
@@ -161,16 +187,23 @@ export default function ProductCarousel({ products, onViewDetails, onEnquire }: 
                     src={currentImage}
                     alt={product.name}
                     fill
-                    className="object-contain p-4 transition-transform duration-500 group-hover:scale-110"
+                    className="object-contain p-4 transition-all duration-300 group-hover:scale-110"
                     sizes="320px"
                   />
                 </div>
 
                 {/* Main Content Area - flex: 1 to fill space and push footer down */}
                 <div className="flex flex-col flex-1">
-                  {/* Brand Badge */}
-                  <div className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-[#0A2238] border border-[#0A2238] text-white mb-3 w-fit">
-                    {product.brand}
+                  {/* Brand and Category Badges */}
+                  <div className="flex gap-2 mb-3 flex-wrap">
+                    <div className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-[#0A2238] border border-[#0A2238] text-white w-fit">
+                      {product.brand}
+                    </div>
+                    {product.category && (
+                      <div className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-gradient-to-r from-indigo-500/20 to-violet-500/20 border border-indigo-400/30 text-[#0A2238] w-fit">
+                        {product.category}
+                      </div>
+                    )}
                   </div>
 
                   {/* Product Name */}
@@ -250,9 +283,28 @@ export default function ProductCarousel({ products, onViewDetails, onEnquire }: 
                     </button>
                   </div>
 
+                  {/* Counter/Undercounter Toggle */}
+                  {hasInstallationVariants && (
+                    <div className="flex gap-2 mb-4">
+                      {product.installationVariants?.map((variant) => (
+                        <button
+                          key={variant.type}
+                          onClick={() => selectInstallation(product.id, variant.type as InstallationType)}
+                          className={`flex-1 px-3 py-2 rounded-lg text-xs font-medium transition-all ${
+                            selectedInstallations[product.id] === variant.type
+                              ? 'bg-[#0A2238] text-white shadow-lg'
+                              : 'bg-white border border-[#0A2238]/20 text-[#0A2238] hover:bg-white/80'
+                          }`}
+                        >
+                          {variant.type === 'counter' ? 'Counter' : 'Undercounter'}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+
                   {/* Price / CTA */}
                   <p className="text-center text-sm text-[#0A2238] font-semibold">
-                    {product.price ? `₹${product.price.toLocaleString('en-IN')}` : 'Contact for Price'}
+                    {getProductPrice(product) ? `₹${getProductPrice(product)!.toLocaleString('en-IN')}` : 'Contact for Price'}
                   </p>
                 </div>
               </div>
