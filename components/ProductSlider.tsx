@@ -25,8 +25,8 @@ export default function ProductSlider() {
   const canplayListenersRef = useRef<Map<number, (() => void) | null>>(new Map());
   const unmuteListenersRef = useRef<Map<number, (() => void) | null>>(new Map());
   
-  // Session-level unmute preference
-  const userUnmutedSessionRef = useRef(false);
+  // Session-level unmute preference - tracks explicit user action
+  const userExplicitlyUnmutedRef = useRef(false);
 
   // Get featured product
   const getFeaturedProduct = (brandId: string) => {
@@ -45,34 +45,43 @@ export default function ProductSlider() {
   const safeMutedPlay = useCallback(async (video: HTMLVideoElement, index: number): Promise<boolean> => {
     if (!video) return false;
     
-    // Ensure video is muted before attempting play
-    video.muted = true;
+    // Only force mute if user hasn't explicitly unmuted
+    if (!userExplicitlyUnmutedRef.current) {
+      video.muted = true;
+      console.log(`[AUTOPLAY] Setting muted=true for video ${index} (session prefers muted)`);
+    } else {
+      console.log(`[AUTOPLAY] Respecting user preference: video ${index} muted=${video.muted}`);
+    }
     
     if (!video.paused) return true;
     
     try {
-      console.log(`[AUTOPLAY] Attempting muted autoplay for video ${index}`);
+      console.log(`[AUTOPLAY] Attempting autoplay for video ${index}`);
       await video.play();
-      console.log(`[AUTOPLAY] Successfully started muted autoplay for video ${index}`);
+      console.log(`[AUTOPLAY] Successfully started autoplay for video ${index}`);
       return true;
     } catch (error: any) {
-      console.log(`[AUTOPLAY] Muted autoplay blocked for video ${index}:`, error.name);
+      console.log(`[AUTOPLAY] Autoplay blocked for video ${index}:`, error.name);
       autoplayBlockedRef.current = true;
       return false;
     }
   }, []);
 
-  // Attempt to unmute video after canplay
+  // Attempt to unmute video after canplay (only if session preference says unmuted)
   const safeUnmuteAttempt = useCallback((video: HTMLVideoElement, index: number) => {
-    if (!video || userUnmutedSessionRef.current === false) return;
+    if (!video || !userExplicitlyUnmutedRef.current) {
+      console.log(`[UNMUTE] Skipping auto-unmute for video ${index} (session prefers muted)`);
+      return;
+    }
     
     try {
       video.muted = false;
-      console.log(`[UNMUTE] Attempting auto-unmute for video ${index}`);
-      console.log(`[UNMUTE] Success`);
+      setIsMuted(false);
+      console.log(`[UNMUTE] Auto-unmuted video ${index} (session preference)`);
     } catch (error: any) {
       console.log(`[UNMUTE] Blocked:`, error.name);
       video.muted = true; // Fallback to muted
+      setIsMuted(true);
     }
   }, []);
 
@@ -110,10 +119,16 @@ export default function ProductSlider() {
     if (index === activeCategory && !isAnimatingRef.current && !autoplayBlockedRef.current) {
       console.log(`[CANPLAY] Video ${index} ready, attempting autoplay`);
       safeMutedPlay(video, index).then(() => {
-        // If user unmuted this session, try to unmute after play
-        if (userUnmutedSessionRef.current) {
-          // Small delay to ensure video started
+        // Apply session preference after play starts
+        if (userExplicitlyUnmutedRef.current) {
           setTimeout(() => safeUnmuteAttempt(video, index), 100);
+        } else {
+          // Ensure muted if session prefers muted
+          if (!video.muted) {
+            video.muted = true;
+            setIsMuted(true);
+            console.log(`[CANPLAY] Enforcing muted state for video ${index} (session preference)`);
+          }
         }
       });
     }
@@ -147,8 +162,12 @@ export default function ProductSlider() {
     
     if (node) {
       // Ensure all required attributes for cross-browser autoplay
-      node.muted = true;
-      node.setAttribute('muted', '');
+      // Only force mute if user hasn't explicitly unmuted
+      if (!userExplicitlyUnmutedRef.current) {
+        node.muted = true;
+        node.setAttribute('muted', '');
+        setIsMuted(true);
+      }
       node.setAttribute('playsinline', '');
       node.setAttribute('playsInline', '');
       node.setAttribute('webkit-playsinline', '');
@@ -197,8 +216,16 @@ export default function ProductSlider() {
           if (targetVideo && !autoplayBlockedRef.current) {
             console.log(`[TRANSITION] Resuming autoplay after transition for video ${targetIndex}`);
             safeMutedPlay(targetVideo, targetIndex).then(() => {
-              if (userUnmutedSessionRef.current) {
+              // Apply session preference after play starts
+              if (userExplicitlyUnmutedRef.current) {
                 setTimeout(() => safeUnmuteAttempt(targetVideo, targetIndex), 100);
+              } else {
+                // Ensure muted if session prefers muted
+                if (!targetVideo.muted) {
+                  targetVideo.muted = true;
+                  setIsMuted(true);
+                  console.log(`[TRANSITION] Enforcing muted state for video ${targetIndex} (session preference)`);
+                }
               }
             });
           }
@@ -229,7 +256,7 @@ export default function ProductSlider() {
     }
   }, [activeCategory]);
 
-  // Handle unmute toggle
+  // Handle unmute toggle - robust toggle that respects user intent
   const handleUnmuteToggle = useCallback(async (e?: React.MouseEvent | React.KeyboardEvent | React.TouchEvent) => {
     if (e) {
       e.stopPropagation();
@@ -245,19 +272,31 @@ export default function ProductSlider() {
     }
     
     try {
-      console.log(`[UNMUTE] User toggle mute: ${currentVideo.muted ? 'unmuting' : 'muting'}`);
+      // Read actual DOM property to get current state
+      const nowMuted = !currentVideo.muted;
       
-      // Toggle mute state
-      currentVideo.muted = !currentVideo.muted;
+      console.log(`[UI] Sound toggle clicked: nowMuted=${nowMuted}`);
+      console.log(`[UI] Current video.muted=${currentVideo.muted}, toggling to ${nowMuted}`);
       
-      // Update session preference
-      if (!currentVideo.muted) {
-        userUnmutedSessionRef.current = true;
-        console.log(`[SESSION] userUnmutedSession = true`);
+      // Toggle mute state on DOM element
+      currentVideo.muted = nowMuted;
+      
+      // Immediately update React state for UI sync
+      setIsMuted(nowMuted);
+      
+      // Update session preference based on user's explicit choice
+      if (nowMuted === false) {
+        // User unmuted - remember this preference
+        userExplicitlyUnmutedRef.current = true;
+        console.log(`[SESSION] userExplicitlyUnmuted = true`);
+      } else {
+        // User muted - clear preference so autoplay will mute
+        userExplicitlyUnmutedRef.current = false;
+        console.log(`[SESSION] userExplicitlyUnmuted = false`);
       }
       
-      // Success
-      console.log(`[UNMUTE] Success - Video ${activeCategory} ${currentVideo.muted ? 'muted' : 'unmuted'}`);
+      // Success - UI and DOM are now in sync
+      console.log(`[UNMUTE] Success - Video ${activeCategory} ${nowMuted ? 'muted' : 'unmuted'}, UI updated`);
       
     } catch (error: any) {
       console.error(`[UNMUTE] Failed to toggle mute:`, error);
@@ -265,6 +304,14 @@ export default function ProductSlider() {
       alert('Browser requires a direct gesture to enable sound. Tap play to enable audio.');
     }
   }, [activeCategory]);
+  
+  // Keyboard handler for unmute toggle
+  const handleUnmuteKeyDown = useCallback((e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      handleUnmuteToggle(e);
+    }
+  }, [handleUnmuteToggle]);
 
   // Swipe detection logic
   const minSwipeDistance = 50;
@@ -435,7 +482,9 @@ export default function ProductSlider() {
       <button 
         className="fixed left-2 sm:left-4 md:left-6 lg:left-8 top-[150px] z-[100] cursor-pointer group focus:outline-none focus:ring-2 focus:ring-white/50 rounded-full" 
         onClick={handleUnmuteToggle}
+        onKeyDown={handleUnmuteKeyDown}
         type="button"
+        tabIndex={0}
         aria-label={isMuted ? 'Enable sound' : 'Mute'}
         aria-pressed={!isMuted}
       >
