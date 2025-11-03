@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://ionora.in'),
   title: 'IONORA - Premium Water Ionizer Marketplace',
   description: 'Discover premium water ionizers from world-leading brands',
-  keywords: ['water ionizer', 'alkaline water', 'ionized water', 'Life Ionizers', 'Mediqua', 'Medisoul', 'Tycoon', 'Kyron'],
+  keywords: ['water ionizer', 'alkaline water', 'ionized water', 'Life Ionizers™', 'Mediqua™', 'Medisoul™', 'Tycoon', 'Kyron'],
   authors: [{ name: 'IONORA' }],
   creator: 'IONORA',
   publisher: 'IONORA',
@@ -59,7 +59,7 @@ export default function RootLayout({
           <Navigation />
 
           {/* Page content (offset for fixed nav) */}
-          <main className="pt-16 sm:pt-18 md:pt-20 lg:pt-24 xl:pt-28 2xl:pt-32">
+          <main className="pt-16 sm:pt-20 md:pt-24">
             {children}
           </main>
 

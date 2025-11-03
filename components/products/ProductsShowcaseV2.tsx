@@ -16,6 +16,7 @@ type Props = {
 export default function ProductsShowcaseV2({ initialBrand }: Props) {
   const [activeBrand, setActiveBrand] = useState(initialBrand || 'all');
   const [activeCategory, setActiveCategory] = useState('all');
+  const [activeInstallation, setActiveInstallation] = useState('all');
   const [quickViewProduct, setQuickViewProduct] = useState<any | null>(null);
   const [compareTray, setCompareTray] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -40,9 +41,23 @@ export default function ProductsShowcaseV2({ initialBrand }: Props) {
       filteredProducts = filteredProducts.filter(p => p.brand === brandName);
     }
     
+    // Filter by installation type
+    if (activeInstallation !== 'all') {
+      filteredProducts = filteredProducts.filter(p => {
+        if (!p.installation) return false;
+        const installation = p.installation.toLowerCase();
+        if (activeInstallation === 'Counter Top') {
+          return installation.includes('counter top');
+        } else if (activeInstallation === 'Under Counter') {
+          return installation.includes('under counter');
+        }
+        return true;
+      });
+    }
+    
     // Sort by version number (highest first)
     return sortProductsByVersion(filteredProducts);
-  }, [activeBrand, activeCategory]);
+  }, [activeBrand, activeCategory, activeInstallation]);
 
   const productsByBrand = useMemo(() => {
     const groups: Record<string, any[]> = {};
@@ -108,6 +123,8 @@ export default function ProductsShowcaseV2({ initialBrand }: Props) {
         onBrandChange={setActiveBrand}
         activeCategory={activeCategory}
         onCategoryChange={setActiveCategory}
+        activeInstallation={activeInstallation}
+        onInstallationChange={setActiveInstallation}
       />
 
       {/* Products by Brand */}

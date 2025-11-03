@@ -115,6 +115,12 @@ export default function BrandShowcaseSection({
                   </div>
                 </div>
 
+                <div className="mb-4">
+                  <p className="text-center text-lg font-bold text-[#EBEBEB]">
+                    {product.price ? `₹${product.price.toLocaleString('en-IN')}` : 'Contact for Price'}
+                  </p>
+                </div>
+                
                 <div className="flex gap-3">
                   <button
                     onClick={() => onViewDetails(product)}

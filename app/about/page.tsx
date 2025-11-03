@@ -4,11 +4,12 @@ import BrandPillars from "@/components/about/BrandPillars";
 import StatsBar from "@/components/about/StatsBar";
 import HeritageStrip from "@/components/about/HeritageStrip";
 import ClosingCTA from "@/components/about/ClosingCTA";
+import CertificatesShowcase from "@/components/CertificatesShowcase";
 
 export const metadata: Metadata = {
   title: "About IONORA",
   description:
-    "Ionora International Private Limited transforms water into life-enhancing energy through trusted alkaline water ionizers from Life Ionizers, Mediqua and Medisoul.",
+    "Ionora International Private Limited transforms water into life-enhancing energy through trusted alkaline water ionizers from Life Ionizers™, Mediqua™ and Medisoul™.",
 };
 
 export default function AboutPage() {
@@ -33,7 +34,7 @@ export default function AboutPage() {
             </h1>
             
             <p className="text-xl md:text-2xl text-[#E5E5E5] leading-relaxed max-w-2xl mb-8">
-              Trusted alkaline water ionizers from Life Ionizers, Mediqua and Medisoul.
+              Trusted alkaline water ionizers from Life Ionizers™, Mediqua™ and Medisoul™.
             </p>
 
             {/* Scroll Indicator */}
@@ -73,6 +74,11 @@ export default function AboutPage() {
         <div className="mx-auto max-w-7xl px-6">
           <HeritageStrip />
         </div>
+      </section>
+
+      {/* CERTIFICATES */}
+      <section className="relative py-16 md:py-20">
+        <CertificatesShowcase />
       </section>
 
       {/* CTA */}

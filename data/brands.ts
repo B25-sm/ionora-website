@@ -16,7 +16,7 @@ export const BRANDS: Array<{
 }> = [
   { 
     id: 'life-ionizers-india', 
-    name: 'Life Ionizers', 
+    name: 'Life Ionizers™', 
     country: 'USA', 
     tagline: 'Pioneer of Innovation',
     description: `Nu-tech Water Systems LLC has been manufacturing and distributing alkaline water ionizers under the brand name Life Ionizers™ for 29 years. We believe that the essence of true health, vitality, and longevity flows from the purest gift of nature – water. For over two decades, we have stood as pioneers of innovation, transforming simple drinking water into a source of extraordinary power – rich in antioxidants, alkaline in nature, and crafted to nourish the body, awaken the mind, and uplift the soul.`,
@@ -35,7 +35,7 @@ export const BRANDS: Array<{
   },
   { 
     id: 'mediqua-india', 
-    name: 'Mediqua', 
+    name: 'Mediqua™', 
     country: 'Korea', 
     tagline: 'Clinical Precision',
     description: `Jinnys Co., Ltd manufactures Alkaline water ionizers as medical devices, with recognition for suitability for medical device manufacturing and quality control standards (GMP). We are growing mainly around exports to Italy, India, and South-east Asia. We have won various awards from government agencies and organizations in Korea and received the 'Tower of 1 Million Dollar Export' in 2017. We are currently exporting to more than 55 countries and are committed to becoming a leading player in the export market.`,
@@ -52,7 +52,7 @@ export const BRANDS: Array<{
   },
   { 
     id: 'medisoul-india', 
-    name: 'Medisoul', 
+    name: 'Medisoul™', 
     country: 'Korea', 
     tagline: 'Wellness Engineering',
     description: `Mirko Co. Ltd., based in South Korea, is a pioneering manufacturer of alkaline water ionizers with over 15 years of expertise in water technology. Guided by a vision to improve global wellness through innovation, Mirko has developed its own flagship brand — MEDISOUL™ — a name that embodies the harmony between medicine and soul, reflecting water's vital role in human health and balance. Every Medisoul ionizer is engineered with precision, powered by advanced Korean ionization technology, and crafted to deliver pure, alkaline, antioxidant-rich water that revitalizes the body and supports a healthier lifestyle.`,
@@ -64,7 +64,7 @@ export const BRANDS: Array<{
       'To build trusted partnerships with distributors and wellness brands worldwide, grounded in integrity, service excellence, and mutual growth',
       'To uphold Mirko\'s 15-year legacy of quality, craftsmanship, and innovation, ensuring that every drop of water reflects our dedication to health and purity'
     ],
-    logo: '/images/products/medisoul/mslblack11.png',
+    logo: '/images/products/medisoul/medisoul-logo.png',
     mainImage: '/images/products/medisoul/mslblack11.png',
     featured: true,
     productCount: 24

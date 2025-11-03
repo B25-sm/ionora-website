@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { ArrowLeft, CheckCircle, Star, Shield, Zap, Droplets, Settings, Award } from "lucide-react";
 import Link from "next/link";
 import products from "@/data/products";
+import CompleteSpecifications from "@/components/CompleteSpecifications";
 
 export default async function ProductDetails({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
@@ -19,21 +20,21 @@ export default async function ProductDetails({ params }: { params: Promise<{ id:
 
   // Create comprehensive specifications array
   const specifications = [
-    { label: "Plates", value: product.plates, icon: <Settings className="w-5 h-5" /> },
-    { label: "pH Range", value: product.phRange, icon: <Droplets className="w-5 h-5" /> },
-    { label: "ORP", value: product.orp, icon: <Zap className="w-5 h-5" /> },
-    { label: "Drinkable ORP", value: product.orpDrink, icon: <Droplets className="w-5 h-5" /> },
-    { label: "Power", value: product.power, icon: <Zap className="w-5 h-5" /> },
-    { label: "Warranty", value: product.warranty, icon: <Shield className="w-5 h-5" /> },
-    { label: "Installation", value: product.installation, icon: <Settings className="w-5 h-5" /> },
-    { label: "Dimensions", value: product.dimensions, icon: <Settings className="w-5 h-5" /> },
-    { label: "Voltage", value: product.internationalVoltage, icon: <Zap className="w-5 h-5" /> },
-    { label: "Membrane Technology", value: product.microMembrane, icon: <Settings className="w-5 h-5" /> },
-    { label: "Filtration", value: product.filters, icon: <Droplets className="w-5 h-5" /> },
-    { label: "Filter System", value: product.oneClickFilter, icon: <Settings className="w-5 h-5" /> },
-    { label: "Self-Cleaning", value: product.cleaning, icon: <Settings className="w-5 h-5" /> },
-    { label: "Color Options", value: product.colorOptions, icon: <Star className="w-5 h-5" /> },
-    { label: "Hydrogen Content", value: product.hydrogen, icon: <Droplets className="w-5 h-5" /> },
+    { label: "Plates", value: product.plates, icon: Settings },
+    { label: "pH Range", value: product.phRange, icon: Droplets },
+    { label: "ORP", value: product.orp, icon: Zap },
+    { label: "Drinkable ORP", value: product.orpDrink, icon: Droplets },
+    { label: "Power", value: product.power, icon: Zap },
+    { label: "Warranty", value: product.warranty, icon: Shield },
+    { label: "Installation", value: product.installation, icon: Settings },
+    { label: "Dimensions", value: product.dimensions, icon: Settings },
+    { label: "Voltage", value: product.internationalVoltage, icon: Zap },
+    { label: "Membrane Technology", value: product.microMembrane, icon: Settings },
+    { label: "Filtration", value: product.filters, icon: Droplets },
+    { label: "Filter System", value: product.oneClickFilter, icon: Settings },
+    { label: "Self-Cleaning", value: product.cleaning, icon: Settings },
+    { label: "Color Options", value: product.colorOptions, icon: Star },
+    { label: "Hydrogen Content", value: product.hydrogen, icon: Droplets },
   ].filter(spec => spec.value); // Only show specifications that have values
 
   return (
@@ -71,7 +72,7 @@ export default async function ProductDetails({ params }: { params: Promise<{ id:
               <div className="bg-gradient-to-r from-[#EBEBEB]/20 to-[#EBEBEB]/10 rounded-2xl p-6 border border-[#EBEBEB]/30">
                 <div className="text-center">
                   <p className="text-[#EBEBEB] text-sm font-medium mb-2">Starting Price</p>
-                  <p className="text-4xl font-bold text-white">₹{product.price.toLocaleString()}</p>
+                  <p className="text-4xl font-bold text-white">₹{product.price.toLocaleString('en-IN')}</p>
                   <p className="text-white/70 text-sm mt-2">Including GST at 18%</p>
                 </div>
               </div>
@@ -152,20 +153,14 @@ export default async function ProductDetails({ params }: { params: Promise<{ id:
 
         {/* Detailed Specifications */}
         <div className="mt-20">
-          <h2 className="text-3xl font-bold mb-8 text-center">Complete Specifications</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {specifications.map((spec, index) => (
-              <div key={index} className="bg-white/5 rounded-xl p-6 border border-white/10 hover:bg-white/10 transition-all duration-200">
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="text-[#EBEBEB]">
-                    {spec.icon}
-                  </div>
-                  <span className="font-semibold text-white">{spec.label}</span>
-                </div>
-                <p className="text-white/80 leading-relaxed">{spec.value}</p>
-              </div>
-            ))}
-          </div>
+          <CompleteSpecifications
+            specifications={specifications.map((spec) => ({
+              label: spec.label,
+              value: spec.value as string,
+              icon: spec.icon,
+            }))}
+            title="Complete Specifications"
+          />
         </div>
 
         {/* Benefits Section */}

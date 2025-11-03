@@ -236,7 +236,7 @@ function ComparePageContent() {
                 <div className="space-y-2 text-sm">
                   <div className="flex justify-between">
                     <span className="text-white/70">Price:</span>
-                    <span className="font-semibold">₹{product.price?.toLocaleString() || 'N/A'}</span>
+                    <span className="font-semibold">₹{product.price?.toLocaleString('en-IN') || 'N/A'}</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-white/70">Category:</span>
@@ -312,7 +312,7 @@ function ComparePageContent() {
                           <td key={`${product.id}-${spec.key}`} className="px-6 py-4 text-center">
                             {spec.key === 'price' && value ? (
                               <span className={`font-semibold ${isBestValue ? 'text-green-400' : 'text-[#EBEBEB]'}`}>
-                                ₹{Number(value).toLocaleString()}
+                                ₹{Number(value).toLocaleString('en-IN')}
                                 {isBestValue && <span className="ml-1 text-xs">✓</span>}
                               </span>
                             ) : spec.key === 'brand' ? (
@@ -520,7 +520,7 @@ function ComparePageContent() {
                             <span className="text-xs text-white/60">{product.installation || 'N/A'}</span>
                           </div>
                           {product.price && (
-                            <p className="text-sm font-semibold text-[#EBEBEB] mt-1">₹{product.price.toLocaleString()}</p>
+                            <p className="text-sm font-semibold text-[#EBEBEB] mt-1">₹{product.price.toLocaleString('en-IN')}</p>
                           )}
                         </div>
                         {isSelected && (

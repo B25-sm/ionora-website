@@ -154,7 +154,7 @@ export default function Navigation() {
 
         {/* Dropdown menu - Always visible when open */}
         {menuOpen && (
-          <div ref={menuRef} className="absolute right-0 top-full mt-2 w-80 bg-white/95 backdrop-blur-sm rounded-xl shadow-2xl border border-white/20 py-2 z-50 animate-in slide-in-from-top-2 duration-200">
+          <div ref={menuRef} className="absolute right-0 top-full mt-2 w-full max-w-sm sm:w-80 bg-white/95 backdrop-blur-sm rounded-xl shadow-2xl border border-white/20 py-2 z-50 animate-in slide-in-from-top-2 duration-200">
             <div className="flex flex-col">
               {/* Products with Brands Dropdown */}
               <div 
@@ -164,7 +164,7 @@ export default function Navigation() {
               >
                 <Link 
                   href="/products" 
-                className={`px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/20 transition-all duration-200 rounded-lg text-base font-medium ${
+                className={`px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/20 transition-all duration-200 rounded-lg text-sm sm:text-base font-medium ${
                   pathname === '/products' ? 'text-blue-600 bg-blue-50' : ''
                 }`}
                 >
@@ -173,7 +173,7 @@ export default function Navigation() {
                 
                 {/* Brands Dropdown */}
                 {productsHovered && (
-                  <div className="absolute right-full top-0 mr-2 w-72 bg-white/95 backdrop-blur-sm rounded-lg shadow-xl border border-white/20 py-1 z-50 animate-in slide-in-from-right-2 duration-200">
+                  <div className="absolute left-0 sm:right-full sm:left-auto top-full sm:top-0 sm:mr-2 mt-1 sm:mt-0 w-full sm:w-64 sm:w-72 bg-white/95 backdrop-blur-sm rounded-lg shadow-xl border border-white/20 py-1 z-50 animate-in slide-in-from-right-2 duration-200 max-h-[80vh] overflow-y-auto">
                     <div className="flex flex-col">
                       {BRANDS.filter(brand => brand.featured === true || brand.featured === undefined).map((brand) => (
                         <div
@@ -186,7 +186,7 @@ export default function Navigation() {
                             onClick={() => setMenuOpen(false)}
                           >
                             <div className="flex flex-col">
-                              <span className="font-medium">{brand.name}</span>
+                              <span className="font-medium text-sm sm:text-base">{brand.name}</span>
                               <span className="text-xs text-gray-500">{brand.tagline}</span>
                             </div>
                           </Link>
@@ -200,7 +200,7 @@ export default function Navigation() {
 
               <Link 
                 href="/brands" 
-                className={`px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/20 transition-all duration-200 rounded-lg text-base font-medium ${
+                className={`px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/20 transition-all duration-200 rounded-lg text-sm sm:text-base font-medium ${
                   pathname === '/brands' ? 'text-blue-600 bg-blue-50' : ''
                 }`}
                 onClick={() => setMenuOpen(false)}
@@ -209,7 +209,7 @@ export default function Navigation() {
               </Link>
               <Link 
                 href="/technology" 
-                className={`px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/20 transition-all duration-200 rounded-lg text-base font-medium ${
+                className={`px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/20 transition-all duration-200 rounded-lg text-sm sm:text-base font-medium ${
                   pathname === '/technology' ? 'text-blue-600 bg-blue-50' : ''
                 }`}
                 onClick={() => setMenuOpen(false)}
@@ -218,7 +218,7 @@ export default function Navigation() {
               </Link>
               <Link 
                 href="/about" 
-                className={`px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/20 transition-all duration-200 rounded-lg text-base font-medium ${
+                className={`px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/20 transition-all duration-200 rounded-lg text-sm sm:text-base font-medium ${
                   pathname === '/about' ? 'text-blue-600 bg-blue-50' : ''
                 }`}
                 onClick={() => setMenuOpen(false)}
@@ -233,7 +233,7 @@ export default function Navigation() {
               >
                 <Link 
                   href="/ionizer" 
-                  className={`px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/20 transition-all duration-200 rounded-lg text-base font-medium ${
+                  className={`px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/20 transition-all duration-200 rounded-lg text-sm sm:text-base font-medium ${
                     pathname === '/ionizer' ? 'text-blue-600 bg-blue-50' : ''
                   }`}
                   onClick={() => setMenuOpen(false)}
@@ -243,32 +243,32 @@ export default function Navigation() {
                 
                 {/* Ionizer Dropdown */}
                 {ionizerHovered && (
-                  <div className="absolute right-full top-0 mr-2 w-72 bg-white/95 backdrop-blur-sm rounded-lg shadow-xl border border-white/20 py-1 z-50 animate-in slide-in-from-right-2 duration-200">
+                  <div className="absolute left-0 sm:right-full sm:left-auto top-full sm:top-0 sm:mr-2 mt-1 sm:mt-0 w-full sm:w-64 sm:w-72 bg-white/95 backdrop-blur-sm rounded-lg shadow-xl border border-white/20 py-1 z-50 animate-in slide-in-from-right-2 duration-200 max-h-[80vh] overflow-y-auto">
                     <div className="flex flex-col">
                       <Link 
                         href="/ionizer/ph"
-                        className="px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/20 transition-all duration-200 rounded-lg"
+                        className="px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/20 transition-all duration-200 rounded-lg text-sm sm:text-base"
                         onClick={() => setMenuOpen(false)}
                       >
                         What is pH
                       </Link>
                       <Link 
                         href="/ionizer/orp"
-                        className="px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/20 transition-all duration-200 rounded-lg"
+                        className="px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/20 transition-all duration-200 rounded-lg text-sm sm:text-base"
                         onClick={() => setMenuOpen(false)}
                       >
                         What is ORP
                       </Link>
                       <Link 
                         href="/ionizer/what-is-ionizer"
-                        className="px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/20 transition-all duration-200 rounded-lg"
+                        className="px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/20 transition-all duration-200 rounded-lg text-sm sm:text-base"
                         onClick={() => setMenuOpen(false)}
                       >
                         What is Ionizer
                       </Link>
                       <Link 
                         href="/ionizer/how-it-works"
-                        className="px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/20 transition-all duration-200 rounded-lg"
+                        className="px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/20 transition-all duration-200 rounded-lg text-sm sm:text-base"
                         onClick={() => setMenuOpen(false)}
                       >
                         How Ionizer Works
@@ -286,7 +286,7 @@ export default function Navigation() {
               >
                 <Link 
                   href="/properties" 
-                  className={`px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/20 transition-all duration-200 rounded-lg text-base font-medium ${
+                  className={`px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/20 transition-all duration-200 rounded-lg text-sm sm:text-base font-medium ${
                     pathname === '/properties' ? 'text-blue-600 bg-blue-50' : ''
                   }`}
                   onClick={() => setMenuOpen(false)}
@@ -296,60 +296,60 @@ export default function Navigation() {
                 
                 {/* Properties Dropdown */}
                 {propertiesHovered && (
-                  <div className="absolute right-full top-0 mr-2 w-72 bg-white/95 backdrop-blur-sm rounded-lg shadow-xl border border-white/20 py-1 z-50 animate-in slide-in-from-right-2 duration-200">
+                  <div className="absolute left-0 sm:right-full sm:left-auto top-full sm:top-0 sm:mr-2 mt-1 sm:mt-0 w-full sm:w-64 sm:w-72 bg-white/95 backdrop-blur-sm rounded-lg shadow-xl border border-white/20 py-1 z-50 animate-in slide-in-from-right-2 duration-200 max-h-[80vh] overflow-y-auto">
                     <div className="flex flex-col">
                       <Link 
                         href="/properties/micro-cluster"
-                        className="px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/20 transition-all duration-200 rounded-lg"
+                        className="px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/20 transition-all duration-200 rounded-lg text-sm sm:text-base"
                         onClick={() => setMenuOpen(false)}
                       >
                         Micro Cluster
                       </Link>
                       <Link 
                         href="/properties/molecular-hydrogen"
-                        className="px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/20 transition-all duration-200 rounded-lg"
+                        className="px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/20 transition-all duration-200 rounded-lg text-sm sm:text-base"
                         onClick={() => setMenuOpen(false)}
                       >
                         Molecular Hydrogen
                       </Link>
                       <Link 
                         href="/properties/anti-oxidation"
-                        className="px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/20 transition-all duration-200 rounded-lg"
+                        className="px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/20 transition-all duration-200 rounded-lg text-sm sm:text-base"
                         onClick={() => setMenuOpen(false)}
                       >
                         Anti Oxidation (Oxidation and Oxidative stress)
                       </Link>
                       <Link 
                         href="/properties/alkalinization"
-                        className="px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/20 transition-all duration-200 rounded-lg"
+                        className="px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/20 transition-all duration-200 rounded-lg text-sm sm:text-base"
                         onClick={() => setMenuOpen(false)}
                       >
                         Alkalinization
                       </Link>
                       <Link 
                         href="/properties/detoxifying"
-                        className="px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/20 transition-all duration-200 rounded-lg"
+                        className="px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/20 transition-all duration-200 rounded-lg text-sm sm:text-base"
                         onClick={() => setMenuOpen(false)}
                       >
                         Detoxifying
                       </Link>
                       <Link 
                         href="/properties/hydration"
-                        className="px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/20 transition-all duration-200 rounded-lg"
+                        className="px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/20 transition-all duration-200 rounded-lg text-sm sm:text-base"
                         onClick={() => setMenuOpen(false)}
                       >
                         Hydration
                       </Link>
                       <Link 
                         href="/properties/anti-inflammatory"
-                        className="px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/20 transition-all duration-200 rounded-lg"
+                        className="px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/20 transition-all duration-200 rounded-lg text-sm sm:text-base"
                         onClick={() => setMenuOpen(false)}
                       >
                         Anti-Inflammatory
                       </Link>
                       <Link 
                         href="/properties/free-radicals"
-                        className="px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/20 transition-all duration-200 rounded-lg"
+                        className="px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/20 transition-all duration-200 rounded-lg text-sm sm:text-base"
                         onClick={() => setMenuOpen(false)}
                       >
                         Free-radicals (What is free radicals, How oxygen free-radicals affect human health)
@@ -367,7 +367,7 @@ export default function Navigation() {
               >
                 <Link 
                   href="/uses" 
-                  className={`px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/20 transition-all duration-200 rounded-lg text-base font-medium ${
+                  className={`px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/20 transition-all duration-200 rounded-lg text-sm sm:text-base font-medium ${
                     pathname === '/uses' ? 'text-blue-600 bg-blue-50' : ''
                   }`}
                   onClick={() => setMenuOpen(false)}
@@ -377,25 +377,25 @@ export default function Navigation() {
                 
                 {/* Uses Dropdown */}
                 {usesHovered && (
-                  <div className="absolute right-full top-0 mr-2 w-72 bg-white/95 backdrop-blur-sm rounded-lg shadow-xl border border-white/20 py-1 z-50 animate-in slide-in-from-right-2 duration-200">
+                  <div className="absolute left-0 sm:right-full sm:left-auto top-full sm:top-0 sm:mr-2 mt-1 sm:mt-0 w-full sm:w-64 sm:w-72 bg-white/95 backdrop-blur-sm rounded-lg shadow-xl border border-white/20 py-1 z-50 animate-in slide-in-from-right-2 duration-200 max-h-[80vh] overflow-y-auto">
                     <div className="flex flex-col">
                       <Link 
                         href="/uses/food-livestock-agricultural"
-                        className="px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/20 transition-all duration-200 rounded-lg"
+                        className="px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/20 transition-all duration-200 rounded-lg text-sm sm:text-base"
                         onClick={() => setMenuOpen(false)}
                       >
                         Electrolysis Ionized Water for Food, Livestock and Agricultural
                       </Link>
                       <Link 
                         href="/uses/semiconductor-cleaning"
-                        className="px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/20 transition-all duration-200 rounded-lg"
+                        className="px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/20 transition-all duration-200 rounded-lg text-sm sm:text-base"
                         onClick={() => setMenuOpen(false)}
                       >
                         Ionized Water for High End Semiconductor Cleaning
                       </Link>
                       <Link 
                         href="/uses/ro-vs-ionized"
-                        className="px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/20 transition-all duration-200 rounded-lg"
+                        className="px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/20 transition-all duration-200 rounded-lg text-sm sm:text-base"
                         onClick={() => setMenuOpen(false)}
                       >
                         Difference between RO and Ionized Water
@@ -406,7 +406,7 @@ export default function Navigation() {
               </div>
               <Link 
                 href="/products/compare" 
-                className={`px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/20 transition-all duration-200 rounded-lg text-base font-medium ${
+                className={`px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/20 transition-all duration-200 rounded-lg text-sm sm:text-base font-medium ${
                   pathname === '/products/compare' ? 'text-blue-600 bg-blue-50' : ''
                 }`}
                 onClick={() => setMenuOpen(false)}
@@ -415,7 +415,7 @@ export default function Navigation() {
               </Link>
               <div className="border-t border-gray-200 my-1"></div>
               <button 
-                className="px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/20 transition-all duration-200 rounded-lg flex items-center gap-2 text-base font-medium"
+                className="px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/20 transition-all duration-200 rounded-lg flex items-center gap-2 text-sm sm:text-base font-medium"
                 onClick={() => setMenuOpen(false)}
               >
                 <ShoppingBag className="h-5 w-5" />

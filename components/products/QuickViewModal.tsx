@@ -49,7 +49,7 @@ export default function QuickViewModal({ product, onClose }: Props) {
           <div>
             <h3 className="text-2xl md:text-3xl font-bold text-[#0A2238] drop-shadow-sm">{product.name}</h3>
             {product.series && <p className="text-[#0A2238]/70 mt-1">{product.series}</p>}
-            {product.price && <p className="mt-3 text-lg text-[#0A2238] font-semibold">₹{product.price.toLocaleString()}</p>}
+            {product.price && <p className="mt-3 text-lg text-[#0A2238] font-semibold">₹{product.price.toLocaleString('en-IN')}</p>}
 
             {product.features?.length ? (
               <ul className="mt-4 list-disc list-inside space-y-1 text-[#0A2238]">

@@ -46,7 +46,7 @@ export default function EditorDesk() {
           className="space-y-6"
         >
           <p className="text-lg leading-relaxed">
-            At <strong className="text-[#0A0F2C]">Ionora International Private Limited</strong>, we believe that true vitality flows from nature's purest gift — water. Our mission is to transform this simple element into a source of life-enhancing energy through the world's most trusted alkaline water ionizers from <strong className="text-[#0A0F2C]">Life Ionizers, Mediqua, and Medisoul Water Ionizers</strong>.
+            At <strong className="text-[#0A0F2C]">Ionora International Private Limited</strong>, we believe that true vitality flows from nature's purest gift — water. Our mission is to transform this simple element into a source of life-enhancing energy through the world's most trusted alkaline water ionizers from <strong className="text-[#0A0F2C]">Life Ionizers™, Mediqua™, and Medisoul™ Water Ionizers</strong>.
           </p>
 
           <p className="text-lg leading-relaxed">
@@ -87,7 +87,7 @@ export default function EditorDesk() {
             <ul className="space-y-2 text-[#0A0F2C]/90">
               <li className="flex items-start gap-3">
                 <span className="text-[#FFD100] font-bold mt-1">•</span>
-                <span>To bring globally renowned brands such as Life Ionizers, Mediqua, KYK, and Kangen Water Ionizers to customers seeking premium alkaline water solutions for better health and wellness.</span>
+                <span>To bring globally renowned brands such as Life Ionizers™, Mediqua™, KYK, and Kangen Water Ionizers to customers seeking premium alkaline water solutions for better health and wellness.</span>
               </li>
               <li className="flex items-start gap-3">
                 <span className="text-[#FFD100] font-bold mt-1">•</span>

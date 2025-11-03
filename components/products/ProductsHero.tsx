@@ -1,7 +1,7 @@
 'use client';
 
 import { useMemo } from 'react';
-import { Sparkles, Home, Building2 } from 'lucide-react';
+import { Sparkles, Home, Building2, LayoutGrid, Underline } from 'lucide-react';
 import { BRANDS } from '@/data/brands';
 
 type Props = {
@@ -9,14 +9,22 @@ type Props = {
   onBrandChange: (brand: string) => void;
   activeCategory: string;
   onCategoryChange: (category: string) => void;
+  activeInstallation?: string;
+  onInstallationChange?: (installation: string) => void;
 };
 
-export default function ProductsHero({ activeBrand, onBrandChange, activeCategory, onCategoryChange }: Props) {
+export default function ProductsHero({ activeBrand, onBrandChange, activeCategory, onCategoryChange, activeInstallation = 'all', onInstallationChange }: Props) {
 
   const categoryTabs = useMemo(() => [
     { id: 'all', name: 'All Categories', icon: Sparkles },
     { id: 'Residential', name: 'Residential', icon: Home },
     { id: 'Commercial', name: 'Commercial', icon: Building2 }
+  ], []);
+
+  const installationTabs = useMemo(() => [
+    { id: 'all', name: 'All Types', icon: Sparkles },
+    { id: 'Counter Top', name: 'Counter Top', icon: LayoutGrid },
+    { id: 'Under Counter', name: 'Under Counter', icon: Underline }
   ], []);
 
   const brandTabs = useMemo(() => [
@@ -55,7 +63,7 @@ export default function ProductsHero({ activeBrand, onBrandChange, activeCategor
       </div>
 
       {/* Category Tabs */}
-      <div className="max-w-7xl mx-auto px-4 mb-12">
+      <div className="max-w-7xl mx-auto px-4 mb-8">
         <div className="flex flex-wrap gap-3 justify-center">
           {categoryTabs.map((category) => {
             const Icon = category.icon;
@@ -81,6 +89,36 @@ export default function ProductsHero({ activeBrand, onBrandChange, activeCategor
           })}
         </div>
       </div>
+
+      {/* Installation Type Tabs */}
+      {onInstallationChange && (
+        <div className="max-w-7xl mx-auto px-4 mb-12">
+          <div className="flex flex-wrap gap-3 justify-center">
+            {installationTabs.map((installation) => {
+              const Icon = installation.icon;
+              const isActive = activeInstallation === installation.id;
+              return (
+                <button
+                  key={installation.id}
+                  onClick={() => onInstallationChange(installation.id)}
+                  className={`
+                    group relative px-6 py-3 rounded-2xl border transition-all duration-300
+                    ${isActive 
+                      ? 'bg-[#EBEBEB] border-[#0A2238] text-[#0A2238]' 
+                      : 'bg-[#0A2238] border-[#0A2238] text-[#EBEBEB] hover:bg-[#EBEBEB] hover:text-[#0A2238]'
+                    }
+                  `}
+                >
+                  <div className="flex items-center gap-2">
+                    <Icon className={`w-4 h-4 transition-transform group-hover:scale-110 ${isActive ? 'text-[#0A2238]' : 'text-[#EBEBEB]'}`} />
+                    <span className="font-medium">{installation.name}</span>
+                  </div>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      )}
 
       {/* Hero Content */}
       <div className="max-w-7xl mx-auto px-4 text-center mb-16">

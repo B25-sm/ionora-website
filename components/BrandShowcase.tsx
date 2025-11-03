@@ -1,21 +1,34 @@
 "use client";
 import Link from "next/link";
 import React from "react";
+import Image from "next/image";
 
 const brands = [
-  { id: "life", title: "Life Ionizers India", subtitle: "Pioneer of Innovation", models: 11, country: "India", colorFrom: "bg-primary", colorTo: "" },
-  { id: "mediqua", title: "Mediqua India", subtitle: "Clinical Precision", models: 8, country: "Korea", colorFrom: "bg-primary", colorTo: "" },
-  { id: "medisoul", title: "Medisoul India", subtitle: "Wellness Engineering (incl. Kyron & Tycoon)", models: 24, country: "Korea", colorFrom: "bg-primary", colorTo: "" },
+  { 
+    id: "life-ionizers-india", 
+    title: "LIFE IONIZERS USA", 
+    subtitle: "Pioneer of Innovation", 
+    models: 11, 
+    country: "USA",
+    logo: "/images/ionora-logo.png"
+  },
+  { 
+    id: "mediqua-india", 
+    title: "MEDIQUA KOREA", 
+    subtitle: "Clinical Precision", 
+    models: 8, 
+    country: "Korea",
+    logo: "/images/products/mediqua/ak-3000.png"
+  },
+  { 
+    id: "medisoul-india", 
+    title: "MEDISOUL KOREA", 
+    subtitle: "Wellness Engineering (incl. Kyron & Tycoon)", 
+    models: 24, 
+    country: "Korea",
+    logo: "/images/products/medisoul/medisoul-logo.png"
+  },
 ];
-
-function InitialBadge({ title, from, to }: { title: string; from: string; to: string }) {
-  const initial = title.trim().split(" ").map(s => s[0]).slice(0,2).join("").toUpperCase();
-  return (
-    <div className={`w-16 h-16 rounded-xl flex items-center justify-center ring-1 ring-primary/10 ${from} text-bg font-bold shadow-md`}>
-      <span className="text-lg">{initial}</span>
-    </div>
-  );
-}
 
 function BrandCard({ b }: { b: typeof brands[number] }) {
   return (
@@ -24,14 +37,30 @@ function BrandCard({ b }: { b: typeof brands[number] }) {
       className="relative flex flex-col justify-between p-7 rounded-3xl border border-primary/20 backdrop-blur-sm bg-primary/10 hover:translate-y-[-6px] transition-transform duration-400 shadow-xl"
     >
       <div className="flex items-start gap-4">
-        <InitialBadge title={b.title} from={b.colorFrom} to={b.colorTo} />
-        <div className="flex-1">
+        {/* Logo image */}
+        <div className="w-16 h-16 rounded-xl overflow-hidden bg-bg/30 border border-primary/10 flex items-center justify-center flex-shrink-0">
+          {b.logo ? (
+            <Image
+              src={b.logo}
+              alt={`${b.title} logo`}
+              width={64}
+              height={64}
+              className="w-full h-full object-contain"
+              loading="lazy"
+            />
+          ) : (
+            <div className="w-full h-full flex items-center justify-center text-lg font-semibold text-primary">
+              {b.title.split(" ").map(s => s[0]).slice(0, 2).join("")}
+            </div>
+          )}
+        </div>
+        <div className="flex-1 min-w-0">
           <h3 id={`brand-${b.id}`} className="text-2xl md:text-3xl font-extrabold text-primary leading-tight">
             {b.title}
           </h3>
           <p className="mt-1 text-sm text-primary/70">{b.subtitle}</p>
         </div>
-        <div className="ml-4 self-start">
+        <div className="ml-4 self-start flex-shrink-0">
           <span className="inline-block text-xs px-3 py-1 rounded-full bg-bg/30 text-primary font-medium">{b.country}</span>
         </div>
       </div>

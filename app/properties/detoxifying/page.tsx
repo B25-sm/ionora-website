@@ -141,3 +141,5 @@ export default function DetoxifyingPage() {
     </div>
   );
 }
+
+

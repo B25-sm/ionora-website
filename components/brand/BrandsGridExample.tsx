@@ -14,7 +14,7 @@ export default function BrandsGridExample() {
     <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
       <BrandCard
         brandKey="life"
-        title="Life Ionizers India"
+        title="Life Ionizers™ India"
         subtitle="Pioneer of Innovation"
         modelsCount={11}
         country="India"
@@ -27,7 +27,7 @@ export default function BrandsGridExample() {
 
       <BrandCard
         brandKey="medisoul"
-        title="Medisoul India"
+        title="Medisoul™ India"
         subtitle="Wellness Engineering"
         modelsCount={15}
         country="India"

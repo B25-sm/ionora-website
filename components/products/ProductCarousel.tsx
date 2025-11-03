@@ -173,7 +173,7 @@ export default function ProductCarousel({ products, onViewDetails, onEnquire }: 
 
                 {/* Price / CTA */}
                 <p className="text-center text-sm text-[#0A2238] font-semibold">
-                  Contact for Price
+                  {product.price ? `₹${product.price.toLocaleString('en-IN')}` : 'Contact for Price'}
                 </p>
               </div>
             </div>

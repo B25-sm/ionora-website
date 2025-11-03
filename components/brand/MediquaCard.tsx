@@ -14,7 +14,7 @@ export default function MediquaCard({
   return (
     <BrandCard
       brandKey="mediqua"
-      title="Mediqua India"
+      title="Mediqua™ India"
       subtitle="Clinical Precision"
       modelsCount={8}
       country="Korea"
