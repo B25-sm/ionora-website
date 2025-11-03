@@ -381,30 +381,30 @@ export default function ProductSlider() {
       <div className="fixed inset-0 w-full h-full z-0">
         {/* Render all videos but only show the active one */}
         {BRAND_CATEGORIES.map((category, index) => (
-          <video
+        <video
             key={category.id}
             ref={setVideoRef(index)}
             src={category.video}
-            playsInline
+          playsInline
             muted
-            preload="auto"
+          preload="auto"
             autoPlay={index === activeCategory && !autoplayBlockedRef.current}
             className={`absolute transition-opacity duration-500 ${
               index === activeCategory ? 'opacity-100' : 'opacity-0 pointer-events-none'
             }`}
-            style={{
-              position: 'absolute',
-              top: '50%',
-              left: '50%',
-              transform: 'translate(-50%, -50%)',
-              minWidth: '100%',
-              minHeight: '100%',
-              width: 'auto',
-              height: 'auto'
-            }}
+          style={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            minWidth: '100%',
+            minHeight: '100%',
+            width: 'auto',
+            height: 'auto'
+          }}
             aria-label={`${category.name} product video`}
             onEnded={() => handleVideoEnded(index)}
-          />
+        />
         ))}
         
         {/* Dark overlay for better text readability */}
@@ -412,7 +412,7 @@ export default function ProductSlider() {
         
         {/* Unmute overlay - always visible to let users enable sound */}
         <div 
-          className="absolute top-4 right-4 z-20 cursor-pointer group" 
+          className="absolute bottom-4 left-4 z-20 cursor-pointer group" 
           onClick={handleUnmuteToggle}
           onTouchEnd={handleUnmuteToggle}
           onKeyDown={(e) => {
@@ -433,7 +433,7 @@ export default function ProductSlider() {
             ) : (
               <svg className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 text-white" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>
-              </svg>
+                </svg>
             )}
           </div>
         </div>
