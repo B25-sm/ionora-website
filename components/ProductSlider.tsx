@@ -411,17 +411,10 @@ export default function ProductSlider() {
         <div className="absolute inset-0 bg-black/30"></div>
         
         {/* Unmute overlay - always visible to let users enable sound */}
-        <div 
-          className="absolute left-2 sm:left-4 md:left-6 lg:left-8 top-[150px] z-20 cursor-pointer group" 
+        <button 
+          className="absolute left-2 sm:left-4 md:left-6 lg:left-8 top-[150px] z-[60] cursor-pointer group focus:outline-none focus:ring-2 focus:ring-white/50 rounded-full" 
           onClick={handleUnmuteToggle}
-          onTouchEnd={handleUnmuteToggle}
-          onKeyDown={(e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-              handleUnmuteToggle(e);
-            }
-          }}
-          role="button"
-          tabIndex={0}
+          type="button"
           aria-label={isMuted ? 'Enable sound' : 'Mute'}
           aria-pressed={!isMuted}
         >
@@ -436,7 +429,7 @@ export default function ProductSlider() {
                 </svg>
             )}
           </div>
-        </div>
+        </button>
       </div>
 
       {/* Main content area with overlay */}
