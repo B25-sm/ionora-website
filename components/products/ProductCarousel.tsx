@@ -1,5 +1,19 @@
 'use client';
 
+/**
+ * ProductCarousel - Displays products in a horizontal scrolling carousel
+ * 
+ * Equal-height cards implementation:
+ * - Carousel container uses `items-stretch` to make all slides equal height
+ * - Slide wrappers use `h-full flex` to stretch to container height
+ * - Card uses `flex flex-col` with:
+ *   - Image area: fixed `aspect-[4/3]` with `flex-shrink-0` (never grows)
+ *   - Content area: `flex: 1` to fill space and push footer down
+ *   - Footer area: `flex-shrink-0` pinned to bottom
+ * 
+ * This ensures all visible cards have identical heights regardless of content length.
+ */
+
 import { useState, useRef, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, Eye, MessageCircle, Palette } from 'lucide-react';
 import Image from 'next/image';
@@ -18,6 +32,60 @@ export default function ProductCarousel({ products, onViewDetails, onEnquire }: 
   const [hoveredProduct, setHoveredProduct] = useState<string | null>(null);
   const [selectedVariants, setSelectedVariants] = useState<Record<string, Variant>>({});
   const scrollRef = useRef<HTMLDivElement>(null);
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  // Equalize card heights
+  useEffect(() => {
+    const equalizeHeights = () => {
+      if (!scrollRef.current) return;
+      
+      const cards = cardRefs.current.filter(Boolean) as HTMLDivElement[];
+      if (cards.length === 0) return;
+
+      // Reset heights to auto to get natural heights
+      cards.forEach(card => {
+        const cardContainer = card.querySelector('[data-card-container]') as HTMLElement;
+        if (cardContainer) {
+          cardContainer.style.height = 'auto';
+        }
+      });
+
+      // Find the tallest card
+      let maxHeight = 0;
+      cards.forEach(card => {
+        const cardContainer = card.querySelector('[data-card-container]') as HTMLElement;
+        if (cardContainer) {
+          const height = cardContainer.getBoundingClientRect().height;
+          if (height > maxHeight) {
+            maxHeight = height;
+          }
+        }
+      });
+
+      // Set all cards to the tallest height
+      cards.forEach(card => {
+        const cardContainer = card.querySelector('[data-card-container]') as HTMLElement;
+        if (cardContainer && maxHeight > 0) {
+          cardContainer.style.height = `${maxHeight}px`;
+        }
+      });
+    };
+
+    // Equalize on mount and resize
+    equalizeHeights();
+    window.addEventListener('resize', equalizeHeights);
+    
+    // Use ResizeObserver for better performance
+    const resizeObserver = new ResizeObserver(equalizeHeights);
+    if (scrollRef.current) {
+      resizeObserver.observe(scrollRef.current);
+    }
+
+    return () => {
+      window.removeEventListener('resize', equalizeHeights);
+      resizeObserver.disconnect();
+    };
+  }, [products]);
 
   const scrollToIndex = (index: number) => {
     if (scrollRef.current) {
@@ -63,7 +131,7 @@ export default function ProductCarousel({ products, onViewDetails, onEnquire }: 
       {/* Carousel Container */}
       <div
         ref={scrollRef}
-        className="flex gap-6 overflow-x-auto scrollbar-hide snap-x snap-mandatory"
+        className="flex items-stretch gap-6 overflow-x-auto scrollbar-hide snap-x snap-mandatory"
         style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
       >
         {products.map((product, index) => {
@@ -73,15 +141,22 @@ export default function ProductCarousel({ products, onViewDetails, onEnquire }: 
           return (
             <div
               key={product.id}
-              className="group relative flex-shrink-0 w-80 snap-center"
+              ref={(el) => {
+                cardRefs.current[index] = el;
+              }}
+              className="group relative flex-shrink-0 w-80 snap-center flex"
+              style={{ alignSelf: 'stretch' }}
               onMouseEnter={() => setHoveredProduct(product.id)}
               onMouseLeave={() => setHoveredProduct(null)}
             >
-              {/* Card Container */}
-              <div className="relative rounded-3xl border border-[#0A2238]/20 bg-[#EBEBEB] p-6 transition-all duration-500 hover:scale-105 hover:shadow-lg">
+              {/* Card Container - flex column layout for equal height */}
+              <div 
+                data-card-container
+                className="relative rounded-3xl border border-[#0A2238]/20 bg-[#EBEBEB] p-6 transition-all duration-500 hover:scale-105 hover:shadow-lg flex flex-col w-full"
+              >
 
-                {/* Product Image */}
-                <div className="relative aspect-[4/3] w-full rounded-2xl overflow-hidden border border-[#0A2238]/20 bg-white/80 mb-4">
+                {/* Product Image - Fixed header area */}
+                <div className="relative aspect-[4/3] w-full rounded-2xl overflow-hidden border border-[#0A2238]/20 bg-white/80 mb-4 flex-shrink-0">
                   <Image
                     src={currentImage}
                     alt={product.name}
@@ -91,90 +166,95 @@ export default function ProductCarousel({ products, onViewDetails, onEnquire }: 
                   />
                 </div>
 
-                {/* Brand Badge */}
-                <div className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-[#0A2238] border border-[#0A2238] text-white mb-3">
-                  {product.brand}
+                {/* Main Content Area - flex: 1 to fill space and push footer down */}
+                <div className="flex flex-col flex-1">
+                  {/* Brand Badge */}
+                  <div className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-[#0A2238] border border-[#0A2238] text-white mb-3 w-fit">
+                    {product.brand}
+                  </div>
+
+                  {/* Product Name */}
+                  <h3 className="text-xl font-bold text-[#0A2238] mb-3 group-hover:text-[#0A2238]/80 transition-colors drop-shadow-sm">
+                    {product.name}
+                  </h3>
+
+                  {/* Specification Chips */}
+                  <div className="flex flex-wrap gap-3 mb-6">
+                    <div className="flex flex-col items-center px-4 py-2 rounded-xl bg-white border border-[#0A2238]/20 text-center min-w-[80px]">
+                      <span className="text-xs text-[#0A2238]/70">Plates</span>
+                      <span className="text-sm font-semibold text-[#0A2238]">
+                        {product.plates || "N/A"}
+                      </span>
+                    </div>
+
+                    <div className="flex flex-col items-center px-4 py-2 rounded-xl bg-white border border-[#0A2238]/20 text-center min-w-[80px]">
+                      <span className="text-xs text-[#0A2238]/70">pH</span>
+                      <span className="text-sm font-semibold text-[#0A2238]">
+                        {product.phRange || "N/A"}
+                      </span>
+                    </div>
+
+                    <div className="flex flex-col items-center px-4 py-2 rounded-xl bg-white border border-[#0A2238]/20 text-center min-w-[80px]">
+                      <span className="text-xs text-[#0A2238]/70">ORP</span>
+                      <span className="text-sm font-semibold text-[#0A2238]">
+                        {product.orp || "N/A"}
+                      </span>
+                    </div>
+                  </div>
                 </div>
 
-                {/* Product Name */}
-                <h3 className="text-xl font-bold text-[#0A2238] mb-3 group-hover:text-[#0A2238]/80 transition-colors drop-shadow-sm">
-                  {product.name}
-                </h3>
-
-                {/* Specification Chips */}
-                <div className="flex flex-wrap gap-3 mb-6">
-                  <div className="flex flex-col items-center px-4 py-2 rounded-xl bg-white border border-[#0A2238]/20 text-center">
-                    <span className="text-xs text-[#0A2238]/70">Plates</span>
-                    <span className="text-sm font-semibold text-[#0A2238]">
-                      {product.plates || "N/A"}
-                    </span>
-                  </div>
-
-                  <div className="flex flex-col items-center px-4 py-2 rounded-xl bg-white border border-[#0A2238]/20 text-center">
-                    <span className="text-xs text-[#0A2238]/70">pH</span>
-                    <span className="text-sm font-semibold text-[#0A2238]">
-                      {product.phRange || "N/A"}
-                    </span>
-                  </div>
-
-                  <div className="flex flex-col items-center px-4 py-2 rounded-xl bg-white border border-[#0A2238]/20 text-center">
-                    <span className="text-xs text-[#0A2238]/70">ORP</span>
-                    <span className="text-sm font-semibold text-[#0A2238]">
-                      {product.orp || "N/A"}
-                    </span>
-                  </div>
-                </div>
-
-
-                {/* Action Buttons */}
-                <div className="flex gap-3 mb-5">
-                  <button
-                    onClick={() => onViewDetails(product)}
-                    className="flex-1 flex items-center justify-center gap-2 px-4 py-2 rounded-xl bg-white text-[#0A2238] hover:bg-[#EBEBEB] transition border border-[#0A2238]/20"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="w-4 h-4"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      strokeWidth={2}
+                {/* Footer Area - Pinned to bottom (flex:1 on content above pushes this down) */}
+                <div className="flex-shrink-0">
+                  {/* Action Buttons */}
+                  <div className="flex gap-3 mb-5">
+                    <button
+                      onClick={() => onViewDetails(product)}
+                      className="flex-1 flex items-center justify-center gap-2 px-4 py-2 rounded-xl bg-white text-[#0A2238] hover:bg-[#EBEBEB] transition border border-[#0A2238]/20"
                     >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
-                      />
-                    </svg>
-                    View Details
-                  </button>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-4 h-4"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        strokeWidth={2}
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
+                        />
+                      </svg>
+                      View Details
+                    </button>
 
-                  <button
-                    onClick={() => onEnquire(product)}
-                    className="flex-1 flex items-center justify-center gap-2 px-4 py-2 rounded-xl bg-[#0A2238] text-white font-medium hover:bg-[#0A2238]/80 hover:scale-[1.02] transition shadow-lg"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="w-4 h-4"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      strokeWidth={2}
+                    <button
+                      onClick={() => onEnquire(product)}
+                      className="flex-1 flex items-center justify-center gap-2 px-4 py-2 rounded-xl bg-[#0A2238] text-white font-medium hover:bg-[#0A2238]/80 hover:scale-[1.02] transition shadow-lg"
                     >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M8 10h.01M12 14l9-5-9-5-9 5 9 5zm0 0v6"
-                      />
-                    </svg>
-                    Enquire Now
-                  </button>
-                </div>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-4 h-4"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        strokeWidth={2}
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M8 10h.01M12 14l9-5-9-5-9 5 9 5zm0 0v6"
+                        />
+                      </svg>
+                      Enquire Now
+                    </button>
+                  </div>
 
-                {/* Price / CTA */}
-                <p className="text-center text-sm text-[#0A2238] font-semibold">
-                  {product.price ? `₹${product.price.toLocaleString('en-IN')}` : 'Contact for Price'}
-                </p>
+                  {/* Price / CTA */}
+                  <p className="text-center text-sm text-[#0A2238] font-semibold">
+                    {product.price ? `₹${product.price.toLocaleString('en-IN')}` : 'Contact for Price'}
+                  </p>
+                </div>
               </div>
             </div>
           );

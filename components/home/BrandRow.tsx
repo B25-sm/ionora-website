@@ -98,12 +98,12 @@ export default function BrandRow({ brandId, title, products, ctaHref, maxProduct
         {/* Products Container */}
         <div
           id={`brand-${brandId}`}
-          className="flex gap-4 sm:gap-6 overflow-x-auto snap-x snap-mandatory scrollbar-hide pb-4 px-1"
+          className="flex items-stretch gap-4 sm:gap-6 overflow-x-auto snap-x snap-mandatory scrollbar-hide pb-4 px-1"
           style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
           onScroll={updateScrollButtons}
         >
           {displayProducts.map((product) => (
-            <div key={product.id} className="flex-shrink-0 w-[280px] sm:w-80">
+            <div key={product.id} className="flex-shrink-0 w-[280px] sm:w-80 h-full flex">
               <ProductCard 
                 product={product}
               />

@@ -85,9 +85,10 @@ export default function BrandShowcaseSection({
             {recommendedProducts.map((product) => (
               <div
                 key={product.id}
-                className="group bg-[#0A2238]/50 backdrop-blur-sm border border-[#EBEBEB]/10 rounded-2xl p-6 hover:border-[#EBEBEB]/30 transition-all duration-300 hover:shadow-xl hover:shadow-[#EBEBEB]/10"
+                className="group bg-[#0A2238]/50 backdrop-blur-sm border border-[#EBEBEB]/10 rounded-2xl p-6 hover:border-[#EBEBEB]/30 transition-all duration-300 hover:shadow-xl hover:shadow-[#EBEBEB]/10 flex flex-col"
               >
-                <div className="relative h-48 mb-4 rounded-xl overflow-hidden">
+                {/* Image - Fixed header */}
+                <div className="relative h-48 mb-4 rounded-xl overflow-hidden flex-shrink-0">
                   <Image
                     src={product.image}
                     alt={product.name}
@@ -96,44 +97,50 @@ export default function BrandShowcaseSection({
                   />
                 </div>
                 
-                <h4 className="text-lg font-semibold text-[#EBEBEB] mb-2 line-clamp-2">
-                  {product.name}
-                </h4>
-                
-                <div className="space-y-2 mb-4">
-                  <div className="flex justify-between text-sm">
-                    <span className="text-[#EBEBEB]/70">Plates:</span>
-                    <span className="text-[#EBEBEB]">{product.plates}</span>
-                  </div>
-                  <div className="flex justify-between text-sm">
-                    <span className="text-[#EBEBEB]/70">pH Range:</span>
-                    <span className="text-[#EBEBEB]">{product.phRange}</span>
-                  </div>
-                  <div className="flex justify-between text-sm">
-                    <span className="text-[#EBEBEB]/70">ORP:</span>
-                    <span className="text-[#EBEBEB]">{product.orp}</span>
+                {/* Content area - flex: 1 to push footer down */}
+                <div className="flex flex-col flex-1 min-h-0">
+                  <h4 className="text-lg font-semibold text-[#EBEBEB] mb-2 line-clamp-2">
+                    {product.name}
+                  </h4>
+                  
+                  <div className="space-y-2 mb-4">
+                    <div className="flex justify-between text-sm">
+                      <span className="text-[#EBEBEB]/70">Plates:</span>
+                      <span className="text-[#EBEBEB]">{product.plates}</span>
+                    </div>
+                    <div className="flex justify-between text-sm">
+                      <span className="text-[#EBEBEB]/70">pH Range:</span>
+                      <span className="text-[#EBEBEB]">{product.phRange}</span>
+                    </div>
+                    <div className="flex justify-between text-sm">
+                      <span className="text-[#EBEBEB]/70">ORP:</span>
+                      <span className="text-[#EBEBEB]">{product.orp}</span>
+                    </div>
                   </div>
                 </div>
 
-                <div className="mb-4">
-                  <p className="text-center text-lg font-bold text-[#EBEBEB]">
-                    {product.price ? `₹${product.price.toLocaleString('en-IN')}` : 'Contact for Price'}
-                  </p>
-                </div>
-                
-                <div className="flex gap-3">
-                  <button
-                    onClick={() => onViewDetails(product)}
-                    className="flex-1 px-4 py-2 bg-[#EBEBEB] text-[#0A2238] rounded-lg font-medium hover:bg-[#EBEBEB]/90 transition-colors"
-                  >
-                    View Details
-                  </button>
-                  <button
-                    onClick={() => onEnquire(product)}
-                    className="flex-1 px-4 py-2 bg-[#EBEBEB] text-[#0A2238] rounded-lg font-medium hover:bg-[#EBEBEB]/90 transition-colors"
-                  >
-                    Enquire
-                  </button>
+                {/* Footer - Pinned to bottom */}
+                <div className="flex-shrink-0">
+                  <div className="mb-4">
+                    <p className="text-center text-lg font-bold text-[#EBEBEB]">
+                      {product.price ? `₹${product.price.toLocaleString('en-IN')}` : 'Contact for Price'}
+                    </p>
+                  </div>
+                  
+                  <div className="flex gap-3">
+                    <button
+                      onClick={() => onViewDetails(product)}
+                      className="flex-1 px-4 py-2 bg-[#EBEBEB] text-[#0A2238] rounded-lg font-medium hover:bg-[#EBEBEB]/90 transition-colors"
+                    >
+                      View Details
+                    </button>
+                    <button
+                      onClick={() => onEnquire(product)}
+                      className="flex-1 px-4 py-2 bg-[#EBEBEB] text-[#0A2238] rounded-lg font-medium hover:bg-[#EBEBEB]/90 transition-colors"
+                    >
+                      Enquire
+                    </button>
+                  </div>
                 </div>
               </div>
             ))}

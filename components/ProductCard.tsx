@@ -26,8 +26,8 @@ export default function ProductCard({ product }: { product: Product }) {
 
   return (
     <article className="bg-primary/10 rounded-xl sm:rounded-2xl md:rounded-3xl p-3 sm:p-4 md:p-5 lg:p-6 flex flex-col h-full shadow-lg border border-primary/20 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-      {/* ✅ Product Image */}
-      <div className="relative w-full h-40 sm:h-48 md:h-56 lg:h-64 mb-3 sm:mb-4 rounded-lg sm:rounded-xl overflow-hidden bg-bg flex items-center justify-center">
+      {/* ✅ Product Image - Fixed header */}
+      <div className="relative w-full h-40 sm:h-48 md:h-56 lg:h-64 mb-3 sm:mb-4 rounded-lg sm:rounded-xl overflow-hidden bg-bg flex items-center justify-center flex-shrink-0">
         <Image
           src={product.image}
           alt={product.name}
@@ -38,32 +38,37 @@ export default function ProductCard({ product }: { product: Product }) {
         />
       </div>
 
-      {/* ✅ Product Info */}
-      <h3 className="text-sm sm:text-base md:text-lg lg:text-xl font-semibold text-primary mb-2 sm:mb-3 tracking-tight">
-        {product.name}
-      </h3>
-      <p className="text-xs sm:text-sm md:text-base text-primary/70 mb-3 sm:mb-4 leading-relaxed line-clamp-2">
-        {product.shortDescription || "Premium alkaline water ionizer engineered for performance and wellness."}
-      </p>
+      {/* ✅ Content Area - flex: 1 to push footer down */}
+      <div className="flex flex-col flex-1 min-h-0">
+        {/* ✅ Product Info */}
+        <h3 className="text-sm sm:text-base md:text-lg lg:text-xl font-semibold text-primary mb-2 sm:mb-3 tracking-tight">
+          {product.name}
+        </h3>
+        <p className="text-xs sm:text-sm md:text-base text-primary/70 mb-3 sm:mb-4 leading-relaxed line-clamp-2">
+          {product.shortDescription || "Premium alkaline water ionizer engineered for performance and wellness."}
+        </p>
 
-      {/* ✅ Key Specs */}
-      <div className="flex justify-between text-xs sm:text-sm mb-3 sm:mb-4 gap-1 sm:gap-2">
-        <div className="bg-bg/30 p-2 sm:p-3 rounded-md text-center flex-1">
-          <div className="text-primary/70 text-[10px] sm:text-xs">Plates</div>
-          <div className="text-primary font-semibold">{product.plates || "—"}</div>
-        </div>
-        <div className="bg-bg/30 p-2 sm:p-3 rounded-md text-center flex-1">
-          <div className="text-primary/70 text-[10px] sm:text-xs">pH</div>
-          <div className="text-primary font-semibold">{product.ph || "—"}</div>
-        </div>
-        <div className="bg-bg/30 p-2 sm:p-3 rounded-md text-center flex-1">
-          <div className="text-primary/70 text-[10px] sm:text-xs">ORP</div>
-          <div className="text-primary font-semibold">{product.orp || "—"}</div>
+        {/* ✅ Key Specs */}
+        <div className="flex justify-between text-xs sm:text-sm mb-3 sm:mb-4 gap-1 sm:gap-2">
+          <div className="bg-bg/30 p-2 sm:p-3 rounded-md text-center flex-1">
+            <div className="text-primary/70 text-[10px] sm:text-xs">Plates</div>
+            <div className="text-primary font-semibold">{product.plates || "—"}</div>
+          </div>
+          <div className="bg-bg/30 p-2 sm:p-3 rounded-md text-center flex-1">
+            <div className="text-primary/70 text-[10px] sm:text-xs">pH</div>
+            <div className="text-primary font-semibold">{product.ph || "—"}</div>
+          </div>
+          <div className="bg-bg/30 p-2 sm:p-3 rounded-md text-center flex-1">
+            <div className="text-primary/70 text-[10px] sm:text-xs">ORP</div>
+            <div className="text-primary font-semibold">{product.orp || "—"}</div>
+          </div>
         </div>
       </div>
 
-      {/* ✅ Buttons */}
-      <div className="flex gap-2 sm:gap-3 mt-auto">
+      {/* ✅ Footer - Pinned to bottom */}
+      <div className="flex-shrink-0 mt-auto">
+        {/* ✅ Buttons */}
+        <div className="flex gap-2 sm:gap-3">
         <Link
           href={`/products/${product.id}`}
           className="flex-1 px-3 sm:px-4 md:px-5 py-2 sm:py-2.5 rounded-lg bg-bg/30 text-primary text-center hover:bg-bg/40 transition text-xs sm:text-sm"
@@ -85,11 +90,12 @@ export default function ProductCard({ product }: { product: Product }) {
         >
           Enquire
         </button>
-      </div>
+        </div>
 
-      <p className="text-center text-xs sm:text-sm text-primary/70 mt-2 sm:mt-3">
-        {product.price ? `₹${product.price.toLocaleString('en-IN')}` : 'Contact for Price'}
-      </p>
+        <p className="text-center text-xs sm:text-sm text-primary/70 mt-2 sm:mt-3">
+          {product.price ? `₹${product.price.toLocaleString('en-IN')}` : 'Contact for Price'}
+        </p>
+      </div>
     </article>
   );
 }

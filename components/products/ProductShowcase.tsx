@@ -105,8 +105,8 @@ export default function ProductShowcase() {
 
               {/* Featured Row */}
               {feature && (
-                <div className="grid lg:grid-cols-[1.3fr_1fr] gap-5">
-                  <div className="rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl p-4 md:p-6">
+                <div className="grid lg:grid-cols-[1.3fr_1fr] gap-5 items-stretch">
+                  <div className="rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl p-4 md:p-6 flex flex-col">
                     <ProductCardV2
                       product={feature}
                       onQuickView={setQuick}
@@ -114,7 +114,7 @@ export default function ProductShowcase() {
                       isComparing={!!tray.find(t=>t.id===feature.id)}
                     />
                   </div>
-                  <div className="grid sm:grid-cols-2 gap-5">
+                  <div className="grid sm:grid-cols-2 gap-5 items-stretch">
                     {rest.slice(0,2).map((p)=>(
                       <ProductCardV2
                         key={p.id}
@@ -130,7 +130,7 @@ export default function ProductShowcase() {
 
               {/* Grid for the rest */}
               {rest.length > 2 && (
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 items-stretch">
                   {rest.slice(2).map((p)=>(
                     <ProductCardV2
                       key={p.id}

@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import MediquaCard from "./MediquaCard";
 import BrandCard from "./BrandCard"; // generic
 // Example logos for other brands:
-const lifeLogo = "/images/ionora-logo.png"; // adjust if different
+const lifeLogo = "/images/life/life-logo.png"; // adjust if different
 const medisoulLogo = "/images/products/medisoul/medisoul-logo.png";
 
 export default function BrandsGridExample() {

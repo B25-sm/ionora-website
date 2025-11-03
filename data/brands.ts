@@ -28,7 +28,7 @@ export const BRANDS: Array<{
       'To maintain excellence through advanced research, flawless design, trusted quality, and global recognition'
     ],
     certifications: 'ISO 13485, ISO 9001, ISO 14001, ISO 45001, CE, GMP, WQA, FDA',
-    logo: '/images/ionora-logo.png',
+    logo: '/images/life/life-logo.png',
     mainImage: '/images/products/life/MXL-11 counter.png',
     featured: true,
     productCount: 11

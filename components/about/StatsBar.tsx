@@ -72,10 +72,10 @@ export default function StatsBar() {
         transition={{ duration: 0.6 }}
         className="mb-16"
       >
-        <h2 className="text-4xl md:text-5xl font-black text-[#0A0F2C] mb-4">
-          By the <span className="text-[#EBEBEB]">Numbers</span>
+        <h2 className="text-4xl md:text-5xl font-black text-[#EBEBEB] mb-4">
+          By the <span className="text-white">Numbers</span>
         </h2>
-        <p className="text-xl text-[#0A0F2C]/70 max-w-2xl mx-auto">
+        <p className="text-xl text-white/70 max-w-2xl mx-auto">
           Our impact in water ionization technology
         </p>
       </motion.div>

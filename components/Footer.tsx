@@ -48,9 +48,9 @@ export default function Footer() {
           <div>
             <h4 className="font-semibold text-primary mb-3 sm:mb-4 text-sm sm:text-base md:text-lg">Contact</h4>
             <div className="space-y-2 text-sm sm:text-base">
-              <p className="text-primary/70">support@ionora.com</p>
+              <p className="text-primary/70">IONORA INTERNATIONAL PRIVATE LIMITED</p>
+              <p className="text-primary/70">PNO-66, SY NO-11/3 SA SOCIETY, KONDAPUR, MADHAPUR, Shaikpet, Hyderabad, Telangana-500081, India.</p>
               <p className="text-primary/70">info@ionora.in</p>
-              <p className="text-primary/70">Toll Free: 1800 1234 706</p>
             </div>
           </div>
         </div>

@@ -10,7 +10,7 @@ const brands = [
     subtitle: "Pioneer of Innovation", 
     models: 11, 
     country: "USA",
-    logo: "/images/ionora-logo.png"
+    logo: "/images/life/life-logo.png"
   },
   { 
     id: "mediqua-india", 
