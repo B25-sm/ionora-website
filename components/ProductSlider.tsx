@@ -409,10 +409,11 @@ export default function ProductSlider() {
         
         {/* Dark overlay for better text readability */}
         <div className="absolute inset-0 bg-black/30"></div>
+      </div>
         
         {/* Unmute overlay - always visible to let users enable sound */}
         <div 
-          className="absolute top-4 right-4 z-20 cursor-pointer" 
+          className="fixed top-4 right-4 z-30 cursor-pointer" 
           onClick={handleUnmuteToggle}
           onTouchEnd={handleUnmuteToggle}
           onKeyDown={(e) => {
@@ -437,7 +438,6 @@ export default function ProductSlider() {
             )}
           </div>
         </div>
-      </div>
 
       {/* Main content area with overlay */}
       <div 
