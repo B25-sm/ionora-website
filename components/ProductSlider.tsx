@@ -14,7 +14,8 @@ export default function ProductSlider() {
   const [showDots, setShowDots] = useState(true);
   const [touchStart, setTouchStart] = useState<number | null>(null);
   const [touchEnd, setTouchEnd] = useState<number | null>(null);
-  const [showPlayPrompt, setShowPlayPrompt] = useState(false);
+  const [showUnmuteOverlay, setShowUnmuteOverlay] = useState(false);
+  const [isMuted, setIsMuted] = useState(true);
   const [isAnimating, setIsAnimating] = useState(false);
   
   // Use array of refs for multiple videos
@@ -22,7 +23,7 @@ export default function ProductSlider() {
   const isAnimatingRef = useRef(false);
   const pendingPlayIndex = useRef<number | null>(null);
   const autoplayBlockedRef = useRef(false);
-  const rafIdRef = useRef<number | null>(null);
+  const canplayListenersRef = useRef<Map<number, boolean>>(new Map());
 
   // Get featured product
   const getFeaturedProduct = (brandId: string) => {
@@ -37,30 +38,43 @@ export default function ProductSlider() {
     setActiveCategory(clickedIndex);
   }, []);
 
-  // Safe play function with error handling
-  const safePlay = useCallback(async (video: HTMLVideoElement, index: number): Promise<boolean> => {
-    if (!video || video.paused === false) return true;
+  // Safe muted play function with error handling
+  const safeMutedPlay = useCallback(async (video: HTMLVideoElement, index: number, retryCount = 0): Promise<boolean> => {
+    if (!video) return false;
+    
+    // Ensure video is muted before attempting play
+    video.muted = true;
+    
+    if (!video.paused) return true;
     
     try {
+      // Log autoplay attempt for telemetry
+      console.log(`[AUTOPLAY] Attempting muted autoplay for video ${index} (retry ${retryCount})`);
+      
       await video.play();
+      console.log(`[AUTOPLAY] Successfully started muted autoplay for video ${index}`);
       return true;
     } catch (error: any) {
-      console.log(`Autoplay blocked for video ${index}, showing fallback`);
+      console.log(`[AUTOPLAY] Muted autoplay blocked for video ${index}:`, error.name);
       autoplayBlockedRef.current = true;
-      setShowPlayPrompt(true);
+      
+      // Only show overlay if muted autoplay is blocked
+      if (!showUnmuteOverlay) {
+        setShowUnmuteOverlay(true);
+      }
       return false;
     }
-  }, []);
+  }, [showUnmuteOverlay]);
 
-  // Play currently active video
+  // Play currently active video with muted autoplay
   const playCurrentVideo = useCallback(async () => {
     if (isAnimatingRef.current || autoplayBlockedRef.current) return;
     
     const currentVideo = videoRefs.current[activeCategory];
     if (currentVideo && currentVideo.paused) {
-      await safePlay(currentVideo, activeCategory);
+      await safeMutedPlay(currentVideo, activeCategory);
     }
-  }, [activeCategory, safePlay]);
+  }, [activeCategory, safeMutedPlay]);
 
   // Pause all videos
   const pauseAllVideos = useCallback(() => {
@@ -75,20 +89,62 @@ export default function ProductSlider() {
   const handleVideoEnded = useCallback((index: number) => {
     if (isAnimatingRef.current) return;
     
+    console.log(`[SEQUENTIAL] Video ${index} ended, advancing to next`);
     const nextIndex = (index + 1) % BRAND_CATEGORIES.length;
     setActiveCategory(nextIndex);
     pendingPlayIndex.current = nextIndex;
   }, []);
 
+  // Handle video canplay - try autoplay once ready
+  const handleVideoCanPlay = useCallback((index: number, video: HTMLVideoElement) => {
+    // Only try to autoplay if this is the active video and not animating
+    if (index === activeCategory && !isAnimatingRef.current && !autoplayBlockedRef.current) {
+      console.log(`[CANPLAY] Video ${index} ready, attempting autoplay`);
+      safeMutedPlay(video, index);
+    }
+  }, [activeCategory, safeMutedPlay]);
+
   // Set up video ref callback
   const setVideoRef = useCallback((index: number) => (node: HTMLVideoElement | null) => {
+    const previousNode = videoRefs.current[index];
+    
+    if (previousNode && previousNode !== node) {
+      // Clean up old listeners if replacing ref
+      const hadListener = canplayListenersRef.current.get(index);
+      if (hadListener) {
+        previousNode.removeEventListener('canplay', () => {
+          handleVideoCanPlay(index, previousNode);
+        });
+        canplayListenersRef.current.set(index, false);
+      }
+    }
+    
     videoRefs.current[index] = node;
     
-    if (node && index === activeCategory && !isAnimatingRef.current && !autoplayBlockedRef.current) {
-      // Try to autoplay the current video
-      safePlay(node, index);
+    if (node) {
+      // Ensure all required attributes for cross-browser autoplay
+      node.muted = true;
+      node.setAttribute('muted', '');
+      node.setAttribute('playsinline', '');
+      node.setAttribute('playsInline', '');
+      node.setAttribute('webkit-playsinline', '');
+      
+      // Add canplay listener if not already added
+      if (!canplayListenersRef.current.get(index)) {
+        const canplayHandler = () => handleVideoCanPlay(index, node);
+        node.addEventListener('canplay', canplayHandler);
+        canplayListenersRef.current.set(index, true);
+        
+        console.log(`[SETUP] Added canplay listener for video ${index}`);
+      }
+      
+      // If already can play, trigger autoplay attempt
+      if (node.readyState >= 3) {
+        console.log(`[SETUP] Video ${index} already ready, attempting autoplay`);
+        handleVideoCanPlay(index, node);
+      }
     }
-  }, [activeCategory, safePlay]);
+  }, [handleVideoCanPlay]);
 
   // Handle category change with animation tracking
   useEffect(() => {
@@ -100,7 +156,7 @@ export default function ProductSlider() {
       isAnimatingRef.current = false;
       setIsAnimating(false);
       
-      // After animation, play the current video or pending one
+      // After animation, play the current video or pending one using double RAF
       const targetIndex = pendingPlayIndex.current !== null ? pendingPlayIndex.current : activeCategory;
       pendingPlayIndex.current = null;
       
@@ -109,19 +165,20 @@ export default function ProductSlider() {
         requestAnimationFrame(() => {
           const targetVideo = videoRefs.current[targetIndex];
           if (targetVideo && !autoplayBlockedRef.current) {
-            safePlay(targetVideo, targetIndex);
+            console.log(`[TRANSITION] Resuming autoplay after transition for video ${targetIndex}`);
+            safeMutedPlay(targetVideo, targetIndex);
           }
         });
       });
     }, 500); // Match CSS transition duration
     
     return () => clearTimeout(timeoutId);
-  }, [activeCategory, pauseAllVideos, safePlay]);
+  }, [activeCategory, pauseAllVideos, safeMutedPlay]);
 
-  // Client-side detection
+  // Try initial autoplay after mount with delay
   useEffect(() => {
-    // Try initial autoplay after mount
     const timeoutId = setTimeout(() => {
+      console.log('[INIT] Attempting initial muted autoplay');
       if (!autoplayBlockedRef.current) {
         playCurrentVideo();
       }
@@ -130,22 +187,33 @@ export default function ProductSlider() {
     return () => clearTimeout(timeoutId);
   }, [playCurrentVideo]);
 
-  // User interaction handler
-  const handleUserInteraction = useCallback(async (e?: React.MouseEvent | React.TouchEvent) => {
+  // Handle unmute user interaction
+  const handleUnmuteClick = useCallback(async (e?: React.MouseEvent | React.TouchEvent) => {
     if (e) {
       e.stopPropagation();
     }
     
-    autoplayBlockedRef.current = false;
-    setShowPlayPrompt(false);
-    
     const currentVideo = videoRefs.current[activeCategory];
-    if (currentVideo) {
-      // Unmute and try to play
-      currentVideo.muted = false;
-      await safePlay(currentVideo, activeCategory);
+    if (!currentVideo) return;
+    
+    try {
+      // Toggle mute state
+      currentVideo.muted = !currentVideo.muted;
+      setIsMuted(currentVideo.muted);
+      
+      console.log(`[UNMUTE] User toggled mute: ${currentVideo.muted ? 'muted' : 'unmuted'}`);
+      
+      // Hide overlay if unmuted successfully
+      if (!currentVideo.muted) {
+        setShowUnmuteOverlay(false);
+        autoplayBlockedRef.current = false; // Clear blocked flag
+      }
+    } catch (error: any) {
+      console.error(`[UNMUTE] Failed to toggle mute:`, error);
+      // Show message if browser blocks unmuting
+      alert('Please interact with the video player to enable sound.');
     }
-  }, [activeCategory, safePlay]);
+  }, [activeCategory]);
 
   // Swipe detection logic
   const minSwipeDistance = 50;
@@ -267,56 +335,60 @@ export default function ProductSlider() {
       <div className="fixed inset-0 w-full h-full z-0">
         {/* Render all videos but only show the active one */}
         {BRAND_CATEGORIES.map((category, index) => (
-          <video
+        <video
             key={category.id}
             ref={setVideoRef(index)}
             src={category.video}
-            playsInline
+          playsInline
             muted
-            preload="auto"
+          preload="auto"
             autoPlay={index === activeCategory && !autoplayBlockedRef.current}
             className={`absolute transition-opacity duration-500 ${
               index === activeCategory ? 'opacity-100' : 'opacity-0 pointer-events-none'
             }`}
-            style={{
-              position: 'absolute',
-              top: '50%',
-              left: '50%',
-              transform: 'translate(-50%, -50%)',
-              minWidth: '100%',
-              minHeight: '100%',
-              width: 'auto',
-              height: 'auto'
-            }}
+          style={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            minWidth: '100%',
+            minHeight: '100%',
+            width: 'auto',
+            height: 'auto'
+          }}
             aria-label={`${category.name} product video`}
             onEnded={() => handleVideoEnded(index)}
-            onClick={(e) => {
-              e.stopPropagation();
-              handleUserInteraction(e);
-            }}
-          />
+        />
         ))}
         
         {/* Dark overlay for better text readability */}
         <div className="absolute inset-0 bg-black/30"></div>
         
-        {/* Play prompt - shows when autoplay is blocked */}
-        {showPlayPrompt && (
+        {/* Unmute overlay - shows when autoplay is blocked and user needs to enable sound */}
+        {showUnmuteOverlay && (
           <div 
             className="absolute inset-0 flex items-center justify-center z-20 cursor-pointer" 
-            onClick={handleUserInteraction}
+            onClick={handleUnmuteClick}
             onTouchEnd={(e) => {
               e.stopPropagation();
-              handleUserInteraction(e);
+              handleUnmuteClick(e);
             }}
           >
             <div className="text-center text-white pointer-events-none px-4">
               <div className="w-12 h-12 sm:w-16 sm:h-16 mx-auto mb-2 sm:mb-3 bg-white/10 rounded-full flex items-center justify-center backdrop-blur-sm border border-white/20 hover:bg-white/20 transition-colors pointer-events-auto">
-                <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M8 5v14l11-7z"/>
+                {isMuted ? (
+                  <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+                  </svg>
+                ) : (
+                  <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>
                 </svg>
+                )}
               </div>
-              <p className="text-xs sm:text-sm font-medium opacity-90">Tap to play with sound</p>
+              <p className="text-xs sm:text-sm font-medium opacity-90">
+                {isMuted ? 'Tap to enable sound' : 'Tap to mute'}
+              </p>
             </div>
           </div>
         )}
@@ -330,8 +402,8 @@ export default function ProductSlider() {
         onTouchEnd={(e) => {
           const wasTap = touchDistanceRef.current < minSwipeDistance;
           onTouchEnd();
-          if (wasTap && showPlayPrompt) {
-            handleUserInteraction();
+          if (wasTap && showUnmuteOverlay) {
+            handleUnmuteClick(e);
           }
         }}
         onMouseDown={onMouseDown}
@@ -339,12 +411,12 @@ export default function ProductSlider() {
         onMouseUp={(e) => {
           const wasClick = mouseDistanceRef.current < minSwipeDistance;
           onMouseUp();
-          if (wasClick && showPlayPrompt) {
-            handleUserInteraction();
+          if (wasClick && showUnmuteOverlay) {
+            handleUnmuteClick(e);
           }
         }}
         onMouseLeave={onMouseUp}
-        onClick={showPlayPrompt ? handleUserInteraction : undefined}
+        onClick={showUnmuteOverlay ? handleUnmuteClick : undefined}
         style={{ cursor: isDragging ? 'grabbing' : 'grab' }}
       >
         {/* Completely clean video section - no UI elements */}
