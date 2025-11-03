@@ -412,7 +412,7 @@ export default function ProductSlider() {
         
         {/* Unmute overlay - always visible to let users enable sound */}
         <div 
-          className="absolute bottom-4 left-4 z-20 cursor-pointer group" 
+          className="absolute bottom-4 right-4 z-20 cursor-pointer group" 
           onClick={handleUnmuteToggle}
           onTouchEnd={handleUnmuteToggle}
           onKeyDown={(e) => {
