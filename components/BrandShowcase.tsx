@@ -18,7 +18,7 @@ const brands = [
     subtitle: "Clinical Precision", 
     models: 8, 
     country: "Korea",
-    logo: "/images/products/mediqua/ak-3000.png"
+    logo: "/images/products/mediqua/mediqua logo.avif"
   },
   { 
     id: "medisoul-india", 

@@ -45,7 +45,7 @@ export const BRANDS: Array<{
       'To become a leading player in the export market with a commitment to excellence'
     ],
     certifications: 'ISO 13485, ISO 9001, ISO 14001, ISO 45001, CE, GMP, WQA, FDA',
-    logo: '/images/products/mediqua/ak-3000.png',
+    logo: '/images/products/mediqua/mediqua logo.avif',
     mainImage: '/images/products/mediqua/ak-3000.png',
     featured: true,
     productCount: 8

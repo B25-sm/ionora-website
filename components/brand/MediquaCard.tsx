@@ -8,8 +8,8 @@ export default function MediquaCard({
 }: {
   onView?: () => void;
 }) {
-  // logo path - put your file at public/images/products/mediqua/mediqua-logo.png
-  const logoSrc = "/images/products/mediqua/mediqua-logo.png";
+  // logo path - put your file at public/images/products/mediqua/mediqua logo.avif
+  const logoSrc = "/images/products/mediqua/mediqua logo.avif";
 
   return (
     <BrandCard
