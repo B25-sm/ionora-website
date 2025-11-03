@@ -316,6 +316,11 @@ function ComparePageContent() {
                             </td>
                           );
                         }
+                        // Handle object values (like specs with multiple properties)
+                        const displayValue = typeof value === 'object' && value !== null && !Array.isArray(value)
+                          ? Object.entries(value).map(([k, v]) => `${k}: ${v}`).join(', ')
+                          : value;
+
                         return (
                           <td key={`${product.id}-${spec.key}`} className="px-6 py-4 text-center">
                             {spec.key === 'price' && value ? (
@@ -330,7 +335,7 @@ function ComparePageContent() {
                               </span>
                             ) : (
                               <span className={`text-white/90 ${isBestValue ? 'text-green-400 font-semibold' : ''}`}>
-                                {value || 'N/A'}
+                                {displayValue || 'N/A'}
                                 {isBestValue && <span className="ml-1 text-xs">✓</span>}
                               </span>
                             )}
