@@ -20,7 +20,7 @@ export default async function ProductDetail({ params }: { params: { brand: strin
   return (
     <main className="mx-auto max-w-7xl px-6 py-12">
       <ProductSpecs model={model} />
-      {/* add gallery / specs table / downloads below */}
+      // add gallery / specs table / downloads below
     </main>
   );
 }
