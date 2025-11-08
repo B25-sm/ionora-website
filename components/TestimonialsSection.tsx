@@ -31,7 +31,7 @@ const testimonialSources: TestimonialSource[] = [
     name: 'Sage Northcutt',
     title: 'Professional Mixed Martial Artist',
     company: 'ONE Championship',
-    avatar: 'https://images.unsplash.com/photo-1502767089025-6572583495b1?auto=format&fit=crop&w=96&q=80',
+    avatar: 'https://images.unsplash.com/photo-1544723795-3fb6469f5b39?auto=format&fit=crop&w=96&q=80',
     fileName: '3ce02033ea3c4f77b69d9c2aec658f5f (2).mp4',
   },
   {
