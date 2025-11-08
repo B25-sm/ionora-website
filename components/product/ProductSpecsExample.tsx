@@ -1,5 +1,6 @@
 /*
 EXAMPLE: How to render ProductSpecs in product detail page (app/products/[brand]/[slug]/page.tsx)
+*/
 
 import { notFound } from "next/navigation";
 import { loadBrandData } from "@/lib/products/dataLoader";
@@ -24,7 +25,7 @@ export default async function ProductDetail({ params }: { params: { brand: strin
     </main>
   );
 }
-
+/*
 USAGE EXAMPLES:
 
 1. For Life Ionizers:
