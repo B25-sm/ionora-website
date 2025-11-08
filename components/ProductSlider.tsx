@@ -1,6 +1,5 @@
 'use client';
 
-import Image from 'next/image';
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { products, productsByBrand } from '@/data/products';
 
@@ -17,7 +16,6 @@ export default function ProductSlider() {
   const [touchEnd, setTouchEnd] = useState<number | null>(null);
   const [isMuted, setIsMuted] = useState(true);
   const [isAnimating, setIsAnimating] = useState(false);
-  const [isFallbackActive, setIsFallbackActive] = useState(false);
   
   // Use array of refs for multiple videos
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
@@ -61,12 +59,10 @@ export default function ProductSlider() {
       console.log(`[AUTOPLAY] Attempting autoplay for video ${index}`);
       await video.play();
       console.log(`[AUTOPLAY] Successfully started autoplay for video ${index}`);
-      setIsFallbackActive(false);
       return true;
     } catch (error: any) {
       console.log(`[AUTOPLAY] Autoplay blocked for video ${index}:`, error.name);
       autoplayBlockedRef.current = true;
-      setIsFallbackActive(true);
       return false;
     }
   }, []);
@@ -91,11 +87,7 @@ export default function ProductSlider() {
 
   // Play currently active video with muted autoplay
   const playCurrentVideo = useCallback(async () => {
-    if (isAnimatingRef.current) return;
-    if (autoplayBlockedRef.current) {
-      setIsFallbackActive(true);
-      return;
-    }
+    if (isAnimatingRef.current || autoplayBlockedRef.current) return;
     
     const currentVideo = videoRefs.current[activeCategory];
     if (currentVideo && currentVideo.paused) {
@@ -236,8 +228,6 @@ export default function ProductSlider() {
                 }
               }
             });
-          } else if (autoplayBlockedRef.current) {
-            setIsFallbackActive(true);
           }
         });
       });
@@ -485,30 +475,7 @@ export default function ProductSlider() {
         onMouseLeave={onMouseUp}
         style={{ cursor: isDragging ? 'grabbing' : 'grab' }}
       >
-        {/* Fallback hero content when autoplay is blocked */}
-        {isFallbackActive && currentProduct && (
-          <div className="relative z-[5] flex flex-col items-center text-center max-w-4xl mx-auto space-y-6">
-            <div className="relative w-full max-w-md">
-              <Image
-                src="/images/products/medisoul/kyron5.png"
-                alt="IONORA Premium Water Ionizer"
-                width={640}
-                height={960}
-                className="rounded-3xl border border-white/20 shadow-2xl"
-                priority
-              />
-            </div>
-            <div className="space-y-4 text-white">
-              <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight">
-                Experience Ionized Hydration
-              </h1>
-              <p className="text-base sm:text-lg text-white/70 max-w-2xl mx-auto">
-                Explore premium Medisoul™, Life Ionizers™, and Mediqua™ ionizers crafted for modern wellness. Unmute the
-                experience to watch immersive product stories.
-              </p>
-            </div>
-          </div>
-        )}
+        {/* Completely clean video section - no UI elements */}
       </div>
 
       {/* Unmute button - positioned outside video container to ensure clickability */}
