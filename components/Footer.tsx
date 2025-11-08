@@ -31,7 +31,9 @@ export default function Footer() {
                 { href: '/brands', label: 'Brands' },
                 { href: '/products', label: 'Products' },
                 { href: '/technology', label: 'Technology' },
-                { href: '/about', label: 'About' }
+                { href: '/service', label: 'Service' },
+                { href: '/about', label: 'About' },
+                { href: '/warranty-replacement-policy', label: 'Warranty & Replacement' }
               ].map((link) => (
                 <Link
                   key={link.href}
@@ -60,11 +62,14 @@ export default function Footer() {
           <div className="flex flex-col sm:flex-row justify-between items-center gap-3 sm:gap-4 text-xs sm:text-sm text-primary/50">
             <div>© 2025 IONORA • All Rights Reserved</div>
             <div className="flex items-center gap-4 sm:gap-6">
-              <Link href="/privacy" className="hover:text-primary/70 transition-colors duration-200">
-                Privacy
+              <Link href="/privacy-policy" className="hover:text-primary/70 transition-colors duration-200">
+                Privacy Policy
               </Link>
               <Link href="/terms" className="hover:text-primary/70 transition-colors duration-200">
                 Terms
+              </Link>
+              <Link href="/warranty-replacement-policy" className="hover:text-primary/70 transition-colors duration-200">
+                Warranty & Replacement
               </Link>
             </div>
           </div>
