@@ -16,7 +16,6 @@ export default function ProductSlider() {
   const [touchEnd, setTouchEnd] = useState<number | null>(null);
   const [isMuted, setIsMuted] = useState(true);
   const [isAnimating, setIsAnimating] = useState(false);
-  const [autoplayBlocked, setAutoplayBlocked] = useState(false);
   
   // Use array of refs for multiple videos
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
@@ -60,13 +59,10 @@ export default function ProductSlider() {
       console.log(`[AUTOPLAY] Attempting autoplay for video ${index}`);
       await video.play();
       console.log(`[AUTOPLAY] Successfully started autoplay for video ${index}`);
-      autoplayBlockedRef.current = false;
-      setAutoplayBlocked(false);
       return true;
     } catch (error: any) {
       console.log(`[AUTOPLAY] Autoplay blocked for video ${index}:`, error.name);
       autoplayBlockedRef.current = true;
-      setAutoplayBlocked(true);
       return false;
     }
   }, []);
@@ -244,7 +240,9 @@ export default function ProductSlider() {
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       console.log('[INIT] Attempting initial muted autoplay');
-      playCurrentVideo();
+      if (!autoplayBlockedRef.current) {
+        playCurrentVideo();
+      }
     }, 100);
     
     return () => clearTimeout(timeoutId);
@@ -293,7 +291,6 @@ export default function ProductSlider() {
         console.log(`[SESSION] userExplicitlyUnmuted = true`);
         
         autoplayBlockedRef.current = false;
-        setAutoplayBlocked(false);
         if (currentVideo.paused) {
           try {
             await currentVideo.play();
@@ -301,8 +298,6 @@ export default function ProductSlider() {
           } catch (playError) {
             const errorName = playError instanceof Error ? playError.name : String(playError);
             console.log(`[UI] Playback still blocked for video ${activeCategory}:`, errorName);
-            autoplayBlockedRef.current = true;
-            setAutoplayBlocked(true);
           }
         }
       } else {
@@ -328,29 +323,6 @@ export default function ProductSlider() {
       handleUnmuteToggle(e);
     }
   }, [handleUnmuteToggle]);
-
-  const handleManualPlay = useCallback(async () => {
-    const currentVideo = videoRefs.current[activeCategory];
-    if (!currentVideo) return;
-
-    try {
-      if (currentVideo.muted) {
-        currentVideo.muted = false;
-        setIsMuted(false);
-        userExplicitlyUnmutedRef.current = true;
-      }
-
-      await currentVideo.play();
-      autoplayBlockedRef.current = false;
-      setAutoplayBlocked(false);
-      console.log(`[UI] Manual play succeeded for video ${activeCategory}`);
-    } catch (error) {
-      const errorName = error instanceof Error ? error.name : String(error);
-      console.log(`[UI] Manual play blocked for video ${activeCategory}:`, errorName);
-      autoplayBlockedRef.current = true;
-      setAutoplayBlocked(true);
-    }
-  }, [activeCategory]);
 
   // Swipe detection logic
   const minSwipeDistance = 50;
@@ -500,24 +472,6 @@ export default function ProductSlider() {
         
         {/* Dark overlay for better text readability */}
         <div className="absolute inset-0 bg-black/30"></div>
-
-        {autoplayBlocked && (
-          <div className="absolute inset-0 z-20 flex items-center justify-center bg-black/40 backdrop-blur-sm">
-            <div className="rounded-3xl border border-white/20 bg-white/10 p-6 sm:p-8 text-center text-white shadow-2xl shadow-black/40">
-              <h3 className="text-lg sm:text-xl font-semibold">Enable immersive experience</h3>
-              <p className="mt-2 text-sm sm:text-base text-white/70">
-                Tap below to start the hero video with sound.
-              </p>
-              <button
-                type="button"
-                onClick={handleManualPlay}
-                className="mt-4 inline-flex items-center justify-center rounded-full bg-[#FFD100] px-5 py-2 text-sm font-semibold text-[#0A0F2C] shadow-lg shadow-[#0A0F2C]/20 transition-transform duration-200 hover:scale-105"
-              >
-                Play video
-              </button>
-            </div>
-          </div>
-        )}
       </div>
 
       {/* Main content area with overlay */}
