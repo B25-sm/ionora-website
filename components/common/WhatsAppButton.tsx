@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { WHATSAPP_URL } from '@/lib/contact';
 
 interface WhatsAppButtonProps {
   phoneNumber?: string;
@@ -11,7 +12,7 @@ interface WhatsAppButtonProps {
 }
 
 export default function WhatsAppButton({ 
-  phoneNumber = '9230123451',
+  phoneNumber,
   className = '',
   children,
   variant = 'floating',
@@ -30,7 +31,11 @@ export default function WhatsAppButton({
     setTimeout(() => setIsClicked(false), 200);
   };
 
-  const whatsappUrl = `https://wa.me/${formatPhoneNumber(phoneNumber)}`;
+  const fallbackUrl = phoneNumber ? `https://wa.me/${formatPhoneNumber(phoneNumber)}` : WHATSAPP_URL;
+
+  if (!fallbackUrl) {
+    return null;
+  }
 
   // Size classes
   const sizeClasses = {
@@ -63,7 +68,7 @@ export default function WhatsAppButton({
 
   return (
     <a
-      href={whatsappUrl}
+      href={fallbackUrl}
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Chat on WhatsApp"

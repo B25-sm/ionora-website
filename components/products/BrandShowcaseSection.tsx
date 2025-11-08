@@ -6,6 +6,7 @@ import { ArrowRight, Star } from 'lucide-react';
 import { BRANDS } from '@/data/brands';
 import { useState } from 'react';
 import type { InstallationType } from '@/data/schema';
+import { HAS_WHATSAPP_NUMBER } from '@/lib/contact';
 
 type Props = {
   brandId: string;
@@ -166,12 +167,14 @@ export default function BrandShowcaseSection({
                     >
                       View Details
                     </button>
-                    <button
-                      onClick={() => onEnquire(product)}
-                      className="flex-1 px-4 py-2 bg-[#EBEBEB] text-[#0A2238] rounded-lg font-medium hover:bg-[#EBEBEB]/90 transition-colors"
-                    >
-                      Enquire
-                    </button>
+                    {HAS_WHATSAPP_NUMBER && (
+                      <button
+                        onClick={() => onEnquire(product)}
+                        className="flex-1 px-4 py-2 bg-[#EBEBEB] text-[#0A2238] rounded-lg font-medium hover:bg-[#EBEBEB]/90 transition-colors"
+                      >
+                        Enquire
+                      </button>
+                    )}
                   </div>
 
                   {/* Counter/Undercounter Toggle */}
@@ -187,7 +190,7 @@ export default function BrandShowcaseSection({
                               : 'bg-[#0A2238]/50 border border-[#EBEBEB]/20 text-[#EBEBEB]/70 hover:bg-[#EBEBEB]/10'
                           }`}
                         >
-                          {variant.type === 'counter' ? 'Counter' : 'Undercounter'}
+                          {variant.type === 'counter' ? 'Counter-top' : 'Undercounter'}
                         </button>
                       ))}
                     </div>

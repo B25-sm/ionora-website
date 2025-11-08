@@ -8,6 +8,7 @@ import { BRANDS } from '@/data/brands';
 import products from '@/data/products';
 import QuickViewModal from './QuickViewModal';
 import { sortProductsByVersion, extractVersionNumber } from '@/lib/productSorting';
+import { HAS_WHATSAPP_NUMBER, getWhatsAppUrlWithMessage } from '@/lib/contact';
 
 type Props = {
   category: string;
@@ -78,9 +79,10 @@ export default function BrandProductsPage({ category }: Props) {
   };
 
   const handleEnquire = (product: any) => {
+    if (!HAS_WHATSAPP_NUMBER) return;
     const message = `Hi! I'm interested in the ${product.name} water ionizer. Could you please provide more details about pricing and availability?`;
-    const encodedMessage = encodeURIComponent(message);
-    const whatsappUrl = `https://wa.me/9230123451?text=${encodedMessage}`;
+    const whatsappUrl = getWhatsAppUrlWithMessage(message);
+    if (!whatsappUrl) return;
     window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
   };
 
@@ -228,12 +230,14 @@ export default function BrandProductsPage({ category }: Props) {
                     >
                       View Details
                     </button>
-                    <button
-                      onClick={() => handleEnquire(product)}
-                      className="flex-1 px-4 py-2 bg-[#EBEBEB] text-[#0A2238] rounded-lg font-medium hover:bg-[#EBEBEB]/90 transition-colors"
-                    >
-                      Enquire
-                    </button>
+                    {HAS_WHATSAPP_NUMBER && (
+                      <button
+                        onClick={() => handleEnquire(product)}
+                        className="flex-1 px-4 py-2 bg-[#EBEBEB] text-[#0A2238] rounded-lg font-medium hover:bg-[#EBEBEB]/90 transition-colors"
+                      >
+                        Enquire
+                      </button>
+                    )}
                   </div>
                 </div>
               </div>

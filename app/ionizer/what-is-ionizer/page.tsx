@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { ArrowLeft, Settings, Droplets, Zap } from 'lucide-react';
 
 export default function WhatIsIonizerPage() {
@@ -28,34 +29,48 @@ export default function WhatIsIonizerPage() {
         <div className="max-w-6xl mx-auto">
           {/* What is an Ionizer */}
           <div className="bg-white rounded-xl shadow-lg p-8 mb-8">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">What is a Water Ionizer?</h2>
-            <div className="space-y-6 text-gray-700">
-              <p className="text-lg">
-                A <strong>water ionizer</strong> is an electrical device that uses electrolysis to separate tap water into two distinct streams: 
-                alkaline ionized water and acidic ionized water. This process transforms ordinary tap water into powerful, 
-                health-promoting water with unique properties.
-              </p>
-              
-              <div className="bg-blue-50 p-6 rounded-lg">
-                <h3 className="text-xl font-semibold text-blue-900 mb-4">Key Components:</h3>
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div>
-                    <h4 className="font-semibold text-blue-800 mb-2">Electrodes</h4>
-                    <p className="text-blue-700">Platinum-coated titanium plates that conduct electricity</p>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-blue-800 mb-2">Electrolyzer Chamber</h4>
-                    <p className="text-blue-700">Where the electrolysis process occurs</p>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-blue-800 mb-2">Pre-filtration System</h4>
-                    <p className="text-blue-700">Removes contaminants while preserving minerals</p>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-blue-800 mb-2">Control Panel</h4>
-                    <p className="text-blue-700">Allows adjustment of pH and ORP levels</p>
+            <div className="grid lg:grid-cols-[1.1fr,0.9fr] gap-6 lg:gap-10 items-center">
+              <div>
+                <h2 className="text-2xl font-bold text-gray-900 mb-6">What is a Water Ionizer?</h2>
+                <div className="space-y-6 text-gray-700">
+                  <p className="text-lg">
+                    A <strong>water ionizer</strong> is an electrical device that uses electrolysis to separate tap water into two distinct streams: 
+                    alkaline ionized water and acidic ionized water. This process transforms ordinary tap water into powerful, 
+                    health-promoting water with unique properties.
+                  </p>
+                  
+                  <div className="bg-blue-50 p-6 rounded-lg">
+                    <h3 className="text-xl font-semibold text-blue-900 mb-4">Key Components:</h3>
+                    <div className="grid md:grid-cols-2 gap-6">
+                      <div>
+                        <h4 className="font-semibold text-blue-800 mb-2">Electrodes</h4>
+                        <p className="text-blue-700">Platinum-coated titanium plates that conduct electricity</p>
+                      </div>
+                      <div>
+                        <h4 className="font-semibold text-blue-800 mb-2">Electrolyzer Chamber</h4>
+                        <p className="text-blue-700">Where the electrolysis process occurs</p>
+                      </div>
+                      <div>
+                        <h4 className="font-semibold text-blue-800 mb-2">Pre-filtration System</h4>
+                        <p className="text-blue-700">Removes contaminants while preserving minerals</p>
+                      </div>
+                      <div>
+                        <h4 className="font-semibold text-blue-800 mb-2">Control Panel</h4>
+                        <p className="text-blue-700">Allows adjustment of pH and ORP levels</p>
+                      </div>
+                    </div>
                   </div>
                 </div>
+              </div>
+              <div className="rounded-2xl overflow-hidden shadow-xl">
+                <Image
+                  src="/Ionized water images/Alkaline iodized water.jpeg"
+                  alt="Alkaline ionized water being poured into a glass"
+                  width={960}
+                  height={720}
+                  className="h-full w-full object-cover"
+                  priority
+                />
               </div>
             </div>
           </div>

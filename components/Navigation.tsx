@@ -178,6 +178,15 @@ export default function Navigation() {
         {menuOpen && (
           <div ref={menuRef} className="absolute right-0 top-full mt-2 w-full max-w-sm sm:w-80 bg-white/95 backdrop-blur-sm rounded-xl shadow-2xl border border-white/20 py-2 z-50 animate-in slide-in-from-top-2 duration-200">
             <div className="flex flex-col">
+              <Link 
+                href="/brands" 
+                className={`px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/20 transition-all duration-200 rounded-lg text-sm sm:text-base font-medium ${
+                  pathname === '/brands' ? 'text-blue-600 bg-blue-50' : ''
+                }`}
+                onClick={() => setMenuOpen(false)}
+              >
+                Brands
+              </Link>
               {/* Products with Brands Dropdown */}
               <div 
                 className="relative"
@@ -282,181 +291,6 @@ export default function Navigation() {
                           
                         </div>
                       ))}
-                    </div>
-                  </div>
-                )}
-              </div>
-
-              <Link 
-                href="/brands" 
-                className={`px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/20 transition-all duration-200 rounded-lg text-sm sm:text-base font-medium ${
-                  pathname === '/brands' ? 'text-blue-600 bg-blue-50' : ''
-                }`}
-                onClick={() => setMenuOpen(false)}
-              >
-                Brands
-              </Link>
-              <Link 
-                href="/technology" 
-                className={`px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/20 transition-all duration-200 rounded-lg text-sm sm:text-base font-medium ${
-                  pathname === '/technology' ? 'text-blue-600 bg-blue-50' : ''
-                }`}
-                onClick={() => setMenuOpen(false)}
-              >
-                Technology
-              </Link>
-              <Link 
-                href="/about" 
-                className={`px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/20 transition-all duration-200 rounded-lg text-sm sm:text-base font-medium ${
-                  pathname === '/about' ? 'text-blue-600 bg-blue-50' : ''
-                }`}
-                onClick={() => setMenuOpen(false)}
-              >
-                About
-              </Link>
-              {/* Ionizer with Dropdown */}
-              <div 
-                className="relative"
-                onMouseEnter={(e) => {
-                  // Only enable hover on desktop (screen width >= 640px)
-                  if (typeof window !== 'undefined' && window.innerWidth >= 640) {
-                    handleIonizerMouseEnter();
-                  }
-                }}
-                onMouseLeave={(e) => {
-                  // Only enable hover on desktop
-                  if (typeof window !== 'undefined' && window.innerWidth >= 640) {
-                    handleIonizerMouseLeave();
-                  }
-                }}
-              >
-                <div className="flex items-center">
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      const newState = !ionizerOpen;
-                      setIonizerOpen(newState);
-                      // Close other dropdowns when opening this one
-                      if (newState) {
-                        setProductsOpen(false);
-                        setPropertiesOpen(false);
-                        setUsesOpen(false);
-                      }
-                    }}
-                    className="sm:hidden flex-1 flex items-center justify-between px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/20 transition-all duration-200 rounded-lg text-sm font-medium text-left"
-                    aria-label="Toggle ionizer menu"
-                  >
-                    <span className={pathname === '/ionizer' ? 'text-blue-600' : ''}>Ionizer</span>
-                    <ChevronDown 
-                      className={`h-5 w-5 transition-transform duration-200 ${
-                        ionizerOpen ? 'transform rotate-180' : ''
-                      }`} 
-                    />
-                  </button>
-                  {/* Desktop: Link with hover dropdown */}
-                  <Link 
-                    href="/ionizer" 
-                    className={`hidden sm:flex flex-1 px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/20 transition-all duration-200 rounded-lg text-sm sm:text-base font-medium ${
-                      pathname === '/ionizer' ? 'text-blue-600 bg-blue-50' : ''
-                    }`}
-                  >
-                    Ionizer
-                  </Link>
-                </div>
-                
-                {/* Ionizer Dropdown - Mobile: Inline, Desktop: Absolute */}
-                {/* Mobile: Only show when ionizerOpen is true */}
-                <div className={`sm:hidden ${ionizerOpen ? 'block' : 'hidden'}`}>
-                  <div className="w-full bg-white/95 backdrop-blur-sm rounded-lg shadow-xl border border-white/20 py-1 mt-1">
-                    <div className="flex flex-col">
-                      <Link 
-                        href="/ionizer/ph"
-                        className="px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/20 transition-all duration-200 rounded-lg text-sm sm:text-base"
-                        onClick={() => {
-                          setMenuOpen(false);
-                          setIonizerOpen(false);
-                        }}
-                      >
-                        What is pH
-                      </Link>
-                      <Link 
-                        href="/ionizer/orp"
-                        className="px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/20 transition-all duration-200 rounded-lg text-sm sm:text-base"
-                        onClick={() => {
-                          setMenuOpen(false);
-                          setIonizerOpen(false);
-                        }}
-                      >
-                        What is ORP
-                      </Link>
-                      <Link 
-                        href="/ionizer/what-is-ionizer"
-                        className="px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/20 transition-all duration-200 rounded-lg text-sm sm:text-base"
-                        onClick={() => {
-                          setMenuOpen(false);
-                          setIonizerOpen(false);
-                        }}
-                      >
-                        What is Ionizer
-                      </Link>
-                      <Link 
-                        href="/ionizer/how-it-works"
-                        className="px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/20 transition-all duration-200 rounded-lg text-sm sm:text-base"
-                        onClick={() => {
-                          setMenuOpen(false);
-                          setIonizerOpen(false);
-                        }}
-                      >
-                        How Ionizer Works
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-                
-                {/* Desktop: Show on hover */}
-                {ionizerHovered && (
-                  <div className="hidden sm:block absolute right-full mr-2 top-0 w-64 w-72 bg-white/95 backdrop-blur-sm rounded-lg shadow-xl border border-white/20 py-1 z-50 animate-in slide-in-from-right-2 duration-200 max-h-[80vh] overflow-y-auto">
-                    <div className="flex flex-col">
-                      <Link 
-                        href="/ionizer/ph"
-                        className="px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/20 transition-all duration-200 rounded-lg text-sm sm:text-base"
-                        onClick={() => {
-                          setMenuOpen(false);
-                          setIonizerOpen(false);
-                        }}
-                      >
-                        What is pH
-                      </Link>
-                      <Link 
-                        href="/ionizer/orp"
-                        className="px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/20 transition-all duration-200 rounded-lg text-sm sm:text-base"
-                        onClick={() => {
-                          setMenuOpen(false);
-                          setIonizerOpen(false);
-                        }}
-                      >
-                        What is ORP
-                      </Link>
-                      <Link 
-                        href="/ionizer/what-is-ionizer"
-                        className="px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/20 transition-all duration-200 rounded-lg text-sm sm:text-base"
-                        onClick={() => {
-                          setMenuOpen(false);
-                          setIonizerOpen(false);
-                        }}
-                      >
-                        What is Ionizer
-                      </Link>
-                      <Link 
-                        href="/ionizer/how-it-works"
-                        className="px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/20 transition-all duration-200 rounded-lg text-sm sm:text-base"
-                        onClick={() => {
-                          setMenuOpen(false);
-                          setIonizerOpen(false);
-                        }}
-                      >
-                        How Ionizer Works
-                      </Link>
                     </div>
                   </div>
                 )}
@@ -689,6 +523,153 @@ export default function Navigation() {
                   </div>
                 )}
               </div>
+              {/* Ionizer with Dropdown */}
+              <div 
+                className="relative"
+                onMouseEnter={(e) => {
+                  // Only enable hover on desktop (screen width >= 640px)
+                  if (typeof window !== 'undefined' && window.innerWidth >= 640) {
+                    handleIonizerMouseEnter();
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  // Only enable hover on desktop
+                  if (typeof window !== 'undefined' && window.innerWidth >= 640) {
+                    handleIonizerMouseLeave();
+                  }
+                }}
+              >
+                <div className="flex items-center">
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      const newState = !ionizerOpen;
+                      setIonizerOpen(newState);
+                      // Close other dropdowns when opening this one
+                      if (newState) {
+                        setProductsOpen(false);
+                        setPropertiesOpen(false);
+                        setUsesOpen(false);
+                      }
+                    }}
+                    className="sm:hidden flex-1 flex items-center justify-between px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/20 transition-all duration-200 rounded-lg text-sm font-medium text-left"
+                    aria-label="Toggle ionizer menu"
+                  >
+                    <span className={pathname === '/ionizer' ? 'text-blue-600' : ''}>Ionizer</span>
+                    <ChevronDown 
+                      className={`h-5 w-5 transition-transform duration-200 ${
+                        ionizerOpen ? 'transform rotate-180' : ''
+                      }`} 
+                    />
+                  </button>
+                  {/* Desktop: Link with hover dropdown */}
+                  <Link 
+                    href="/ionizer" 
+                    className={`hidden sm:flex flex-1 px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/20 transition-all duration-200 rounded-lg text-sm sm:text-base font-medium ${
+                      pathname === '/ionizer' ? 'text-blue-600 bg-blue-50' : ''
+                    }`}
+                  >
+                    Ionizer
+                  </Link>
+                </div>
+                
+                {/* Ionizer Dropdown - Mobile: Inline, Desktop: Absolute */}
+                {/* Mobile: Only show when ionizerOpen is true */}
+                <div className={`sm:hidden ${ionizerOpen ? 'block' : 'hidden'}`}>
+                  <div className="w-full bg-white/95 backdrop-blur-sm rounded-lg shadow-xl border border-white/20 py-1 mt-1">
+                    <div className="flex flex-col">
+                      <Link 
+                        href="/ionizer/ph"
+                        className="px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/20 transition-all duration-200 rounded-lg text-sm sm:text-base"
+                        onClick={() => {
+                          setMenuOpen(false);
+                          setIonizerOpen(false);
+                        }}
+                      >
+                        What is pH
+                      </Link>
+                      <Link 
+                        href="/ionizer/orp"
+                        className="px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/20 transition-all duration-200 rounded-lg text-sm sm:text-base"
+                        onClick={() => {
+                          setMenuOpen(false);
+                          setIonizerOpen(false);
+                        }}
+                      >
+                        What is ORP
+                      </Link>
+                      <Link 
+                        href="/ionizer/what-is-ionizer"
+                        className="px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/20 transition-all duration-200 rounded-lg text-sm sm:text-base"
+                        onClick={() => {
+                          setMenuOpen(false);
+                          setIonizerOpen(false);
+                        }}
+                      >
+                        What is Ionizer
+                      </Link>
+                      <Link 
+                        href="/ionizer/how-it-works"
+                        className="px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/20 transition-all duration-200 rounded-lg text-sm sm:text-base"
+                        onClick={() => {
+                          setMenuOpen(false);
+                          setIonizerOpen(false);
+                        }}
+                      >
+                        How Ionizer Works
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Desktop: Show on hover */}
+                {ionizerHovered && (
+                  <div className="hidden sm:block absolute right-full mr-2 top-0 w-64 w-72 bg-white/95 backdrop-blur-sm rounded-lg shadow-xl border border-white/20 py-1 z-50 animate-in slide-in-from-right-2 duration-200 max-h-[80vh] overflow-y-auto">
+                    <div className="flex flex-col">
+                      <Link 
+                        href="/ionizer/ph"
+                        className="px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/20 transition-all duration-200 rounded-lg text-sm sm:text-base"
+                        onClick={() => {
+                          setMenuOpen(false);
+                          setIonizerOpen(false);
+                        }}
+                      >
+                        What is pH
+                      </Link>
+                      <Link 
+                        href="/ionizer/orp"
+                        className="px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/20 transition-all duration-200 rounded-lg text-sm sm:text-base"
+                        onClick={() => {
+                          setMenuOpen(false);
+                          setIonizerOpen(false);
+                        }}
+                      >
+                        What is ORP
+                      </Link>
+                      <Link 
+                        href="/ionizer/what-is-ionizer"
+                        className="px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/20 transition-all duration-200 rounded-lg text-sm sm:text-base"
+                        onClick={() => {
+                          setMenuOpen(false);
+                          setIonizerOpen(false);
+                        }}
+                      >
+                        What is Ionizer
+                      </Link>
+                      <Link 
+                        href="/ionizer/how-it-works"
+                        className="px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/20 transition-all duration-200 rounded-lg text-sm sm:text-base"
+                        onClick={() => {
+                          setMenuOpen(false);
+                          setIonizerOpen(false);
+                        }}
+                      >
+                        How Ionizer Works
+                      </Link>
+                    </div>
+                  </div>
+                )}
+              </div>
 
               {/* Uses/Applications with Dropdown */}
               <div 
@@ -825,6 +806,24 @@ export default function Navigation() {
                 onClick={() => setMenuOpen(false)}
               >
                 Compare Products
+              </Link>
+              <Link 
+                href="/technology" 
+                className={`px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/20 transition-all duration-200 rounded-lg text-sm sm:text-base font-medium ${
+                  pathname === '/technology' ? 'text-blue-600 bg-blue-50' : ''
+                }`}
+                onClick={() => setMenuOpen(false)}
+              >
+                Technology
+              </Link>
+              <Link 
+                href="/about" 
+                className={`px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/20 transition-all duration-200 rounded-lg text-sm sm:text-base font-medium ${
+                  pathname === '/about' ? 'text-blue-600 bg-blue-50' : ''
+                }`}
+                onClick={() => setMenuOpen(false)}
+              >
+                About
               </Link>
               <div className="border-t border-gray-200 my-1"></div>
               <button 

@@ -20,6 +20,7 @@ import Image from 'next/image';
 import { cn } from '@/lib/utils';
 import type { Product } from '@/data/products';
 import type { Variant, InstallationType } from '@/data/schema';
+import { HAS_WHATSAPP_NUMBER } from '@/lib/contact';
 
 type Props = {
   products: Product[];
@@ -170,7 +171,7 @@ export default function ProductCarousel({ products, onViewDetails, onEnquire }: 
               ref={(el) => {
                 cardRefs.current[index] = el;
               }}
-              className="group relative flex-shrink-0 w-80 snap-center flex"
+              className="group relative flex-shrink-0 snap-start flex min-w-[260px] w-[85vw] sm:w-64 md:w-72 lg:w-auto lg:flex-none lg:basis-[calc((100%-72px)/4)] lg:min-w-[calc((100%-72px)/4)] lg:max-w-[calc((100%-72px)/4)]"
               style={{ alignSelf: 'stretch' }}
               onMouseEnter={() => setHoveredProduct(product.id)}
               onMouseLeave={() => setHoveredProduct(null)}
@@ -261,26 +262,28 @@ export default function ProductCarousel({ products, onViewDetails, onEnquire }: 
                       View Details
                     </button>
 
-                    <button
-                      onClick={() => onEnquire(product)}
-                      className="flex-1 flex items-center justify-center gap-2 px-4 py-2 rounded-xl bg-[#0A2238] text-white font-medium hover:bg-[#0A2238]/80 hover:scale-[1.02] transition shadow-lg"
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="w-4 h-4"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        strokeWidth={2}
+                    {HAS_WHATSAPP_NUMBER && (
+                      <button
+                        onClick={() => onEnquire(product)}
+                        className="flex-1 flex items-center justify-center gap-2 px-4 py-2 rounded-xl bg-[#0A2238] text-white font-medium hover:bg-[#0A2238]/80 hover:scale-[1.02] transition shadow-lg"
                       >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M8 10h.01M12 14l9-5-9-5-9 5 9 5zm0 0v6"
-                        />
-                      </svg>
-                      Enquire Now
-                    </button>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="w-4 h-4"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                          strokeWidth={2}
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M8 10h.01M12 14l9-5-9-5-9 5 9 5zm0 0v6"
+                          />
+                        </svg>
+                        Enquire Now
+                      </button>
+                    )}
                   </div>
 
                   {/* Counter/Undercounter Toggle */}
@@ -296,7 +299,7 @@ export default function ProductCarousel({ products, onViewDetails, onEnquire }: 
                               : 'bg-white border border-[#0A2238]/20 text-[#0A2238] hover:bg-white/80'
                           }`}
                         >
-                          {variant.type === 'counter' ? 'Counter' : 'Undercounter'}
+                          {variant.type === 'counter' ? 'Counter-top' : 'Undercounter'}
                         </button>
                       ))}
                     </div>

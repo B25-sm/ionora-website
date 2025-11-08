@@ -367,7 +367,7 @@ export const products = [
     price: 135000,
     installationVariants: [
       { type: "counter", image: "/images/products/medisoul/MSL-5 uppercounter.png", price: 135000 },
-      { type: "undercounter", image: "/images/products/medisoul/MSL-5 undercounter.png", price: 145000 }
+      { type: "undercounter", image: "/images/products/medisoul/msl-5-undercounter-black.png", price: 145000 }
     ]
   },
   { 
@@ -388,7 +388,7 @@ export const products = [
     price: 180000,
     installationVariants: [
       { type: "counter", image: "/images/products/medisoul/MSL-7 uppercounter.png", price: 180000 },
-      { type: "undercounter", image: "/images/products/medisoul/MSL-7 undercounter.png", price: 190000 }
+      { type: "undercounter", image: "/images/products/medisoul/msl-7-undercounter-black.png", price: 190000 }
     ]
   },
   { 
@@ -409,7 +409,7 @@ export const products = [
     price: 225000,
     installationVariants: [
       { type: "counter", image: "/images/products/medisoul/MSL-9 uppercounter.png", price: 225000 },
-      { type: "undercounter", image: "/images/products/medisoul/MSL-9 undercounter.png", price: 235000 }
+      { type: "undercounter", image: "/images/products/medisoul/msl-9-undercounter-black.png", price: 235000 }
     ]
   },
   { 
@@ -430,7 +430,7 @@ export const products = [
     price: 270000,
     installationVariants: [
       { type: "counter", image: "/images/products/medisoul/MSL-11 uppercounter.png", price: 270000 },
-      { type: "undercounter", image: "/images/products/medisoul/MSL-11 undercounter.png", price: 280000 }
+      { type: "undercounter", image: "/images/products/medisoul/msl-11-undercounter-black.png", price: 280000 }
     ]
   },
   { 
@@ -451,14 +451,14 @@ export const products = [
     price: 315000,
     installationVariants: [
       { type: "counter", image: "/images/products/medisoul/MSL-13 uppercounter.png", price: 315000 },
-      { type: "undercounter", image: "/images/products/medisoul/MSL-13 undercounter.png", price: 325000 }
+      { type: "undercounter", image: "/images/products/medisoul/msl-13-undercounter-black.png", price: 325000 }
     ]
   },
   { 
     id: "msl-15", 
     brand: "medisoul", 
     name: "MSL-15", 
-    image: "/images/products/medisoul/MSL-15 uppercounter.png",
+    image: "/images/products/medisoul/msl-15-uppercounter.png",
     category: "Residential", 
     plates: "15 XL Matrix GRID™ Plates", 
     phRange: "1.7 – 12.2 pH", 
@@ -471,8 +471,8 @@ export const products = [
     colorOptions: "Black, White",
     price: 360000,
     installationVariants: [
-      { type: "counter", image: "/images/products/medisoul/MSL-15 uppercounter.png", price: 360000 },
-      { type: "undercounter", image: "/images/products/medisoul/MSL-15 undercounter.png", price: 370000 }
+      { type: "counter", image: "/images/products/medisoul/msl-15-uppercounter.png", price: 360000 },
+      { type: "undercounter", image: "/images/products/medisoul/msl-15-uppercounter.png", price: 370000 }
     ]
   },
 

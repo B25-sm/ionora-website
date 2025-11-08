@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { ArrowLeft, BookOpen, Zap, Droplets } from 'lucide-react';
 
 export default function IonizerPage() {
@@ -25,24 +26,38 @@ export default function IonizerPage() {
         <div className="grid lg:grid-cols-2 gap-8 mb-12">
           {/* What is Ionized Water */}
           <div className="bg-white rounded-xl shadow-lg p-8">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3">
-              <Droplets className="h-8 w-8 text-blue-600" />
-              What is Ionized Water?
-            </h2>
-            <div className="space-y-4 text-gray-700">
-              <p>
-                Ionized water, also known as <strong>Oxidation Reduced Water</strong>, is created through the process of electrolysis. 
-                In this process, tap water passes through electrically charged platinum-coated titanium plates, where the electrolyzer 
-                separates tap water into two distinct streams.
-              </p>
-              <div className="bg-blue-50 p-4 rounded-lg">
-                <h3 className="font-semibold text-blue-900 mb-2">The Process:</h3>
-                <ul className="space-y-2 text-blue-800">
-                  <li>• Tap water enters the ionizer</li>
-                  <li>• Passes through platinum-coated titanium plates</li>
-                  <li>• Electrical current separates water into two streams</li>
-                  <li>• Alkaline stream (cathode) and acidic stream (anode)</li>
-                </ul>
+            <div className="grid md:grid-cols-2 gap-6 items-center">
+              <div>
+                <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3">
+                  <Droplets className="h-8 w-8 text-blue-600" />
+                  What is Ionized Water?
+                </h2>
+                <div className="space-y-4 text-gray-700">
+                  <p>
+                    Ionized water, also known as <strong>Oxidation Reduced Water</strong>, is created through the process of electrolysis. 
+                    In this process, tap water passes through electrically charged platinum-coated titanium plates, where the electrolyzer 
+                    separates tap water into two distinct streams.
+                  </p>
+                  <div className="bg-blue-50 p-4 rounded-lg">
+                    <h3 className="font-semibold text-blue-900 mb-2">The Process:</h3>
+                    <ul className="space-y-2 text-blue-800">
+                      <li>• Tap water enters the ionizer</li>
+                      <li>• Passes through platinum-coated titanium plates</li>
+                      <li>• Electrical current separates water into two streams</li>
+                      <li>• Alkaline stream (cathode) and acidic stream (anode)</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div className="rounded-xl overflow-hidden shadow-md">
+                <Image
+                  src="/Ionized water images/iodized water.jpeg"
+                  alt="Fresh glass of ionized water"
+                  width={800}
+                  height={600}
+                  className="h-full w-full object-cover"
+                  priority
+                />
               </div>
             </div>
           </div>

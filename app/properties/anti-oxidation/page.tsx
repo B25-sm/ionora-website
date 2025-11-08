@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { ArrowLeft, Shield, Zap, Heart } from 'lucide-react';
 
 export default function AntiOxidationPage() {
@@ -28,44 +29,58 @@ export default function AntiOxidationPage() {
         <div className="max-w-6xl mx-auto">
           {/* What is Oxidation */}
           <div className="bg-white rounded-xl shadow-lg p-8 mb-8">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">What is Oxidation?</h2>
-            <div className="space-y-6 text-gray-700">
-              <p className="text-lg">
-                <strong>Oxidation</strong> means loss of electrons. In the human body, oxidation is a normal and essential 
-                chemical process where molecules lose electrons. It's part of how we generate energy from food — but when 
-                uncontrolled, it can become harmful.
-              </p>
-              
-              <div className="bg-red-50 p-6 rounded-lg">
-                <h3 className="text-xl font-semibold text-red-900 mb-4">Oxidation in the Human Body:</h3>
-                <div className="space-y-3 text-red-800">
-                  <p><strong>Normal Process:</strong> Essential for energy production and cellular function</p>
-                  <p><strong>Uncontrolled Oxidation:</strong> Can cause cellular damage and disease</p>
-                  <p><strong>Involves:</strong> Oxygen reacting with other substances to form free radicals</p>
-                  <p><strong>Result:</strong> Reactive Oxygen Species (ROS) that can damage cells</p>
+            <div className="grid lg:grid-cols-[1.05fr,0.95fr] gap-6 lg:gap-10 items-center">
+              <div>
+                <h2 className="text-2xl font-bold text-gray-900 mb-6">What is Oxidation?</h2>
+                <div className="space-y-6 text-gray-700">
+                  <p className="text-lg">
+                    <strong>Oxidation</strong> means loss of electrons. In the human body, oxidation is a normal and essential 
+                    chemical process where molecules lose electrons. It's part of how we generate energy from food — but when 
+                    uncontrolled, it can become harmful.
+                  </p>
+                  
+                  <div className="bg-red-50 p-6 rounded-lg">
+                    <h3 className="text-xl font-semibold text-red-900 mb-4">Oxidation in the Human Body:</h3>
+                    <div className="space-y-3 text-red-800">
+                      <p><strong>Normal Process:</strong> Essential for energy production and cellular function</p>
+                      <p><strong>Uncontrolled Oxidation:</strong> Can cause cellular damage and disease</p>
+                      <p><strong>Involves:</strong> Oxygen reacting with other substances to form free radicals</p>
+                      <p><strong>Result:</strong> Reactive Oxygen Species (ROS) that can damage cells</p>
+                    </div>
+                  </div>
+
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <div className="bg-green-50 p-6 rounded-lg">
+                      <h3 className="text-lg font-semibold text-green-900 mb-3">Normal Oxidation (Good)</h3>
+                      <ul className="space-y-2 text-green-800">
+                        <li>• Energy production from food</li>
+                        <li>• Immune system function</li>
+                        <li>• Cell signaling</li>
+                        <li>• Detoxification processes</li>
+                      </ul>
+                    </div>
+                    
+                    <div className="bg-orange-50 p-6 rounded-lg">
+                      <h3 className="text-lg font-semibold text-orange-900 mb-3">Excessive Oxidation (Bad)</h3>
+                      <ul className="space-y-2 text-orange-800">
+                        <li>• DNA damage and mutations</li>
+                        <li>• Cell membrane damage</li>
+                        <li>• Protein dysfunction</li>
+                        <li>• Accelerated aging</li>
+                      </ul>
+                    </div>
+                  </div>
                 </div>
               </div>
-
-              <div className="grid md:grid-cols-2 gap-6">
-                <div className="bg-green-50 p-6 rounded-lg">
-                  <h3 className="text-lg font-semibold text-green-900 mb-3">Normal Oxidation (Good)</h3>
-                  <ul className="space-y-2 text-green-800">
-                    <li>• Energy production from food</li>
-                    <li>• Immune system function</li>
-                    <li>• Cell signaling</li>
-                    <li>• Detoxification processes</li>
-                  </ul>
-                </div>
-                
-                <div className="bg-orange-50 p-6 rounded-lg">
-                  <h3 className="text-lg font-semibold text-orange-900 mb-3">Excessive Oxidation (Bad)</h3>
-                  <ul className="space-y-2 text-orange-800">
-                    <li>• DNA damage and mutations</li>
-                    <li>• Cell membrane damage</li>
-                    <li>• Protein dysfunction</li>
-                    <li>• Accelerated aging</li>
-                  </ul>
-                </div>
+              <div className="rounded-2xl overflow-hidden shadow-xl">
+                <Image
+                  src="/Ionized water images/oxidation.jpeg"
+                  alt="Visualization of oxidation and reactive oxygen species"
+                  width={960}
+                  height={720}
+                  className="h-full w-full object-cover"
+                  priority
+                />
               </div>
             </div>
           </div>

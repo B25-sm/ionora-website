@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { HAS_WHATSAPP_NUMBER, WHATSAPP_URL } from "@/lib/contact";
 
 export default function ClosingCTA() {
   return (
@@ -70,16 +71,18 @@ export default function ClosingCTA() {
             <span className="group-hover:translate-x-1 transition-transform duration-300">→</span>
           </Link>
 
-          <a
-            href="https://wa.me/9230123451"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Chat on WhatsApp"
-            className="group inline-flex items-center gap-3 rounded-2xl px-8 py-4 text-lg font-bold text-[#0A2238] border-2 border-[#EBEBEB] bg-white hover:bg-[#EBEBEB] hover:text-[#0A2238] transition-all duration-300 shadow-xl hover:shadow-2xl hover:scale-105 active:scale-95"
-          >
-            <span className="text-2xl">💬</span>
-            <span>WhatsApp</span>
-          </a>
+          {HAS_WHATSAPP_NUMBER && (
+            <a
+              href={WHATSAPP_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Chat on WhatsApp"
+              className="group inline-flex items-center gap-3 rounded-2xl px-8 py-4 text-lg font-bold text-[#0A2238] border-2 border-[#EBEBEB] bg-white hover:bg-[#EBEBEB] hover:text-[#0A2238] transition-all duration-300 shadow-xl hover:shadow-2xl hover:scale-105 active:scale-95"
+            >
+              <span className="text-2xl">💬</span>
+              <span>WhatsApp</span>
+            </a>
+          )}
         </motion.div>
 
         {/* Additional Info */}

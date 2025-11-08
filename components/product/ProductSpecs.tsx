@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { HAS_WHATSAPP_NUMBER, WHATSAPP_URL } from "@/lib/contact";
 
 type Model = {
   slug: string;
@@ -87,15 +88,17 @@ export default function ProductSpecs({ model }: { model: Model }) {
             Explore Products
           </a>
 
-          <a
-            href="https://wa.me/9230123451"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-white/15 text-white/90 bg-white/5"
-            aria-label="Chat on WhatsApp"
-          >
-            Chat on WhatsApp
-          </a>
+          {HAS_WHATSAPP_NUMBER && (
+            <a
+              href={WHATSAPP_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-white/15 text-white/90 bg-white/5"
+              aria-label="Chat on WhatsApp"
+            >
+              Chat on WhatsApp
+            </a>
+          )}
 
           <button
             type="button"

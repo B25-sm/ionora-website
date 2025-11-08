@@ -51,7 +51,7 @@ export const BRANDS: Array<{
       'To become a leading player in the export market with a commitment to excellence'
     ],
     certifications: 'ISO 13485, ISO 9001, ISO 14001, ISO 45001, CE, GMP, WQA, FDA',
-    logo: '/images/products/mediqua/mediqua logo.avif',
+    logo: '/images/products/mediqua/Mediqua logo.avif',
     mainImage: '/images/products/mediqua/ak-3000.png',
     featured: true,
     productCount: 8,
@@ -74,7 +74,7 @@ export const BRANDS: Array<{
       'To uphold Mirko\'s 15-year legacy of quality, craftsmanship, and innovation, ensuring that every drop of water reflects our dedication to health and purity'
     ],
     logo: '/images/products/medisoul/medisoul-logo.png',
-    mainImage: '/images/products/medisoul/mslblack11.png',
+    mainImage: '/images/products/medisoul/msl-11-undercounter-black.png',
     featured: true,
     productCount: 24,
     platesWarranty: '25 years',

@@ -8,6 +8,7 @@ import QuickViewModal from './QuickViewModal';
 import CompareTray from './CompareTray';
 import BrandShowcaseSection from './BrandShowcaseSection';
 import { sortProductsByVersion } from '@/lib/productSorting';
+import { HAS_WHATSAPP_NUMBER, getWhatsAppUrlWithMessage } from '@/lib/contact';
 
 type Props = {
   initialBrand?: string | null;
@@ -75,10 +76,10 @@ export default function ProductsShowcaseV2({ initialBrand }: Props) {
   };
 
   const handleEnquire = (product: any) => {
-    // Open WhatsApp with product enquiry message
+    if (!HAS_WHATSAPP_NUMBER) return;
     const message = `Hi! I'm interested in the ${product.name} water ionizer. Could you please provide more details about pricing and availability?`;
-    const encodedMessage = encodeURIComponent(message);
-    const whatsappUrl = `https://wa.me/9230123451?text=${encodedMessage}`;
+    const whatsappUrl = getWhatsAppUrlWithMessage(message);
+    if (!whatsappUrl) return;
     window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
   };
 

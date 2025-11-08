@@ -158,7 +158,7 @@ export default function ProductCardV2({ product, onQuickView, onCompare, isCompa
                     : 'bg-white/5 border border-white/10 text-white/70 hover:bg-white/10'
                 }`}
               >
-                {variant.type === 'counter' ? 'Counter' : 'Undercounter'}
+                {variant.type === 'counter' ? 'Counter-top' : 'Undercounter'}
               </button>
             ))}
           </div>

@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { ArrowLeft, Zap, Beaker, Atom } from 'lucide-react';
 
 export default function HowItWorksPage() {
@@ -63,6 +64,15 @@ export default function HowItWorksPage() {
                   Cathode (-) - Alkaline Stream
                 </h3>
                 <div className="space-y-4 text-green-800">
+                  <div className="rounded-lg overflow-hidden shadow-md">
+                    <Image
+                      src="/Ionized water images/Cathode electrode(Alkaline water).jpeg"
+                      alt="Cathode electrode producing alkaline ionized water"
+                      width={800}
+                      height={600}
+                      className="h-48 w-full object-cover"
+                    />
+                  </div>
                   <p><strong>Process:</strong> Water is reduced (gains electrons)</p>
                   <div className="bg-white p-4 rounded border-2 border-green-200 text-center">
                     <code className="text-lg font-mono">2H₂O + 2e⁻ → H₂(g) + 2OH⁻</code>
@@ -89,6 +99,15 @@ export default function HowItWorksPage() {
                   Anode (+) - Acidic Stream
                 </h3>
                 <div className="space-y-4 text-red-800">
+                  <div className="rounded-lg overflow-hidden shadow-md">
+                    <Image
+                      src="/Ionized water images/Anode.jpeg"
+                      alt="Anode electrode releasing oxygen bubbles"
+                      width={800}
+                      height={600}
+                      className="h-48 w-full object-cover"
+                    />
+                  </div>
                   <p><strong>Process:</strong> Water is oxidized (loses electrons)</p>
                   <div className="bg-white p-4 rounded border-2 border-red-200 text-center">
                     <code className="text-lg font-mono">2H₂O → O₂(g) + 4H⁺ + 4e⁻</code>

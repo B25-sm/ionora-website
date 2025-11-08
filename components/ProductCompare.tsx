@@ -3,10 +3,14 @@ import React, { useMemo } from "react";
 import { useSearchParams } from "next/navigation";
 import Image from "next/image";
 import productsData, { Product } from "../data/products";
+import { HAS_WHATSAPP_NUMBER, getWhatsAppUrlWithMessage } from "@/lib/contact";
 
 function openWhatsApp(productName: string) {
-  const msg = encodeURIComponent(`Hello, I'm interested in ${productName}. Please share pricing and details.`);
-  window.open(`https://wa.me/9230123451?text=${msg}`, "_blank");
+  if (!HAS_WHATSAPP_NUMBER) return;
+  const message = `Hello, I'm interested in ${productName}. Please share pricing and details.`;
+  const whatsappUrl = getWhatsAppUrlWithMessage(message);
+  if (!whatsappUrl) return;
+  window.open(whatsappUrl, "_blank");
 }
 
 export default function ProductCompare() {
@@ -92,7 +96,9 @@ export default function ProductCompare() {
                 <td key={p.id + "-actions"} className="p-4">
                   <div className="flex gap-3">
                     <a href={`/products/${p.id}`} className="px-4 py-2 bg-white/10 rounded-lg hover:bg-white/20 transition-colors">View Details</a>
-                    <button onClick={() => openWhatsApp(p.name)} className="px-4 py-2 bg-green-500 text-black rounded-lg font-semibold hover:bg-green-600 transition-colors">Enquire Now</button>
+                    {HAS_WHATSAPP_NUMBER && (
+                      <button onClick={() => openWhatsApp(p.name)} className="px-4 py-2 bg-green-500 text-black rounded-lg font-semibold hover:bg-green-600 transition-colors">Enquire Now</button>
+                    )}
                   </div>
                 </td>
               ))}

@@ -5,15 +5,17 @@ import React, { useState } from "react";
 import { BarChart3 } from "lucide-react";
 import type { Product } from "@/data/products";
 import type { InstallationType } from "@/data/schema";
+import { HAS_WHATSAPP_NUMBER, getWhatsAppUrlWithMessage } from "@/lib/contact";
 
 export default function ProductCard({ product }: { product: Product }) {
   const [selectedInstallation, setSelectedInstallation] = useState<InstallationType | null>(null);
 
   const openWhatsApp = (productName: string) => {
-    const message = encodeURIComponent(
-      `Hello, I'd like to know more about ${productName}. Could you please share the details?`
-    );
-    window.open(`https://wa.me/9230123451?text=${message}`, "_blank");
+    if (!HAS_WHATSAPP_NUMBER) return;
+    const message = `Hello, I'd like to know more about ${productName}. Could you please share the details?`;
+    const whatsappUrl = getWhatsAppUrlWithMessage(message);
+    if (!whatsappUrl) return;
+    window.open(whatsappUrl, "_blank");
   };
 
   // Check if product has installation variants
@@ -101,12 +103,14 @@ export default function ProductCard({ product }: { product: Product }) {
           <BarChart3 className="w-4 h-4 sm:w-5 sm:h-5" />
         </Link>
 
-        <button
-          onClick={() => openWhatsApp(product.name)}
-          className="flex-1 px-3 sm:px-4 md:px-5 py-2 sm:py-2.5 rounded-lg bg-primary text-bg font-medium hover:scale-[1.02] transition text-xs sm:text-sm"
-        >
-          Enquire
-        </button>
+        {HAS_WHATSAPP_NUMBER && (
+          <button
+            onClick={() => openWhatsApp(product.name)}
+            className="flex-1 px-3 sm:px-4 md:px-5 py-2 sm:py-2.5 rounded-lg bg-primary text-bg font-medium hover:scale-[1.02] transition text-xs sm:text-sm"
+          >
+            Enquire
+          </button>
+        )}
         </div>
 
         {/* Counter/Undercounter Toggle */}
@@ -122,7 +126,7 @@ export default function ProductCard({ product }: { product: Product }) {
                     : 'bg-bg/30 border border-primary/20 text-primary/70 hover:bg-bg/40'
                 }`}
               >
-                {variant.type === 'counter' ? 'Counter' : 'Undercounter'}
+                {variant.type === 'counter' ? 'Counter-top' : 'Undercounter'}
               </button>
             ))}
           </div>
