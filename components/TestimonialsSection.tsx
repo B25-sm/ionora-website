@@ -126,73 +126,69 @@ const testimonials: Testimonial[] = testimonialSources
 
 const posterCache = new Map<string, string>();
 
-const pauseVideoSafely = async (video: HTMLVideoElement) => {
-  try {
-    video.pause();
-  } catch (error) {
-    if (!(error instanceof DOMException && error.name === 'AbortError')) {
-      if (process.env.NODE_ENV !== 'production') {
-        console.warn('Pause failed', error);
-      }
-    }
-  }
-};
+let currentPlaying: number | null = null;
+let currentPlayingEl: HTMLVideoElement | null = null;
+const PLAY_DEBOUNCE_MS = 300;
 
-const waitForCanPlay = (video: HTMLVideoElement) =>
-  new Promise<void>((resolve, reject) => {
-    const cleanup = () => {
-      video.removeEventListener('canplay', handleCanPlay);
-      video.removeEventListener('canplaythrough', handleCanPlay);
-      video.removeEventListener('error', handleError);
-    };
+async function safePlay(videoEl: HTMLVideoElement, id: number) {
+  if (!videoEl) return;
 
-    const handleCanPlay = () => {
-      cleanup();
-      resolve();
-    };
+  videoEl.muted = true;
+  videoEl.playsInline = true;
 
-    const handleError = (event: Event) => {
-      cleanup();
-      reject(event);
-    };
-
-    video.addEventListener('canplay', handleCanPlay, { once: true });
-    video.addEventListener('canplaythrough', handleCanPlay, { once: true });
-    video.addEventListener('error', handleError, { once: true });
-  });
-
-const playVideoSafely = async (video: HTMLVideoElement) => {
-  if (video.readyState < 2) {
+  if (currentPlaying !== null && currentPlaying !== id && currentPlayingEl) {
     try {
-      await waitForCanPlay(video);
+      safePause(currentPlayingEl, currentPlaying);
     } catch (error) {
       if (process.env.NODE_ENV !== 'production') {
-        console.warn('Video failed to become ready', error);
+        console.warn('Failed to pause previous testimonial video', error);
       }
     }
   }
 
+  currentPlaying = id;
+  currentPlayingEl = videoEl;
+
   try {
-    const playPromise = video.play();
+    const playPromise = videoEl.play();
     if (playPromise && typeof playPromise.then === 'function') {
       await playPromise;
     }
   } catch (error) {
+    if (process.env.NODE_ENV !== 'production') {
+      console.warn(`safePlay warning for testimonial ${id}`, error);
+    }
+    if (videoEl.paused) {
+      currentPlaying = null;
+      currentPlayingEl = null;
+    }
+  }
+}
+
+function safePause(videoEl: HTMLVideoElement, id: number) {
+  if (!videoEl) return;
+  try {
+    videoEl.pause();
+  } catch (error) {
     if (!(error instanceof DOMException && error.name === 'AbortError')) {
       if (process.env.NODE_ENV !== 'production') {
-        console.warn('Play failed', error);
+        console.warn(`safePause warning for testimonial ${id}`, error);
       }
     }
-    throw error;
+  } finally {
+    if (currentPlaying === id) {
+      currentPlaying = null;
+      currentPlayingEl = null;
+    }
   }
-};
+}
 
 type TestimonialCardProps = {
   testimonial: Testimonial;
   isActive: boolean;
   registerVideo: (id: number, element: HTMLVideoElement | null) => void;
-  onRequestPlay: (id: number) => Promise<void>;
-  onRequestPause: (id: number) => Promise<void>;
+  onRequestPlay: (id: number) => Promise<boolean>;
+  onRequestPause: (id: number) => void;
 };
 
 const TestimonialCard = ({
@@ -206,30 +202,28 @@ const TestimonialCard = ({
   const [isPlaying, setIsPlaying] = useState(false);
   const [poster, setPoster] = useState<string | null>(null);
   const [hasError, setHasError] = useState(false);
+  const lastClickRef = useRef(0);
 
   const handleTogglePlayback = useCallback(async () => {
     const video = videoRef.current;
     if (!video || hasError) return;
 
+    const now = Date.now();
+    if (now - lastClickRef.current < PLAY_DEBOUNCE_MS) {
+      return;
+    }
+    lastClickRef.current = now;
+
     if (video.paused) {
-      try {
-        await onRequestPlay(testimonial.id);
-        await playVideoSafely(video);
-        setIsPlaying(true);
-      } catch (error) {
-        if (process.env.NODE_ENV !== 'production') {
-          console.warn('Unable to start testimonial playback', error);
-        }
-        setHasError(true);
-        await onRequestPause(testimonial.id);
-      }
-    } else {
-      try {
-        await pauseVideoSafely(video);
-      } finally {
+      const started = await onRequestPlay(testimonial.id);
+      if (!started || video.paused) {
         setIsPlaying(false);
-        await onRequestPause(testimonial.id);
+        return;
       }
+      setIsPlaying(true);
+    } else {
+      onRequestPause(testimonial.id);
+      setIsPlaying(false);
     }
   }, [hasError, onRequestPause, onRequestPlay, testimonial.id]);
 
@@ -237,17 +231,27 @@ const TestimonialCard = ({
     const video = videoRef.current;
     if (!video) return;
 
-    const handlePause = () => setIsPlaying(false);
-    const handleEnded = () => setIsPlaying(false);
+    const handlePause = () => {
+      setIsPlaying(false);
+      onRequestPause(testimonial.id);
+    };
+    const handleEnded = () => {
+      safePause(video, testimonial.id);
+      onRequestPause(testimonial.id);
+      setIsPlaying(false);
+    };
+    const handlePlay = () => setIsPlaying(true);
 
     video.addEventListener('pause', handlePause);
     video.addEventListener('ended', handleEnded);
+    video.addEventListener('play', handlePlay);
 
     return () => {
       video.removeEventListener('pause', handlePause);
       video.removeEventListener('ended', handleEnded);
+      video.removeEventListener('play', handlePlay);
     };
-  }, []);
+  }, [onRequestPause, testimonial.id]);
 
   useEffect(() => {
     registerVideo(testimonial.id, videoRef.current);
@@ -259,28 +263,11 @@ const TestimonialCard = ({
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
-    const syncPlayback = async () => {
-      video.autoplay = isActive;
-      if (!isActive) {
-        if (!video.paused) {
-          await pauseVideoSafely(video);
-        }
-        setIsPlaying(false);
-        return;
-      }
-
-      if (video.paused && !hasError) {
-        try {
-          await playVideoSafely(video);
-          setIsPlaying(true);
-        } catch {
-          setHasError(true);
-        }
-      }
-    };
-
-    void syncPlayback();
-  }, [hasError, isActive]);
+    if (!isActive && !video.paused) {
+      safePause(video, testimonial.id);
+      setIsPlaying(false);
+    }
+  }, [isActive, testimonial.id]);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -480,11 +467,11 @@ const TestimonialCard = ({
           <>
             <video
               ref={videoRef}
-              autoPlay
               loop
               muted
               playsInline
               preload="metadata"
+              data-tid={`testimonial-${testimonial.id}`}
               className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
               controls={false}
               poster={poster ?? undefined}
@@ -541,33 +528,24 @@ export default function TestimonialsSection() {
     }
   }, []);
 
-  const pauseAllExcept = useCallback(
-    async (id: number) => {
-      const tasks: Promise<void>[] = [];
-      for (const [key, video] of videoRegistry.current.entries()) {
-        if (key === id) continue;
-        if (!video.paused) {
-          tasks.push(pauseVideoSafely(video));
-        }
-      }
-      await Promise.all(tasks);
-    },
-    []
-  );
-
-  const handleRequestPlay = useCallback(
-    async (id: number) => {
-      await pauseAllExcept(id);
-      setActiveVideoId(id);
-    },
-    [pauseAllExcept]
-  );
-
-  const handleRequestPause = useCallback(async (id: number) => {
+  const handleRequestPlay = useCallback(async (id: number) => {
     const video = videoRegistry.current.get(id);
-    if (video && !video.paused) {
-      await pauseVideoSafely(video);
+    if (!video) return false;
+
+    await safePlay(video, id);
+
+    if (!video.paused) {
+      setActiveVideoId(id);
+      return true;
     }
+
+    return false;
+  }, []);
+
+  const handleRequestPause = useCallback((id: number) => {
+    const video = videoRegistry.current.get(id);
+    if (!video) return;
+    safePause(video, id);
     setActiveVideoId((current) => (current === id ? null : current));
   }, []);
 
