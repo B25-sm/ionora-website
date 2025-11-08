@@ -289,6 +289,17 @@ export default function ProductSlider() {
         // User unmuted - remember this preference
         userExplicitlyUnmutedRef.current = true;
         console.log(`[SESSION] userExplicitlyUnmuted = true`);
+        
+        autoplayBlockedRef.current = false;
+        if (currentVideo.paused) {
+          try {
+            await currentVideo.play();
+            console.log(`[UI] Playback resumed after user interaction for video ${activeCategory}`);
+          } catch (playError) {
+            const errorName = playError instanceof Error ? playError.name : String(playError);
+            console.log(`[UI] Playback still blocked for video ${activeCategory}:`, errorName);
+          }
+        }
       } else {
         // User muted - clear preference so autoplay will mute
         userExplicitlyUnmutedRef.current = false;
