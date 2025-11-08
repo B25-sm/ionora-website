@@ -126,24 +126,112 @@ const testimonials: Testimonial[] = testimonialSources
 
 const posterCache = new Map<string, string>();
 
-const TestimonialCard = ({ testimonial }: { testimonial: Testimonial }) => {
+const pauseVideoSafely = async (video: HTMLVideoElement) => {
+  try {
+    video.pause();
+  } catch (error) {
+    if (!(error instanceof DOMException && error.name === 'AbortError')) {
+      if (process.env.NODE_ENV !== 'production') {
+        console.warn('Pause failed', error);
+      }
+    }
+  }
+};
+
+const waitForCanPlay = (video: HTMLVideoElement) =>
+  new Promise<void>((resolve, reject) => {
+    const cleanup = () => {
+      video.removeEventListener('canplay', handleCanPlay);
+      video.removeEventListener('canplaythrough', handleCanPlay);
+      video.removeEventListener('error', handleError);
+    };
+
+    const handleCanPlay = () => {
+      cleanup();
+      resolve();
+    };
+
+    const handleError = (event: Event) => {
+      cleanup();
+      reject(event);
+    };
+
+    video.addEventListener('canplay', handleCanPlay, { once: true });
+    video.addEventListener('canplaythrough', handleCanPlay, { once: true });
+    video.addEventListener('error', handleError, { once: true });
+  });
+
+const playVideoSafely = async (video: HTMLVideoElement) => {
+  if (video.readyState < 2) {
+    try {
+      await waitForCanPlay(video);
+    } catch (error) {
+      if (process.env.NODE_ENV !== 'production') {
+        console.warn('Video failed to become ready', error);
+      }
+    }
+  }
+
+  try {
+    const playPromise = video.play();
+    if (playPromise && typeof playPromise.then === 'function') {
+      await playPromise;
+    }
+  } catch (error) {
+    if (!(error instanceof DOMException && error.name === 'AbortError')) {
+      if (process.env.NODE_ENV !== 'production') {
+        console.warn('Play failed', error);
+      }
+    }
+    throw error;
+  }
+};
+
+type TestimonialCardProps = {
+  testimonial: Testimonial;
+  isActive: boolean;
+  registerVideo: (id: number, element: HTMLVideoElement | null) => void;
+  onRequestPlay: (id: number) => Promise<void>;
+  onRequestPause: (id: number) => Promise<void>;
+};
+
+const TestimonialCard = ({
+  testimonial,
+  isActive,
+  registerVideo,
+  onRequestPlay,
+  onRequestPause,
+}: TestimonialCardProps) => {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [poster, setPoster] = useState<string | null>(null);
+  const [hasError, setHasError] = useState(false);
 
-  const handleTogglePlayback = useCallback(() => {
+  const handleTogglePlayback = useCallback(async () => {
     const video = videoRef.current;
-    if (!video) return;
+    if (!video || hasError) return;
 
     if (video.paused) {
-      void video.play();
-      video.muted = false;
-      setIsPlaying(true);
+      try {
+        await onRequestPlay(testimonial.id);
+        await playVideoSafely(video);
+        setIsPlaying(true);
+      } catch (error) {
+        if (process.env.NODE_ENV !== 'production') {
+          console.warn('Unable to start testimonial playback', error);
+        }
+        setHasError(true);
+        await onRequestPause(testimonial.id);
+      }
     } else {
-      video.pause();
-      setIsPlaying(false);
+      try {
+        await pauseVideoSafely(video);
+      } finally {
+        setIsPlaying(false);
+        await onRequestPause(testimonial.id);
+      }
     }
-  }, []);
+  }, [hasError, onRequestPause, onRequestPlay, testimonial.id]);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -162,6 +250,61 @@ const TestimonialCard = ({ testimonial }: { testimonial: Testimonial }) => {
   }, []);
 
   useEffect(() => {
+    registerVideo(testimonial.id, videoRef.current);
+    return () => {
+      registerVideo(testimonial.id, null);
+    };
+  }, [registerVideo, testimonial.id]);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    const syncPlayback = async () => {
+      video.autoplay = isActive;
+      if (!isActive) {
+        if (!video.paused) {
+          await pauseVideoSafely(video);
+        }
+        setIsPlaying(false);
+        return;
+      }
+
+      if (video.paused && !hasError) {
+        try {
+          await playVideoSafely(video);
+          setIsPlaying(true);
+        } catch {
+          setHasError(true);
+        }
+      }
+    };
+
+    void syncPlayback();
+  }, [hasError, isActive]);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const handleError = () => {
+      setHasError(true);
+      setIsPlaying(false);
+    };
+
+    const handleLoadedData = () => {
+      setHasError(false);
+    };
+
+    video.addEventListener('error', handleError);
+    video.addEventListener('loadeddata', handleLoadedData);
+
+    return () => {
+      video.removeEventListener('error', handleError);
+      video.removeEventListener('loadeddata', handleLoadedData);
+    };
+  }, []);
+
+  useEffect(() => {
     let isMounted = true;
     const cachedPoster = posterCache.get(testimonial.video);
     if (cachedPoster) {
@@ -171,6 +314,7 @@ const TestimonialCard = ({ testimonial }: { testimonial: Testimonial }) => {
 
     const generatePoster = async () => {
       try {
+        if (hasError) return;
         const frameTime = testimonial.thumbnailTime ?? 3;
         const videoElement = document.createElement('video');
         videoElement.crossOrigin = 'anonymous';
@@ -182,7 +326,15 @@ const TestimonialCard = ({ testimonial }: { testimonial: Testimonial }) => {
         const captureFrame = () =>
           new Promise<string>((resolve, reject) => {
             const cleanup = () => {
-              videoElement.pause();
+              try {
+                videoElement.pause();
+              } catch (error) {
+                if (!(error instanceof DOMException && error.name === 'AbortError')) {
+                  if (process.env.NODE_ENV !== 'production') {
+                    console.warn('Poster capture pause failed', error);
+                  }
+                }
+              }
               videoElement.removeAttribute('src');
               videoElement.load();
             };
@@ -273,7 +425,7 @@ const TestimonialCard = ({ testimonial }: { testimonial: Testimonial }) => {
     return () => {
       isMounted = false;
     };
-  }, [testimonial.thumbnailTime, testimonial.video]);
+  }, [hasError, testimonial.thumbnailTime, testimonial.video]);
 
   const playIcon = useMemo(
     () => (
@@ -312,27 +464,46 @@ const TestimonialCard = ({ testimonial }: { testimonial: Testimonial }) => {
   return (
     <div className="group flex h-full flex-col overflow-hidden rounded-[32px] border border-white/10 bg-white/10 backdrop-blur-xl shadow-[0_20px_40px_-20px_rgba(10,15,44,0.45)] transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_30px_50px_-20px_rgba(10,15,44,0.55)]">
       <div className="relative aspect-[3/4] w-full overflow-hidden bg-[#0A0F2C]/40">
-        <video
-          ref={videoRef}
-          preload="metadata"
-          playsInline
-          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-          controls={false}
-          poster={poster ?? undefined}
-        >
-          <source src={testimonial.video} type="video/mp4" />
-        </video>
+        {hasError ? (
+          <div className="flex h-full w-full flex-col items-center justify-center bg-[#0A0F2C]/60 px-6 text-center text-sm text-[#E5E5E5]/80">
+            <p>We couldn&apos;t load this video automatically.</p>
+            <a
+              href={testimonial.video}
+              className="mt-4 inline-flex items-center justify-center rounded-full bg-[#FFD100] px-4 py-2 font-semibold text-[#0A0F2C] transition-transform duration-200 hover:scale-105"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Open video
+            </a>
+          </div>
+        ) : (
+          <>
+            <video
+              ref={videoRef}
+              autoPlay
+              loop
+              muted
+              playsInline
+              preload="metadata"
+              className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+              controls={false}
+              poster={poster ?? undefined}
+            >
+              <source src={testimonial.video} type="video/mp4" />
+            </video>
 
-        <button
-          type="button"
-          onClick={handleTogglePlayback}
-          className="absolute inset-0 flex items-center justify-center focus:outline-none"
-          aria-label={isPlaying ? 'Pause testimonial video' : 'Play testimonial video'}
-        >
-          <span className="flex h-16 w-16 items-center justify-center rounded-full bg-[#FFD100]/90 text-[#0A0F2C] shadow-lg shadow-[#0A0F2C]/20 transition-transform duration-200 hover:scale-105">
-            {isPlaying ? pauseIcon : playIcon}
-          </span>
-        </button>
+            <button
+              type="button"
+              onClick={handleTogglePlayback}
+              className="absolute inset-0 flex items-center justify-center focus:outline-none"
+              aria-label={isPlaying ? 'Pause testimonial video' : 'Play testimonial video'}
+            >
+              <span className="flex h-16 w-16 items-center justify-center rounded-full bg-[#FFD100]/90 text-[#0A0F2C] shadow-lg shadow-[#0A0F2C]/20 transition-transform duration-200 hover:scale-105">
+                {isPlaying ? pauseIcon : playIcon}
+              </span>
+            </button>
+          </>
+        )}
 
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#0A0F2C]/70 to-transparent" />
       </div>
@@ -359,6 +530,47 @@ const TestimonialCard = ({ testimonial }: { testimonial: Testimonial }) => {
 };
 
 export default function TestimonialsSection() {
+  const [activeVideoId, setActiveVideoId] = useState<number | null>(null);
+  const videoRegistry = useRef(new Map<number, HTMLVideoElement>());
+
+  const registerVideo = useCallback((id: number, element: HTMLVideoElement | null) => {
+    if (element) {
+      videoRegistry.current.set(id, element);
+    } else {
+      videoRegistry.current.delete(id);
+    }
+  }, []);
+
+  const pauseAllExcept = useCallback(
+    async (id: number) => {
+      const tasks: Promise<void>[] = [];
+      for (const [key, video] of videoRegistry.current.entries()) {
+        if (key === id) continue;
+        if (!video.paused) {
+          tasks.push(pauseVideoSafely(video));
+        }
+      }
+      await Promise.all(tasks);
+    },
+    []
+  );
+
+  const handleRequestPlay = useCallback(
+    async (id: number) => {
+      await pauseAllExcept(id);
+      setActiveVideoId(id);
+    },
+    [pauseAllExcept]
+  );
+
+  const handleRequestPause = useCallback(async (id: number) => {
+    const video = videoRegistry.current.get(id);
+    if (video && !video.paused) {
+      await pauseVideoSafely(video);
+    }
+    setActiveVideoId((current) => (current === id ? null : current));
+  }, []);
+
   return (
     <section className="relative z-10 bg-[#0A0F2C]">
       <div className="page-wrap section-pad relative">
@@ -377,7 +589,14 @@ export default function TestimonialsSection() {
 
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 xl:grid-cols-4">
           {testimonials.map((testimonial) => (
-            <TestimonialCard key={testimonial.id} testimonial={testimonial} />
+            <TestimonialCard
+              key={testimonial.id}
+              testimonial={testimonial}
+              isActive={activeVideoId === testimonial.id}
+              registerVideo={registerVideo}
+              onRequestPlay={handleRequestPlay}
+              onRequestPause={handleRequestPause}
+            />
           ))}
         </div>
       </div>
