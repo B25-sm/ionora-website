@@ -19,62 +19,26 @@ type TestimonialSource = Omit<Testimonial, 'id' | 'video'> & {
 
 const encodeVideoPath = (fileName: string) => `/Testimonials/${encodeURIComponent(fileName)}`;
 
-const gradients = [
-  { from: '#FFD100', to: '#FFB347' },
-  { from: '#45C4B0', to: '#2E8A99' },
-  { from: '#7F5AF0', to: '#6246EA' },
-  { from: '#EF476F', to: '#F78C6B' },
-  { from: '#4CC9F0', to: '#4895EF' },
-  { from: '#06D6A0', to: '#118AB2' },
-];
-
-const createAvatarDataUri = (name: string, gradientIndex: number) => {
-  const colors = gradients[gradientIndex % gradients.length];
-  const initials = name
-    .split(' ')
-    .map((part) => part.trim())
-    .filter((part) => part.length > 0)
-    .map((part) => part[0])
-    .slice(0, 2)
-    .join('')
-    .toUpperCase();
-
-  const gradientId = `grad-${initials}-${gradientIndex}`;
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-label="${name}">
-    <defs>
-      <linearGradient id="${gradientId}" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stop-color="${colors.from}" />
-        <stop offset="100%" stop-color="${colors.to}" />
-      </linearGradient>
-    </defs>
-    <circle cx="60" cy="60" r="58" fill="url(#${gradientId})" />
-    <circle cx="60" cy="60" r="56" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="4" />
-    <text x="50%" y="52%" font-family="Inter, Arial, sans-serif" font-size="46" font-weight="700" fill="#0A0F2C" text-anchor="middle" dominant-baseline="middle">${initials}</text>
-  </svg>`;
-
-  return `data:image/svg+xml;utf8,${encodeURIComponent(svg)}`;
-};
-
 const testimonialSources: TestimonialSource[] = [
   {
     name: 'Barry Zito',
     title: 'Former MLB Pitcher',
     company: 'Major League Baseball',
-    avatar: createAvatarDataUri('Barry Zito', 0),
+    avatar: 'https://images.unsplash.com/photo-1554151228-14d9def656e4?auto=format&fit=crop&w=96&q=80',
     fileName: '1df2d62642bb4aa1837f6abc171998f7 (1).mp4',
   },
   {
     name: 'Sage Northcutt',
     title: 'Professional Mixed Martial Artist',
     company: 'ONE Championship',
-    avatar: createAvatarDataUri('Sage Northcutt', 1),
+    avatar: 'https://images.unsplash.com/photo-1502767089025-6572583495b1?auto=format&fit=crop&w=96&q=80',
     fileName: '3ce02033ea3c4f77b69d9c2aec658f5f (2).mp4',
   },
   {
     name: 'Anita Desai',
     title: 'Spa Manager',
     company: 'Tranquil Waters',
-    avatar: createAvatarDataUri('Anita Desai', 2),
+    avatar: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=96&q=80',
     fileName: '478524272f954ab2bd9ac7d998104a9e.mp4',
     thumbnailTime: 6,
   },
@@ -82,21 +46,21 @@ const testimonialSources: TestimonialSource[] = [
     name: 'Barry Zito',
     title: 'Former MLB Pitcher',
     company: 'Major League Baseball',
-    avatar: createAvatarDataUri('Barry Zito', 3),
+    avatar: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=96&q=80',
     fileName: '51ba8d582c6d43098c4273f85bc31e93.mp4',
   },
   {
     name: 'Elena Martinez',
     title: 'Founder',
     company: 'PureGlow Studios',
-    avatar: createAvatarDataUri('Elena Martinez', 4),
+    avatar: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=96&q=80',
     fileName: '645f4a3430d949f3b3be0a65c93484d6 (1).mp4',
   },
   {
     name: 'Noah Williams',
     title: 'Performance Coach',
     company: 'Vitality Club',
-    avatar: createAvatarDataUri('Noah Williams', 5),
+    avatar: 'https://images.unsplash.com/photo-1544723795-3fb6469f5b39?auto=format&fit=crop&w=96&q=80',
     fileName: '67728e7c49674b29851e1747d49da6d3.mp4',
     thumbnailTime: 4,
   },
@@ -104,7 +68,7 @@ const testimonialSources: TestimonialSource[] = [
     name: 'Sahana Iyengar',
     title: 'Holistic Therapist',
     company: 'Rejuvenate Spa',
-    avatar: createAvatarDataUri('Sahana Iyengar', 0),
+    avatar: 'https://images.unsplash.com/photo-1524503033411-c9566986fc8f?auto=format&fit=crop&w=96&q=80',
     fileName: '6f1efa7654fc4aa0980d93739043bbe0 (5).mp4',
     thumbnailTime: 5,
   },
@@ -112,35 +76,35 @@ const testimonialSources: TestimonialSource[] = [
     name: 'James Porter',
     title: 'General Manager',
     company: 'Blue Haven Resort',
-    avatar: createAvatarDataUri('James Porter', 1),
+    avatar: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=96&q=80',
     fileName: 'a1e098ba75ab481fb8e63f9651ce8f3b.mp4',
   },
   {
     name: 'Minji Park',
     title: 'Product Trainer',
     company: 'Mediqua Labs',
-    avatar: createAvatarDataUri('Minji Park', 2),
+    avatar: 'https://images.unsplash.com/photo-1545239351-1141bd82e8a6?auto=format&fit=crop&w=96&q=80',
     fileName: 'AK-9000 Mediqua alkaline water ionizer (1).mp4',
   },
   {
     name: 'Mira Bose',
     title: 'Nutritionist',
     company: 'Balance Collective',
-    avatar: createAvatarDataUri('Mira Bose', 3),
+    avatar: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=96&q=80',
     fileName: 'f92c66840e94418cbdb9d274d42ec8c3.mp4',
   },
   {
     name: 'Dr. Thomas Walko',
     title: 'Medical Director',
     company: 'Hydrogen Therapy Institute',
-    avatar: createAvatarDataUri('Dr. Thomas Walko', 4),
+    avatar: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=96&q=80',
     fileName: 'Hydrogen Water presentation Dr.  Thomas Walko (2) (1) (1).mp4',
   },
   {
     name: 'Lydia Grant',
     title: 'Program Director',
     company: 'Renew Wellness',
-    avatar: createAvatarDataUri('Lydia Grant', 5),
+    avatar: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=96&q=80',
     fileName: 'LIFE Ionizer Advanced Education Part 1.mp4',
     thumbnailTime: 18,
   },
