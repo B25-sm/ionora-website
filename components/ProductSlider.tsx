@@ -3,6 +3,13 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { products, productsByBrand } from '@/data/products';
 
+const isDebugLoggingEnabled = process.env.NODE_ENV !== 'production';
+
+const debugLog = (...args: Parameters<typeof console.log>) => {
+  if (!isDebugLoggingEnabled) return;
+  console.log(...args);
+};
+
 const BRAND_CATEGORIES = [
   { id: 'medisoul', name: 'Medisoul™', color: '#E5E5E5', video: '/videos/Ionora.mp4' },
   { id: 'life', name: 'Life Ionizers™', color: '#EBEBEB', video: '/videos/lifeionizer.mp4' },
@@ -48,20 +55,20 @@ export default function ProductSlider() {
     // Only force mute if user hasn't explicitly unmuted
     if (!userExplicitlyUnmutedRef.current) {
       video.muted = true;
-      console.log(`[AUTOPLAY] Setting muted=true for video ${index} (session prefers muted)`);
+      debugLog(`[AUTOPLAY] Setting muted=true for video ${index} (session prefers muted)`);
     } else {
-      console.log(`[AUTOPLAY] Respecting user preference: video ${index} muted=${video.muted}`);
+      debugLog(`[AUTOPLAY] Respecting user preference: video ${index} muted=${video.muted}`);
     }
     
     if (!video.paused) return true;
     
     try {
-      console.log(`[AUTOPLAY] Attempting autoplay for video ${index}`);
+      debugLog(`[AUTOPLAY] Attempting autoplay for video ${index}`);
       await video.play();
-      console.log(`[AUTOPLAY] Successfully started autoplay for video ${index}`);
+      debugLog(`[AUTOPLAY] Successfully started autoplay for video ${index}`);
       return true;
     } catch (error: any) {
-      console.log(`[AUTOPLAY] Autoplay blocked for video ${index}:`, error.name);
+      debugLog(`[AUTOPLAY] Autoplay blocked for video ${index}: ${error.name}`);
       autoplayBlockedRef.current = true;
       return false;
     }
@@ -70,16 +77,16 @@ export default function ProductSlider() {
   // Attempt to unmute video after canplay (only if session preference says unmuted)
   const safeUnmuteAttempt = useCallback((video: HTMLVideoElement, index: number) => {
     if (!video || !userExplicitlyUnmutedRef.current) {
-      console.log(`[UNMUTE] Skipping auto-unmute for video ${index} (session prefers muted)`);
+      debugLog(`[UNMUTE] Skipping auto-unmute for video ${index} (session prefers muted)`);
       return;
     }
     
     try {
       video.muted = false;
       setIsMuted(false);
-      console.log(`[UNMUTE] Auto-unmuted video ${index} (session preference)`);
+      debugLog(`[UNMUTE] Auto-unmuted video ${index} (session preference)`);
     } catch (error: any) {
-      console.log(`[UNMUTE] Blocked:`, error.name);
+      debugLog(`[UNMUTE] Blocked: ${error.name}`);
       video.muted = true; // Fallback to muted
       setIsMuted(true);
     }
@@ -108,7 +115,7 @@ export default function ProductSlider() {
   const handleVideoEnded = useCallback((index: number) => {
     if (isAnimatingRef.current) return;
     
-    console.log(`[SEQUENTIAL] Video ${index} ended, advancing to next`);
+    debugLog(`[SEQUENTIAL] Video ${index} ended, advancing to next`);
     const nextIndex = (index + 1) % BRAND_CATEGORIES.length;
     setActiveCategory(nextIndex);
     pendingPlayIndex.current = nextIndex;
@@ -117,7 +124,7 @@ export default function ProductSlider() {
   // Handle video canplay - try autoplay once ready
   const handleVideoCanPlay = useCallback((index: number, video: HTMLVideoElement) => {
     if (index === activeCategory && !isAnimatingRef.current && !autoplayBlockedRef.current) {
-      console.log(`[CANPLAY] Video ${index} ready, attempting autoplay`);
+      debugLog(`[CANPLAY] Video ${index} ready, attempting autoplay`);
       safeMutedPlay(video, index).then(() => {
         // Apply session preference after play starts
         if (userExplicitlyUnmutedRef.current) {
@@ -127,7 +134,7 @@ export default function ProductSlider() {
           if (!video.muted) {
             video.muted = true;
             setIsMuted(true);
-            console.log(`[CANPLAY] Enforcing muted state for video ${index} (session preference)`);
+            debugLog(`[CANPLAY] Enforcing muted state for video ${index} (session preference)`);
           }
         }
       });
@@ -177,7 +184,7 @@ export default function ProductSlider() {
         const canplayHandler = () => handleVideoCanPlay(index, node);
         node.addEventListener('canplay', canplayHandler);
         canplayListenersRef.current.set(index, canplayHandler);
-        console.log(`[SETUP] Added canplay listener for video ${index}`);
+        debugLog(`[SETUP] Added canplay listener for video ${index}`);
       }
       
       // Add unmute state change listener
@@ -185,12 +192,12 @@ export default function ProductSlider() {
         const unmuteHandler = () => handleVideoUnmute(index, node);
         node.addEventListener('volumechange', unmuteHandler);
         unmuteListenersRef.current.set(index, unmuteHandler);
-        console.log(`[SETUP] Added unmute control for video ${index}`);
+        debugLog(`[SETUP] Added unmute control for video ${index}`);
       }
       
       // If already can play, trigger autoplay attempt
       if (node.readyState >= 3) {
-        console.log(`[SETUP] Video ${index} already ready, attempting autoplay`);
+        debugLog(`[SETUP] Video ${index} already ready, attempting autoplay`);
         handleVideoCanPlay(index, node);
       }
     }
@@ -214,7 +221,7 @@ export default function ProductSlider() {
         requestAnimationFrame(() => {
           const targetVideo = videoRefs.current[targetIndex];
           if (targetVideo && !autoplayBlockedRef.current) {
-            console.log(`[TRANSITION] Resuming autoplay after transition for video ${targetIndex}`);
+            debugLog(`[TRANSITION] Resuming autoplay after transition for video ${targetIndex}`);
             safeMutedPlay(targetVideo, targetIndex).then(() => {
               // Apply session preference after play starts
               if (userExplicitlyUnmutedRef.current) {
@@ -224,7 +231,7 @@ export default function ProductSlider() {
                 if (!targetVideo.muted) {
                   targetVideo.muted = true;
                   setIsMuted(true);
-                  console.log(`[TRANSITION] Enforcing muted state for video ${targetIndex} (session preference)`);
+                  debugLog(`[TRANSITION] Enforcing muted state for video ${targetIndex} (session preference)`);
                 }
               }
             });
@@ -239,7 +246,7 @@ export default function ProductSlider() {
   // Try initial autoplay after mount
   useEffect(() => {
     const timeoutId = setTimeout(() => {
-      console.log('[INIT] Attempting initial muted autoplay');
+      debugLog('[INIT] Attempting initial muted autoplay');
       if (!autoplayBlockedRef.current) {
         playCurrentVideo();
       }
@@ -263,11 +270,11 @@ export default function ProductSlider() {
       e.preventDefault();
     }
     
-    console.log(`[UI] Sound button clicked`);
+    debugLog(`[UI] Sound button clicked`);
     
     const currentVideo = videoRefs.current[activeCategory];
     if (!currentVideo) {
-      console.log(`[UI] No current video available`);
+      debugLog(`[UI] No current video available`);
       return;
     }
     
@@ -275,8 +282,8 @@ export default function ProductSlider() {
       // Read actual DOM property to get current state
       const nowMuted = !currentVideo.muted;
       
-      console.log(`[UI] Sound toggle clicked: nowMuted=${nowMuted}`);
-      console.log(`[UI] Current video.muted=${currentVideo.muted}, toggling to ${nowMuted}`);
+      debugLog(`[UI] Sound toggle clicked: nowMuted=${nowMuted}`);
+      debugLog(`[UI] Current video.muted=${currentVideo.muted}, toggling to ${nowMuted}`);
       
       // Toggle mute state on DOM element
       currentVideo.muted = nowMuted;
@@ -288,15 +295,15 @@ export default function ProductSlider() {
       if (nowMuted === false) {
         // User unmuted - remember this preference
         userExplicitlyUnmutedRef.current = true;
-        console.log(`[SESSION] userExplicitlyUnmuted = true`);
+        debugLog(`[SESSION] userExplicitlyUnmuted = true`);
       } else {
         // User muted - clear preference so autoplay will mute
         userExplicitlyUnmutedRef.current = false;
-        console.log(`[SESSION] userExplicitlyUnmuted = false`);
+        debugLog(`[SESSION] userExplicitlyUnmuted = false`);
       }
       
       // Success - UI and DOM are now in sync
-      console.log(`[UNMUTE] Success - Video ${activeCategory} ${nowMuted ? 'muted' : 'unmuted'}, UI updated`);
+      debugLog(`[UNMUTE] Success - Video ${activeCategory} ${nowMuted ? 'muted' : 'unmuted'}, UI updated`);
       
     } catch (error: any) {
       console.error(`[UNMUTE] Failed to toggle mute:`, error);
