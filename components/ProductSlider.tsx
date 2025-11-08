@@ -16,6 +16,7 @@ export default function ProductSlider() {
   const [touchEnd, setTouchEnd] = useState<number | null>(null);
   const [isMuted, setIsMuted] = useState(true);
   const [isAnimating, setIsAnimating] = useState(false);
+  const [showSoundTooltip, setShowSoundTooltip] = useState(false);
   
   // Use array of refs for multiple videos
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
@@ -24,6 +25,7 @@ export default function ProductSlider() {
   const autoplayBlockedRef = useRef(false);
   const canplayListenersRef = useRef<Map<number, (() => void) | null>>(new Map());
   const unmuteListenersRef = useRef<Map<number, (() => void) | null>>(new Map());
+  const tooltipDismissedRef = useRef(false);
   
   // Session-level unmute preference - tracks explicit user action
   const userExplicitlyUnmutedRef = useRef(false);
@@ -63,6 +65,9 @@ export default function ProductSlider() {
     } catch (error: any) {
       console.log(`[AUTOPLAY] Autoplay blocked for video ${index}:`, error.name);
       autoplayBlockedRef.current = true;
+      if (!tooltipDismissedRef.current) {
+        setShowSoundTooltip(true);
+      }
       return false;
     }
   }, []);
@@ -248,6 +253,16 @@ export default function ProductSlider() {
     return () => clearTimeout(timeoutId);
   }, [playCurrentVideo]);
 
+  useEffect(() => {
+    if (tooltipDismissedRef.current) return;
+    const timer = setTimeout(() => {
+      if (!tooltipDismissedRef.current) {
+        setShowSoundTooltip(true);
+      }
+    }, 1200);
+    return () => clearTimeout(timer);
+  }, []);
+
   // Sync muted state with current video
   useEffect(() => {
     const currentVideo = videoRefs.current[activeCategory];
@@ -289,6 +304,8 @@ export default function ProductSlider() {
         // User unmuted - remember this preference
         userExplicitlyUnmutedRef.current = true;
         console.log(`[SESSION] userExplicitlyUnmuted = true`);
+        tooltipDismissedRef.current = true;
+        setShowSoundTooltip(false);
         
         autoplayBlockedRef.current = false;
         if (currentVideo.paused) {
@@ -304,6 +321,9 @@ export default function ProductSlider() {
         // User muted - clear preference so autoplay will mute
         userExplicitlyUnmutedRef.current = false;
         console.log(`[SESSION] userExplicitlyUnmuted = false`);
+        if (!tooltipDismissedRef.current) {
+          setShowSoundTooltip(true);
+        }
       }
       
       // Success - UI and DOM are now in sync
@@ -511,6 +531,27 @@ export default function ProductSlider() {
           )}
         </div>
       </button>
+
+      {isMuted && showSoundTooltip && (
+        <div className="fixed left-14 sm:left-[4.75rem] md:left-[6.75rem] bottom-4 sm:bottom-6 md:bottom-8 z-[100] max-w-[220px] rounded-2xl border border-white/20 bg-black/80 px-3 py-2 text-xs sm:text-sm text-white shadow-lg shadow-black/40">
+          <div className="flex items-start gap-2">
+            <span className="flex-1 leading-snug">
+              Tap the sound icon to enjoy this hero video with audio.
+            </span>
+            <button
+              type="button"
+              aria-label="Dismiss sound tip"
+              className="mt-0.5 text-white/60 transition hover:text-white"
+              onClick={() => {
+                tooltipDismissedRef.current = true;
+                setShowSoundTooltip(false);
+              }}
+            >
+              ×
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* Left side navigation dots */}
       <div className={`fixed left-2 sm:left-4 md:left-6 lg:left-8 top-1/2 transform -translate-y-1/2 z-50 transition-all duration-500 ease-in-out ${
