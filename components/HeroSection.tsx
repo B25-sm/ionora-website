@@ -12,8 +12,8 @@ export default function HeroSection() {
         <div className="relative w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl mb-8 sm:mb-10 md:mb-12 lg:mb-16">
           <div className="relative aspect-[3/4] w-full">
             <Image
-              src="/images/products/medisoul/kyronblack5.png"
-              alt="Premium Black Water Ionizer - Kyron Black 5"
+              src="/images/products/medisoul/kyron5.png"
+              alt="Premium Water Ionizer - Kyron Series"
               fill
               className="object-contain drop-shadow-2xl"
               priority
