@@ -3,9 +3,9 @@ import { productsByBrand } from '@/data/products';
 import BrandProductsFilter from '@/components/brand/BrandProductsFilter';
 import Image from 'next/image';
 
-export default async function BrandPage({ params }: { params: Promise<{ brandId: string }> }) {
-  const { brandId } = await params;
-  const brand = BRANDS.find(b => b.id === brandId as any);
+export default async function BrandPage({ params }: { params: { brandId: string } }) {
+  const { brandId } = params;
+  const brand = BRANDS.find(b => b.id === brandId);
   if (!brand) return <div className="page-wrap section-pad text-white">Brand not found.</div>;
   const items = productsByBrand(brand.id);
 

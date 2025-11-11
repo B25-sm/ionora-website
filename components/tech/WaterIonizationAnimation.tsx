@@ -1,12 +1,11 @@
-'use client';
+"use client";
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from "react";
 import { Play, Pause, RotateCcw } from 'lucide-react';
 
 export default function WaterIonizationAnimation() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
-  const animationRef = useRef<HTMLDivElement>(null);
 
   const steps = [
     { name: 'Water Input', description: 'Pure water enters the system' },

@@ -4,7 +4,7 @@ EXAMPLE: How to render ProductSpecs in product detail page (app/products/[brand]
 
 import { notFound } from "next/navigation";
 import { loadBrandData } from "@/lib/products/dataLoader";
-import ProductSpecs from "@/components/product/ProductSpecs";
+import ProductSpecs, { type ProductSpecsModel } from "@/components/product/ProductSpecs";
 
 export default async function ProductDetail({ params }: { params: { brand: string; slug: string }}) {
   const brand = params.brand; // 'life'|'mediqua'|'medisoul'|'kyron'|'tycoon'
@@ -12,7 +12,7 @@ export default async function ProductDetail({ params }: { params: { brand: strin
   if (!data) return notFound();
 
   // find model; kyron uses copyFrom; simple resolution:
-  const model = (data.models || []).find((m: any) => m.slug === params.slug);
+  const model = (data.models || []).find((m: ProductSpecsModel) => m.slug === params.slug) as ProductSpecsModel | undefined;
   if (!model) return notFound();
 
   // if model has copyFrom (kyron), you can resolve it by loading medisoul data

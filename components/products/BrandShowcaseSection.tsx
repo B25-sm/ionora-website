@@ -5,15 +5,16 @@ import { useRouter } from 'next/navigation';
 import { ArrowRight, Star } from 'lucide-react';
 import { BRANDS } from '@/data/brands';
 import { useState } from 'react';
+import type { Product } from '@/data/products';
 import type { InstallationType } from '@/data/schema';
 import { HAS_WHATSAPP_NUMBER } from '@/lib/contact';
 
 type Props = {
   brandId: string;
-  products: any[];
+  products: Product[];
   category: string;
-  onViewDetails: (product: any) => void;
-  onEnquire: (product: any) => void;
+  onViewDetails: (product: Product) => void;
+  onEnquire: (product: Product) => void;
 };
 
 export default function BrandShowcaseSection({ 
@@ -39,20 +40,20 @@ export default function BrandShowcaseSection({
   };
 
   // Get current display image for a product
-  const getProductImage = (product: any) => {
+  const getProductImage = (product: Product) => {
     const selectedInstallation = selectedInstallations[product.id];
     if (selectedInstallation && product.installationVariants) {
-      const variant = product.installationVariants.find((v: any) => v.type === selectedInstallation);
+      const variant = product.installationVariants.find((v) => v.type === selectedInstallation);
       if (variant) return variant.image;
     }
     return product.image || '/images/placeholder.png';
   };
 
   // Get current display price for a product
-  const getProductPrice = (product: any) => {
+  const getProductPrice = (product: Product) => {
     const selectedInstallation = selectedInstallations[product.id];
     if (selectedInstallation && product.installationVariants) {
-      const variant = product.installationVariants.find((v: any) => v.type === selectedInstallation);
+      const variant = product.installationVariants.find((v) => v.type === selectedInstallation);
       if (variant && variant.price !== undefined) return variant.price;
     }
     return product.price;
@@ -180,7 +181,7 @@ export default function BrandShowcaseSection({
                   {/* Counter/Undercounter Toggle */}
                   {hasInstallationVariants && (
                     <div className="flex gap-2 mb-4">
-                      {product.installationVariants?.map((variant: any) => (
+                      {product.installationVariants?.map((variant: NonNullable<Product['installationVariants']>[number]) => (
                         <button
                           key={variant.type}
                           onClick={() => selectInstallation(product.id, variant.type as InstallationType)}

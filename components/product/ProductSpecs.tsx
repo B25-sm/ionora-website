@@ -1,9 +1,10 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 import { HAS_WHATSAPP_NUMBER, WHATSAPP_URL } from "@/lib/contact";
 
-type Model = {
+export type ProductSpecsModel = {
   slug: string;
   title: string;
   subtitle?: string;
@@ -11,7 +12,7 @@ type Model = {
   features?: Record<string, string | string[] | undefined>;
 };
 
-export default function ProductSpecs({ model }: { model: Model }) {
+export default function ProductSpecs({ model }: { model: ProductSpecsModel }) {
   const leftKeys = [
     "Installation",
     "Plates",
@@ -81,12 +82,12 @@ export default function ProductSpecs({ model }: { model: Model }) {
 
         {/* CTA area */}
         <div className="mt-6 flex gap-3 flex-wrap">
-          <a
+          <Link
             href="/products"
             className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r from-sky-400 to-violet-500 text-white font-semibold shadow"
           >
             Explore Products
-          </a>
+          </Link>
 
           {HAS_WHATSAPP_NUMBER && (
             <a

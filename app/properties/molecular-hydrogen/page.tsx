@@ -32,7 +32,7 @@ export default function MolecularHydrogenPage() {
             <div className="space-y-6 text-gray-700">
               <p className="text-lg">
                 <strong>Molecular Hydrogen (H₂)</strong> is a colorless, odorless gas that acts as a selective antioxidant. 
-                It's generated during the water ionization process and is one of the most powerful and beneficial components of ionized water.
+                It&apos;s generated during the water ionization process and is one of the most powerful and beneficial components of ionized water.
               </p>
               
               <div className="bg-green-50 p-6 rounded-lg">
@@ -108,7 +108,7 @@ export default function MolecularHydrogenPage() {
             </h2>
             <div className="space-y-6 text-gray-700">
               <p className="text-lg">
-                Molecular hydrogen is unique because it's a <strong>selective antioxidant</strong> that targets only the most harmful 
+                Molecular hydrogen is unique because it&apos;s a <strong>selective antioxidant</strong> that targets only the most harmful 
                 free radicals while preserving beneficial reactive oxygen species needed for normal cellular function.
               </p>
               

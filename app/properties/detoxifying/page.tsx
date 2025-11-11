@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import { ArrowLeft, Droplets, Shield } from 'lucide-react';
+import { ArrowLeft, Droplets } from 'lucide-react';
 
 export default function DetoxifyingPage() {
   return (
@@ -32,7 +32,7 @@ export default function DetoxifyingPage() {
             <div className="space-y-6 text-gray-700">
               <p className="text-lg">
                 By hydrating deeply and flushing waste, ionized water may help the body eliminate toxins more efficiently 
-                through urine and sweat, supporting the body's natural detoxification processes.
+                through urine and sweat, supporting the body&apos;s natural detoxification processes.
               </p>
               
               <div className="bg-orange-50 p-6 rounded-lg">
@@ -110,7 +110,7 @@ export default function DetoxifyingPage() {
                 <div className="bg-orange-50 p-6 rounded-lg">
                   <h3 className="text-lg font-semibold text-orange-900 mb-3">Reduced Inflammation</h3>
                   <p className="text-orange-800 text-sm">
-                    By supporting the body's natural detox processes, ionized water may help reduce inflammation.
+                    By supporting the body&apos;s natural detox processes, ionized water may help reduce inflammation.
                   </p>
                 </div>
               </div>

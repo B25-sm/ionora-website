@@ -372,7 +372,7 @@ const TestimonialCard = ({
                 () => {
                   try {
                     videoElement.currentTime = targetTime;
-                  } catch (error) {
+                  } catch {
                     handleError();
                   }
                 },

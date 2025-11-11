@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Razorpay Test Checkout</title>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  </head>
+  <body>
+    <h2>Razorpay Test Checkout Demo</h2>
+    <label>Amount (INR): <input id="amount" value="10" /></label>
+    <button id="pay">Pay</button>
+
+    <script>
+      async function startPayment() {
+        const amountINR = Number(document.getElementById('amount').value || 10);
+        const amountPaise = Math.round(amountINR * 100);
+
+        const resp = await fetch('/api/create-order', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ amountInPaise: amountPaise })
+        });
+        const order = await resp.json();
+
+        if (!order || !order.id) {
+          alert('Order creation failed: ' + JSON.stringify(order));
+          return;
+        }
+
+        const options = {
+          key: 'rzp_test_YOUR_KEY_ID',
+          amount: order.amount,
+          currency: order.currency,
+          order_id: order.id,
+          name: 'Alkaline Filters (Test)',
+          description: 'Test order',
+          handler: async function (response) {
+            const verifyResp = await fetch('/api/verify-payment', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(response)
+            });
+            const data = await verifyResp.json();
+            alert('Payment verification response: ' + JSON.stringify(data));
+          },
+          prefill: { name: 'Test User', email: 'test@example.com' },
+          theme: { color: '#4caf50' }
+        };
+
+        const rzp = new Razorpay(options);
+        rzp.on('payment.failed', function (resp) {
+          alert('Payment failed: ' + JSON.stringify(resp.error));
+        });
+        rzp.open();
+      }
+
+      document
+        .getElementById('pay')
+        .addEventListener('click', startPayment);
+    </script>
+  </body>
+</html>
+

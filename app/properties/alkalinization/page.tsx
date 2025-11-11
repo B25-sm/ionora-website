@@ -32,7 +32,7 @@ export default function AlkalinizationPage() {
             <div className="space-y-6 text-gray-700">
               <p className="text-lg">
                 <strong>Alkalinization</strong> refers to the process of increasing the pH level of water, making it more alkaline. 
-                Ionized water typically has a pH of 8-10, which helps balance the body's acid-base levels and supports optimal health.
+                Ionized water typically has a pH of 8-10, which helps balance the body&apos;s acid-base levels and supports optimal health.
               </p>
               
               <div className="bg-blue-50 p-6 rounded-lg">
@@ -41,7 +41,7 @@ export default function AlkalinizationPage() {
                   <p><strong>Alkaline Ionized Water:</strong> pH 8-10 (alkaline)</p>
                   <p><strong>Neutral Water:</strong> pH 7 (neutral)</p>
                   <p><strong>Acidic Water:</strong> pH 4-6 (acidic)</p>
-                  <p><strong>Body's Optimal pH:</strong> Slightly alkaline (7.35-7.45)</p>
+                  <p><strong>Body&apos;s Optimal pH:</strong> Slightly alkaline (7.35-7.45)</p>
                 </div>
               </div>
             </div>

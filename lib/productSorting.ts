@@ -7,7 +7,7 @@ export interface Product {
   name: string;
   brand: string;
   category: string;
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 /**

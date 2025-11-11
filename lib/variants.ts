@@ -30,7 +30,13 @@ export function hasVariant(productId: string, variant: VariantColor): boolean {
  * Get the variant image for a product
  */
 export function getVariantImage(product: Product, variant: VariantColor): string {
-  // Since products don't have variants, just return the product image
+  if (product.variants) {
+    const colorMatch = product.variants.find((v) => v.color === variant);
+    if (colorMatch?.image) {
+      return colorMatch.image;
+    }
+  }
+
   return product.image || '/images/placeholder.png';
 }
 
@@ -38,7 +44,28 @@ export function getVariantImage(product: Product, variant: VariantColor): string
  * Get unique color variants from a product
  */
 export function getUniqueColors(product: Product): Variant[] {
-  // Since products don't have variants, return empty array
+  if (product.variants && product.variants.length > 0) {
+    return product.variants;
+  }
+
+  if (product.colorOptions) {
+    const rawColors = Array.isArray(product.colorOptions)
+      ? product.colorOptions
+      : product.colorOptions.split(/[,\/]/);
+    const normalized = Array.from(
+      new Set(
+        rawColors
+          .map((color) => color.trim().toLowerCase())
+          .filter(Boolean)
+      )
+    );
+
+    return normalized.map((color) => ({
+      color: color.includes('black') ? 'black' : 'white',
+      image: product.image || '/images/placeholder.png',
+    }));
+  }
+
   return [];
 }
 
@@ -54,6 +81,16 @@ export function getDisplayImage(product: Product, selectedVariant: Variant | nul
  * Check if a product has color variants
  */
 export function hasColorVariants(product: Product): boolean {
-  // Since products don't have variants, return false
+  if (product.variants && product.variants.length > 0) {
+    return true;
+  }
+
+  if (product.colorOptions) {
+    const rawColors = Array.isArray(product.colorOptions)
+      ? product.colorOptions
+      : product.colorOptions.split(/[,\/]/);
+    return rawColors.filter((color) => color.trim().length > 0).length > 1;
+  }
+
   return false;
 }

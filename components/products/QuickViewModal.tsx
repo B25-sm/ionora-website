@@ -2,8 +2,7 @@
 import Image from 'next/image';
 import { X } from 'lucide-react';
 import { HAS_WHATSAPP_NUMBER, getWhatsAppUrlWithMessage } from '@/lib/contact';
-
-type Product = any;
+import type { Product } from '@/data/products';
 
 type Props = {
   product?: Product | null;
@@ -13,7 +12,12 @@ type Props = {
 export default function QuickViewModal({ product, onClose }: Props) {
   if (!product) return null;
 
-  const gallery: string[] = [product.image, ...(product.gallery || [])];
+  const gallery = [product.image ?? '/images/placeholder.png', ...(product.gallery ?? [])];
+  const featureList = Array.isArray(product.features)
+    ? product.features
+    : product.features
+      ? [product.features]
+      : [];
 
   return (
     <div
@@ -50,11 +54,13 @@ export default function QuickViewModal({ product, onClose }: Props) {
           <div>
             <h3 className="text-2xl md:text-3xl font-bold text-[#0A2238] drop-shadow-sm">{product.name}</h3>
             {product.series && <p className="text-[#0A2238]/70 mt-1">{product.series}</p>}
-            {product.price && <p className="mt-3 text-lg text-[#0A2238] font-semibold">₹{product.price.toLocaleString('en-IN')}</p>}
+            {typeof product.price === 'number' && (
+              <p className="mt-3 text-lg text-[#0A2238] font-semibold">₹{product.price.toLocaleString('en-IN')}</p>
+            )}
 
-            {product.features?.length ? (
+            {featureList.length > 0 ? (
               <ul className="mt-4 list-disc list-inside space-y-1 text-[#0A2238]">
-                {product.features.slice(0,6).map((f:string, i:number) => <li key={i}>{f}</li>)}
+                {featureList.slice(0,6).map((f, i) => <li key={i}>{f}</li>)}
               </ul>
             ) : null}
 

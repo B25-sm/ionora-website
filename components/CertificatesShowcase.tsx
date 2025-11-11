@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import { Award, Shield, CheckCircle2, FileCheck } from "lucide-react";
 import { BRANDS } from "@/data/brands";
 
@@ -96,11 +97,12 @@ export default function CertificatesShowcase() {
               <div className="flex flex-col md:flex-row items-start md:items-center gap-4 md:gap-6 mb-6">
                 {brand.logo && (
                   <div className="w-16 h-16 rounded-xl overflow-hidden bg-white/5 border border-white/10 flex items-center justify-center">
-                    <img
+                    <Image
                       src={brand.logo}
                       alt={brand.brandName}
                       className="w-full h-full object-contain"
-                      loading="lazy"
+                      width={64}
+                      height={64}
                     />
                   </div>
                 )}

@@ -15,11 +15,10 @@
  */
 
 import { useState, useRef, useEffect } from 'react';
-import { ChevronLeft, ChevronRight, Eye, MessageCircle, Palette } from 'lucide-react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import Image from 'next/image';
-import { cn } from '@/lib/utils';
 import type { Product } from '@/data/products';
-import type { Variant, InstallationType } from '@/data/schema';
+import type { InstallationType } from '@/data/schema';
 import { HAS_WHATSAPP_NUMBER } from '@/lib/contact';
 
 type Props = {
@@ -30,8 +29,6 @@ type Props = {
 
 export default function ProductCarousel({ products, onViewDetails, onEnquire }: Props) {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [hoveredProduct, setHoveredProduct] = useState<string | null>(null);
-  const [selectedVariants, setSelectedVariants] = useState<Record<string, Variant>>({});
   const [selectedInstallations, setSelectedInstallations] = useState<Record<string, InstallationType>>({});
   const scrollRef = useRef<HTMLDivElement>(null);
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
@@ -110,10 +107,6 @@ export default function ProductCarousel({ products, onViewDetails, onEnquire }: 
     scrollToIndex(prevIndex);
   };
 
-  const selectVariant = (productId: string, variant: Variant) => {
-    setSelectedVariants(prev => ({ ...prev, [productId]: variant }));
-  };
-
   const selectInstallation = (productId: string, installationType: InstallationType) => {
     setSelectedInstallations(prev => ({ ...prev, [productId]: installationType }));
   };
@@ -161,7 +154,6 @@ export default function ProductCarousel({ products, onViewDetails, onEnquire }: 
         style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
       >
         {products.map((product, index) => {
-          const isHovered = hoveredProduct === product.id;
           const currentImage = getProductImage(product);
           const hasInstallationVariants = product.installationVariants && product.installationVariants.length > 0;
 
@@ -173,8 +165,6 @@ export default function ProductCarousel({ products, onViewDetails, onEnquire }: 
               }}
               className="group relative flex-shrink-0 snap-start flex min-w-[260px] w-[85vw] sm:w-64 md:w-72 lg:w-auto lg:flex-none lg:basis-[calc((100%-72px)/4)] lg:min-w-[calc((100%-72px)/4)] lg:max-w-[calc((100%-72px)/4)]"
               style={{ alignSelf: 'stretch' }}
-              onMouseEnter={() => setHoveredProduct(product.id)}
-              onMouseLeave={() => setHoveredProduct(null)}
             >
               {/* Card Container - flex column layout for equal height */}
               <div 

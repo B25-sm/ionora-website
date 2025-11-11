@@ -33,6 +33,7 @@ export default function Footer() {
                 { href: '/technology', label: 'Technology' },
                 { href: '/service', label: 'Service' },
                 { href: '/about', label: 'About' },
+                { href: '/raise-a-complaint', label: 'Raise a Complaint' },
                 { href: '/warranty-replacement-policy', label: 'Warranty & Replacement' }
               ].map((link) => (
                 <Link

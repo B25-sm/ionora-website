@@ -1,9 +1,28 @@
 "use client";
 import React, { useMemo } from "react";
+import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import Image from "next/image";
-import productsData, { Product } from "../data/products";
+import productsData, { type Product } from "@/data/products";
 import { HAS_WHATSAPP_NUMBER, getWhatsAppUrlWithMessage } from "@/lib/contact";
+
+const FIXED_ORDER: Array<keyof Product | string> = [
+  "plates",
+  "phRange",
+  "orp",
+  "orpDrink",
+  "power",
+  "hydrogen",
+  "warranty",
+  "installation",
+  "dimensions",
+  "internationalVoltage",
+  "microMembrane",
+  "filters",
+  "oneClickFilter",
+  "cleaning",
+  "colorOptions",
+];
 
 function openWhatsApp(productName: string) {
   if (!HAS_WHATSAPP_NUMBER) return;
@@ -25,16 +44,14 @@ export default function ProductCompare() {
     .map((id) => productsData.find((p) => p.id === id))
     .filter(Boolean) as Product[];
 
-  const fixedOrder = [
-    "plates", "phRange", "orp", "orpDrink", "power", "hydrogen", "warranty",
-    "installation", "dimensions", "internationalVoltage", "microMembrane",
-    "filters", "oneClickFilter", "cleaning", "colorOptions"
-  ];
-
   const specKeys = useMemo(() => {
     const allKeys = new Set<string>();
     selected.forEach((p) => Object.keys(p).forEach((k) => allKeys.add(k)));
-    const ordered = fixedOrder.filter(k => allKeys.has(k)).concat(Array.from(allKeys).filter(k => !fixedOrder.includes(k) && k !== "id" && k !== "name" && k !== "image" && k !== "brand"));
+    const ordered = FIXED_ORDER.filter((k) => allKeys.has(k as string)).concat(
+      Array.from(allKeys).filter(
+        (k) => !FIXED_ORDER.includes(k) && k !== "id" && k !== "name" && k !== "image" && k !== "brand"
+      )
+    );
     return ordered;
   }, [selected]);
 
@@ -48,7 +65,7 @@ export default function ProductCompare() {
         {selected.map(p => (
           <div key={p.id} className="flex gap-3 items-center bg-white/5 rounded-full px-4 py-2">
             <div className="relative w-12 h-12 rounded-md overflow-hidden bg-white/10">
-              <Image src={p.image} alt={p.name} fill className="object-contain p-2" />
+              <Image src={p.image || "/images/placeholder.png"} alt={p.name} fill className="object-contain p-2" />
             </div>
             <div>
               <div className="font-semibold">{p.name}</div>
@@ -67,7 +84,7 @@ export default function ProductCompare() {
                 <th key={p.id} className="text-left p-4">
                   <div className="flex items-center gap-3">
                     <div className="w-16 h-16 relative rounded-md overflow-hidden bg-white/5">
-                      <Image src={p.image} alt={p.name} fill className="object-contain p-2" />
+                      <Image src={p.image || "/images/placeholder.png"} alt={p.name} fill className="object-contain p-2" />
                     </div>
                     <div>
                       <div className="font-semibold">{p.name}</div>
@@ -82,11 +99,15 @@ export default function ProductCompare() {
             {specKeys.map(key => (
               <tr key={key} className="border-t border-white/5">
                 <td className="p-4 font-medium text-white/80">{key.replace(/([A-Z])/g, " $1").replace(/_/g," ")}</td>
-                {selected.map(p => (
-                  <td key={p.id + key} className="p-4 align-top text-sm">
-                    {(p as any)[key] ?? "N/A"}
-                  </td>
-                ))}
+                {selected.map((p) => {
+                  const value = p[key as keyof Product];
+                  const displayValue = Array.isArray(value) ? value.join(", ") : value;
+                  return (
+                    <td key={p.id + key} className="p-4 align-top text-sm">
+                      {displayValue ?? "N/A"}
+                    </td>
+                  );
+                })}
               </tr>
             ))}
 
@@ -95,7 +116,9 @@ export default function ProductCompare() {
               {selected.map(p => (
                 <td key={p.id + "-actions"} className="p-4">
                   <div className="flex gap-3">
-                    <a href={`/products/${p.id}`} className="px-4 py-2 bg-white/10 rounded-lg hover:bg-white/20 transition-colors">View Details</a>
+                    <Link href={`/products/${p.id}`} className="px-4 py-2 bg-white/10 rounded-lg hover:bg-white/20 transition-colors">
+                      View Details
+                    </Link>
                     {HAS_WHATSAPP_NUMBER && (
                       <button onClick={() => openWhatsApp(p.name)} className="px-4 py-2 bg-green-500 text-black rounded-lg font-semibold hover:bg-green-600 transition-colors">Enquire Now</button>
                     )}

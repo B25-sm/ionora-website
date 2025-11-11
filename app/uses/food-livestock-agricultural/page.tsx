@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import { ArrowLeft, Leaf, Droplets, Zap } from 'lucide-react';
+import { ArrowLeft, Leaf, Zap } from 'lucide-react';
 
 export default function FoodLivestockAgriculturalPage() {
   return (

@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import { ArrowLeft, Droplets, Leaf, Cpu, Scale } from 'lucide-react';
+import { ArrowLeft, Leaf, Cpu, Scale } from 'lucide-react';
 
 export default function UsesPage() {
   return (

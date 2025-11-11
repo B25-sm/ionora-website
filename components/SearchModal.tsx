@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import products from '@/data/products';
 
 interface SearchModalProps {
@@ -13,7 +13,13 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps){
   
   // Use external control if provided, otherwise use internal state
   const isModalOpen = isOpen !== undefined ? isOpen : open;
-  const closeModal = onClose || (() => setOpen(false));
+  const closeModal = useCallback(() => {
+    if (onClose) {
+      onClose();
+    } else {
+      setOpen(false);
+    }
+  }, [onClose]);
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => { 
@@ -88,7 +94,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps){
             ))
           ) : searchQuery ? (
             <div className="rounded-lg border border-primary/20 bg-primary/10 px-3 py-2 text-primary/70 text-center">
-              No products found for "{searchQuery}"
+              No products found for &quot;{searchQuery}&quot;
             </div>
           ) : (
             <div className="rounded-lg border border-primary/20 bg-primary/10 px-3 py-2 text-primary/70 text-center">

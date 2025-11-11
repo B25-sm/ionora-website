@@ -16,7 +16,7 @@ export default function EditorDesk() {
         <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-[#EBEBEB] border border-[#EBEBEB] text-[#0A2238]">
           <div className="w-2 h-2 bg-[#0A0F2C] rounded-full" />
           <span className="text-sm font-bold tracking-wider uppercase">
-            FROM THE EDITOR'S DESK
+            FROM THE EDITOR&apos;S DESK
           </span>
         </div>
         <div className="h-px flex-1 bg-[#EBEBEB]" />
@@ -46,7 +46,7 @@ export default function EditorDesk() {
           className="space-y-6"
         >
           <p className="text-lg leading-relaxed">
-            At <strong className="text-[#0A0F2C]">Ionora International Private Limited</strong>, we believe that true vitality flows from nature's purest gift — water. Our mission is to transform this simple element into a source of life-enhancing energy through the world's most trusted alkaline water ionizers from <strong className="text-[#0A0F2C]">Life Ionizers™, Mediqua™, and Medisoul™ Water Ionizers</strong>.
+            At <strong className="text-[#0A0F2C]">Ionora International Private Limited</strong>, we believe that true vitality flows from nature&apos;s purest gift — water. Our mission is to transform this simple element into a source of life-enhancing energy through the world&apos;s most trusted alkaline water ionizers from <strong className="text-[#0A0F2C]">Life Ionizers™, Mediqua™, and Medisoul™ Water Ionizers</strong>.
           </p>
 
           <p className="text-lg leading-relaxed">
@@ -54,7 +54,7 @@ export default function EditorDesk() {
           </p>
 
           <p className="text-lg leading-relaxed">
-            But our promise goes beyond products. With Ionora's dedicated mobile app, customers enjoy one-click service, instant assistance, and seamless after-sales support — setting a new benchmark in customer care.
+            But our promise goes beyond products. With Ionora&apos;s dedicated mobile app, customers enjoy one-click service, instant assistance, and seamless after-sales support — setting a new benchmark in customer care.
           </p>
 
           <p className="text-lg leading-relaxed">
@@ -107,7 +107,7 @@ export default function EditorDesk() {
               </li>
               <li className="flex items-start gap-3">
                 <span className="text-[#FFD100] font-bold mt-1">•</span>
-                <span>To champion eco-friendly hydration by promoting sustainable alternatives that reduce plastic waste and preserve our planet's water resources.</span>
+                <span>To champion eco-friendly hydration by promoting sustainable alternatives that reduce plastic waste and preserve our planet&apos;s water resources.</span>
               </li>
             </ul>
           </motion.div>

@@ -97,7 +97,7 @@ export default function OrpPage() {
                 <ul className="space-y-2 text-blue-800">
                   <li>• <strong>Selective neutralization:</strong> H₂ selectively neutralizes harmful reactive oxygen species (ROS)</li>
                   <li>• <strong>Targets hydroxyl radicals:</strong> Especially the hydroxyl radical (•OH) — one of the most damaging ROS</li>
-                  <li>• <strong>Preserves beneficial ROS:</strong> Doesn't disturb useful ROS needed for cell signaling</li>
+                  <li>• <strong>Preserves beneficial ROS:</strong> Doesn&apos;t disturb useful ROS needed for cell signaling</li>
                   <li>• <strong>Reduces oxidative stress:</strong> A major factor in aging and chronic diseases</li>
                   <li>• <strong>Protects cellular components:</strong> DNA, proteins, and lipids from oxidative damage</li>
                 </ul>

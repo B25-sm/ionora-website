@@ -19,7 +19,6 @@ type BrandCardProps = {
 };
 
 export default function BrandCard({
-  id,
   name,
   country = "India",
   tagline = "Premium Hydration Engineering",

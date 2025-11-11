@@ -1,7 +1,7 @@
 'use client';
 
 import { useMemo, useState } from 'react';
-import products from '@/data/products';
+import products, { type Product } from '@/data/products';
 import BrandTabs from './BrandTabs';
 import ProductCardV2 from './ProductCardV2';
 import QuickViewModal from './QuickViewModal';
@@ -11,8 +11,8 @@ import { Search } from 'lucide-react';
 export default function ProductShowcase() {
   const [brand, setBrand] = useState<'all' | string>('all');
   const [query, setQuery] = useState('');
-  const [quick, setQuick] = useState<any | null>(null);
-  const [tray, setTray] = useState<any[]>([]);
+  const [quick, setQuick] = useState<Product | null>(null);
+  const [tray, setTray] = useState<Product[]>([]);
 
   const filtered = useMemo(() => {
     let list = products;
@@ -37,9 +37,9 @@ export default function ProductShowcase() {
     return list;
   }, [brand, query]);
 
-  const brandsList = useMemo(() => {
+  const brandsList = useMemo<Record<string, Product[]>>(() => {
     if (brand === 'all') {
-      const groups: Record<string, any[]> = {};
+      const groups: Record<string, Product[]> = {};
       products.forEach(p => {
         groups[p.brand] = groups[p.brand] || [];
         groups[p.brand].push(p);
@@ -50,7 +50,7 @@ export default function ProductShowcase() {
     }
   }, [brand, filtered]);
 
-  function toggleCompare(p: any) {
+  function toggleCompare(p: Product) {
     setTray((prev) => {
       const exists = prev.find((x) => x.id === p.id);
       if (exists) return prev.filter((x) => x.id !== p.id);

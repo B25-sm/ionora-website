@@ -156,7 +156,7 @@ export default function FreeRadicalsPage() {
                 <div className="space-y-3 text-red-800">
                   <p>
                     The oxygen we take into our lungs when we breathe is carried to every corner of our bodies and becomes 
-                    a source of energy. However, as part of this process, <strong>'Oxygen radicals'</strong> are produced.
+                    a source of energy. However, as part of this process, <strong>&ldquo;Oxygen radicals&rdquo;</strong> are produced.
                   </p>
                   <p>
                     These oxygen radicals bond with unsaturated fatty acids to form lipid peroxides, which contribute to 

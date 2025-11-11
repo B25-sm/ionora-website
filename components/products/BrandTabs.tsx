@@ -8,8 +8,7 @@ type Props = {
 };
 
 export default function BrandTabs({ active, onChange }: Props) {
-  const all = useMemo(() => [{ id: 'all', name: 'All Brands' }], []);
-  const tabs = [...all, ...BRANDS];
+  const tabs = useMemo(() => [{ id: 'all' as const, name: 'All Brands' }, ...BRANDS], []);
 
   return (
     <div className="flex flex-wrap gap-2 md:gap-3">
@@ -18,7 +17,7 @@ export default function BrandTabs({ active, onChange }: Props) {
         return (
           <button
             key={b.id}
-            onClick={() => onChange(b.id as any)}
+            onClick={() => onChange(b.id)}
             className={[
               'px-4 py-2 rounded-2xl border backdrop-blur-xl transition-all',
               isActive

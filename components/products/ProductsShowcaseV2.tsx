@@ -1,7 +1,7 @@
 'use client';
 
-import { useState, useMemo, useEffect } from 'react';
-import products from '@/data/products';
+import { useState, useMemo } from 'react';
+import products, { type Product } from '@/data/products';
 import ProductsHero from './ProductsHero';
 import ProductCarousel from './ProductCarousel';
 import QuickViewModal from './QuickViewModal';
@@ -18,9 +18,8 @@ export default function ProductsShowcaseV2({ initialBrand }: Props) {
   const [activeBrand, setActiveBrand] = useState(initialBrand || 'all');
   const [activeCategory, setActiveCategory] = useState('all');
   const [activeInstallation, setActiveInstallation] = useState('all');
-  const [quickViewProduct, setQuickViewProduct] = useState<any | null>(null);
-  const [compareTray, setCompareTray] = useState<any[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [quickViewProduct, setQuickViewProduct] = useState<Product | null>(null);
+  const [compareTray, setCompareTray] = useState<Product[]>([]);
 
   const filteredProducts = useMemo(() => {
     let filteredProducts = products;
@@ -61,7 +60,7 @@ export default function ProductsShowcaseV2({ initialBrand }: Props) {
   }, [activeBrand, activeCategory, activeInstallation]);
 
   const productsByBrand = useMemo(() => {
-    const groups: Record<string, any[]> = {};
+    const groups: Record<string, Product[]> = {};
     filteredProducts.forEach(product => {
       if (!groups[product.brand]) {
         groups[product.brand] = [];
@@ -71,29 +70,16 @@ export default function ProductsShowcaseV2({ initialBrand }: Props) {
     return groups;
   }, [filteredProducts]);
 
-  const handleViewDetails = (product: any) => {
+  const handleViewDetails = (product: Product) => {
     window.location.href = `/products/${product.id}`;
   };
 
-  const handleEnquire = (product: any) => {
+  const handleEnquire = (product: Product) => {
     if (!HAS_WHATSAPP_NUMBER) return;
     const message = `Hi! I'm interested in the ${product.name} water ionizer. Could you please provide more details about pricing and availability?`;
     const whatsappUrl = getWhatsAppUrlWithMessage(message);
     if (!whatsappUrl) return;
     window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
-  };
-
-  const toggleCompare = (product: any) => {
-    setCompareTray(prev => {
-      const exists = prev.find(p => p.id === product.id);
-      if (exists) {
-        return prev.filter(p => p.id !== product.id);
-      }
-      if (prev.length >= 3) {
-        return prev; // Max 3 products
-      }
-      return [...prev, product];
-    });
   };
 
   const removeFromCompare = (productId: string) => {
@@ -104,17 +90,6 @@ export default function ProductsShowcaseV2({ initialBrand }: Props) {
     const productIds = compareTray.map(p => p.id).join(',');
     window.location.href = `/products?compare=${productIds}`;
   };
-
-  if (isLoading) {
-    return (
-      <div className="min-h-screen bg-[#0A2238] flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#EBEBEB]/30 mx-auto mb-4"></div>
-          <p className="text-[#EBEBEB]/60">Loading products...</p>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="min-h-screen bg-[#0A2238]">

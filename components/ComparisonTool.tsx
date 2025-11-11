@@ -1,7 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import productsData from '@/data/products';
+import Link from 'next/link';
+import productsData, { type Product } from '@/data/products';
 
 export default function ComparisonTool() {
   const [selected, setSelected] = useState<string[]>([]);
@@ -15,6 +16,19 @@ export default function ComparisonTool() {
 
   const items = productsData.filter(p => selected.includes(p.id));
 
+  type SpecValue = string | number | undefined;
+  type SpecGetter = (product: Product) => SpecValue;
+  const specRows: Array<[string, SpecGetter]> = [
+    ['Plates', product => product.plates || 'N/A'],
+    ['pH Range', product => product.phRange || 'N/A'],
+    ['ORP', product => product.orp || 'N/A'],
+    ['Power', product => product.power || 'N/A'],
+    ['Warranty', product => product.warranty || 'N/A'],
+    ['Installation', product => product.installation || 'N/A'],
+    ['Dimensions', product => product.dimensions || 'N/A'],
+    ['Brand', product => product.brand || 'N/A'],
+  ];
+
   return (
     <section className="relative py-20">
       <div className="mx-auto max-w-7xl px-4">
@@ -23,12 +37,12 @@ export default function ComparisonTool() {
         
         {selected.length > 0 && (
           <div className="mt-4">
-            <a 
+            <Link
               href={`/products/compare?products=${selected.join(',')}`}
               className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-[#EBEBEB] to-[#C9CFD7] text-[#0A2238] rounded-lg font-semibold hover:from-[#C9CFD7] hover:to-[#EBEBEB] transition-all"
             >
               View Full Comparison →
-            </a>
+            </Link>
           </div>
         )}
 
@@ -53,20 +67,11 @@ export default function ComparisonTool() {
               </tr>
             </thead>
             <tbody className="text-white/80">
-              {[
-                ['Plates', (i:any)=>i.plates || 'N/A'],
-                ['pH Range', (i:any)=>i.phRange || 'N/A'],
-                ['ORP', (i:any)=>i.orp || 'N/A'],
-                ['Power', (i:any)=>i.power || 'N/A'],
-                ['Warranty', (i:any)=>i.warranty || 'N/A'],
-                ['Installation', (i:any)=>i.installation || 'N/A'],
-                ['Dimensions', (i:any)=>i.dimensions || 'N/A'],
-                ['Brand', (i:any)=>i.brand || 'N/A'],
-              ].map(([label,get]:any)=>(
-                <tr key={label as string}>
-                  <td className="sticky left-0 bg-slate-900/40 backdrop-blur px-4 py-3 border-b border-white/10">{label as string}</td>
-                  {items.map(i=>(
-                    <td key={i.id+label} className="px-4 py-3 border-b border-white/10">{get(i)}</td>
+              {specRows.map(([label, get]) => (
+                <tr key={label}>
+                  <td className="sticky left-0 bg-slate-900/40 backdrop-blur px-4 py-3 border-b border-white/10">{label}</td>
+                  {items.map(i => (
+                    <td key={`${i.id}${label}`} className="px-4 py-3 border-b border-white/10">{get(i)}</td>
                   ))}
                 </tr>
               ))}

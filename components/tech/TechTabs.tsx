@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
+import { useState, type ComponentType } from "react";
 import IonizedWaterDiagram from './diagrams/IonizedWaterDiagram';
 import PHScaleDiagram from './diagrams/PHScaleDiagram';
 import ORPDiagram from './diagrams/ORPDiagram';
@@ -9,7 +9,7 @@ import { Beaker, Activity, Zap, Shuffle } from 'lucide-react';
 
 type TabKey = 'ionized' | 'ph' | 'orp' | 'electro';
 
-const TABS: { key: TabKey; label: string; icon: any; }[] = [
+const TABS: Array<{ key: TabKey; label: string; icon: ComponentType<{ className?: string }> }> = [
   { key: 'ionized', label: 'Ionized Water', icon: Beaker },
   { key: 'ph', label: 'pH Scale', icon: Activity },
   { key: 'orp', label: 'ORP', icon: Zap },

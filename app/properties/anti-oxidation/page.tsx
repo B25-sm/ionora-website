@@ -35,7 +35,7 @@ export default function AntiOxidationPage() {
                 <div className="space-y-6 text-gray-700">
                   <p className="text-lg">
                     <strong>Oxidation</strong> means loss of electrons. In the human body, oxidation is a normal and essential 
-                    chemical process where molecules lose electrons. It's part of how we generate energy from food — but when 
+                    chemical process where molecules lose electrons. It&apos;s part of how we generate energy from food — but when 
                     uncontrolled, it can become harmful.
                   </p>
                   
@@ -93,7 +93,7 @@ export default function AntiOxidationPage() {
             </h2>
             <div className="space-y-6 text-gray-700">
               <p className="text-lg">
-                <strong>Oxidative stress</strong> occurs when the production of ROS exceeds the body's ability to neutralize 
+                <strong>Oxidative stress</strong> occurs when the production of ROS exceeds the body&apos;s ability to neutralize 
                 them using antioxidants (like glutathione, vitamin C, etc.).
               </p>
               
@@ -129,7 +129,7 @@ export default function AntiOxidationPage() {
                   </div>
                   <div>
                     <ul className="space-y-2">
-                      <li>• Alzheimer's, Parkinson's</li>
+                      <li>• Alzheimer&apos;s, Parkinson&apos;s</li>
                       <li>• Cancer</li>
                       <li>• Autoimmune conditions</li>
                     </ul>

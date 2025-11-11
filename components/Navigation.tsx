@@ -1,13 +1,16 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Menu, X, ShoppingBag, ChevronDown } from 'lucide-react';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { BRANDS } from '@/data/brands';
+import { authStorage } from '@/lib/authStorage';
+import { useCart } from '@/components/cart/CartProvider';
 
 export default function Navigation() {
+  const router = useRouter();
   const [menuOpen, setMenuOpen] = useState(false);
   const [productsHovered, setProductsHovered] = useState(false);
   const [productsOpen, setProductsOpen] = useState(false);
@@ -17,12 +20,52 @@ export default function Navigation() {
   const [propertiesOpen, setPropertiesOpen] = useState(false);
   const [usesHovered, setUsesHovered] = useState(false);
   const [usesOpen, setUsesOpen] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const pathname = usePathname();
   const menuRef = useRef<HTMLDivElement>(null);
   const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const ionizerTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const propertiesTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const usesTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  const { items: cartItems } = useCart();
+  const cartCount = useMemo(
+    () => cartItems.reduce((total, item) => total + item.quantity, 0),
+    [cartItems],
+  );
+
+  const refreshAuthState = useCallback(() => {
+    setIsAuthenticated(Boolean(authStorage.token()));
+  }, []);
+
+  useEffect(() => {
+    refreshAuthState();
+
+    const handleAuthChanged = () => {
+      refreshAuthState();
+    };
+
+    const handleStorage = (event: StorageEvent) => {
+      if (event.key === 'ionora.auth.token' || event.key === null) {
+        refreshAuthState();
+      }
+    };
+
+    window.addEventListener('auth:changed', handleAuthChanged);
+    window.addEventListener('storage', handleStorage);
+
+    return () => {
+      window.removeEventListener('auth:changed', handleAuthChanged);
+      window.removeEventListener('storage', handleStorage);
+    };
+  }, [refreshAuthState]);
+
+  const handleSignOut = () => {
+    authStorage.clear();
+    refreshAuthState();
+    setMenuOpen(false);
+    router.push('/login');
+  };
 
   // Reset dropdown states when menu closes
   useEffect(() => {
@@ -137,12 +180,6 @@ export default function Navigation() {
     }, 150);
   };
 
-  const link = (href: string) =>
-    `px-4 py-3 text-white hover:text-accent hover:bg-white/10 transition rounded-lg ${
-      pathname === href ? 'text-accent font-medium bg-white/10' : ''
-    }`;
-
-
   return (
     <header className="fixed inset-x-0 top-0 z-50 bg-transparent">
       {/* Main navigation */}
@@ -164,14 +201,29 @@ export default function Navigation() {
             />
             </Link>
 
-          {/* Menu Button - Always visible */}
-          <button
-            onClick={() => setMenuOpen(!menuOpen)}
-            className="p-2 text-white hover:text-accent hover:bg-white/10 transition rounded-lg"
-            aria-label="Open menu"
-          >
-            {menuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-          </button>
+          <div className="flex items-center gap-2">
+            <Link
+              href="/cart"
+              aria-label="Shopping cart"
+              className="relative flex items-center gap-2 px-3 py-2 text-white hover:text-accent hover:bg-white/10 transition rounded-lg"
+            >
+              <ShoppingBag className="h-5 w-5" />
+              <span className="hidden sm:inline text-sm font-medium">Cart</span>
+              {cartCount > 0 && (
+                <span className="absolute -top-1 -right-1 min-w-[1.5rem] px-1.5 py-0.5 rounded-full bg-accent text-[#0A2238] text-xs font-semibold text-center">
+                  {cartCount > 99 ? '99+' : cartCount}
+                </span>
+              )}
+            </Link>
+            {/* Menu Button - Always visible */}
+            <button
+              onClick={() => setMenuOpen(!menuOpen)}
+              className="p-2 text-white hover:text-accent hover:bg-white/10 transition rounded-lg"
+              aria-label="Open menu"
+            >
+              {menuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            </button>
+          </div>
           </nav>
 
         {/* Dropdown menu - Always visible when open */}
@@ -190,13 +242,13 @@ export default function Navigation() {
               {/* Products with Brands Dropdown */}
               <div 
                 className="relative"
-                onMouseEnter={(e) => {
+                onMouseEnter={() => {
                   // Only enable hover on desktop (screen width >= 640px)
                   if (typeof window !== 'undefined' && window.innerWidth >= 640) {
                     handleProductsMouseEnter();
                   }
                 }}
-                onMouseLeave={(e) => {
+                onMouseLeave={() => {
                   // Only enable hover on desktop
                   if (typeof window !== 'undefined' && window.innerWidth >= 640) {
                     handleProductsMouseLeave();
@@ -299,13 +351,13 @@ export default function Navigation() {
               {/* Properties with Dropdown */}
               <div 
                 className="relative"
-                onMouseEnter={(e) => {
+                onMouseEnter={() => {
                   // Only enable hover on desktop (screen width >= 640px)
                   if (typeof window !== 'undefined' && window.innerWidth >= 640) {
                     handlePropertiesMouseEnter();
                   }
                 }}
-                onMouseLeave={(e) => {
+                onMouseLeave={() => {
                   // Only enable hover on desktop
                   if (typeof window !== 'undefined' && window.innerWidth >= 640) {
                     handlePropertiesMouseLeave();
@@ -526,13 +578,13 @@ export default function Navigation() {
               {/* Ionizer with Dropdown */}
               <div 
                 className="relative"
-                onMouseEnter={(e) => {
+                onMouseEnter={() => {
                   // Only enable hover on desktop (screen width >= 640px)
                   if (typeof window !== 'undefined' && window.innerWidth >= 640) {
                     handleIonizerMouseEnter();
                   }
                 }}
-                onMouseLeave={(e) => {
+                onMouseLeave={() => {
                   // Only enable hover on desktop
                   if (typeof window !== 'undefined' && window.innerWidth >= 640) {
                     handleIonizerMouseLeave();
@@ -674,13 +726,13 @@ export default function Navigation() {
               {/* Uses/Applications with Dropdown */}
               <div 
                 className="relative"
-                onMouseEnter={(e) => {
+                onMouseEnter={() => {
                   // Only enable hover on desktop (screen width >= 640px)
                   if (typeof window !== 'undefined' && window.innerWidth >= 640) {
                     handleUsesMouseEnter();
                   }
                 }}
-                onMouseLeave={(e) => {
+                onMouseLeave={() => {
                   // Only enable hover on desktop
                   if (typeof window !== 'undefined' && window.innerWidth >= 640) {
                     handleUsesMouseLeave();
@@ -825,14 +877,61 @@ export default function Navigation() {
               >
                 About
               </Link>
+              {isAuthenticated ? (
+                <>
+                  <Link 
+                    href="/products" 
+                    className={`px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/20 transition-all duration-200 rounded-lg text-sm sm:text-base font-medium ${
+                      pathname === '/products' ? 'text-blue-600 bg-blue-50' : ''
+                    }`}
+                    onClick={() => setMenuOpen(false)}
+                  >
+                    Dashboard
+                  </Link>
+                  <button
+                    type="button"
+                    className="px-4 py-3 text-left text-gray-800 hover:text-blue-600 hover:bg-white/20 transition-all duration-200 rounded-lg text-sm sm:text-base font-medium"
+                    onClick={handleSignOut}
+                  >
+                    Sign out
+                  </button>
+                </>
+              ) : (
+                <>
+                  <Link 
+                    href="/login" 
+                    className={`px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/20 transition-all duration-200 rounded-lg text-sm sm:text-base font-medium ${
+                      pathname === '/login' ? 'text-blue-600 bg-blue-50' : ''
+                    }`}
+                    onClick={() => setMenuOpen(false)}
+                  >
+                    Sign in
+                  </Link>
+                  <Link 
+                    href="/register" 
+                    className={`px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/20 transition-all duration-200 rounded-lg text-sm sm:text-base font-medium ${
+                      pathname === '/register' ? 'text-blue-600 bg-blue-50' : ''
+                    }`}
+                    onClick={() => setMenuOpen(false)}
+                  >
+                    Create account
+                  </Link>
+                </>
+              )}
               <div className="border-t border-gray-200 my-1"></div>
-              <button 
+              <Link 
+                href="/cart"
                 className="px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/20 transition-all duration-200 rounded-lg flex items-center gap-2 text-sm sm:text-base font-medium"
                 onClick={() => setMenuOpen(false)}
               >
                 <ShoppingBag className="h-5 w-5" />
-                Shopping Cart
-              </button>
+                <span>Shopping Cart</span>
+                {cartCount > 0 && (
+                  <span className="ml-auto inline-flex min-w-[2rem] items-center justify-center rounded-full bg-primary text-white text-xs font-semibold px-2 py-0.5">
+                    {cartCount > 99 ? '99+' : cartCount}
+                  </span>
+                )}
+              </Link>
             </div>
           </div>
         )}

@@ -2,8 +2,7 @@
 
 import { X, Scale } from 'lucide-react';
 import Image from 'next/image';
-
-type Product = any;
+import type { Product } from '@/data/products';
 
 type Props = {
   items: Product[];
@@ -21,7 +20,7 @@ export default function CompareTray({ items, onRemove, onCompare }: Props) {
           {items.map((p) => (
             <div key={p.id} className="relative flex items-center gap-1.5 sm:gap-2 rounded-lg sm:rounded-xl border border-[#0A2238]/20 bg-white/80 p-1.5 sm:p-2 flex-shrink-0">
               <div className="relative w-8 h-8 sm:w-10 sm:h-10 rounded-lg overflow-hidden border border-[#0A2238]/20 bg-white/80">
-                <Image src={p.image} alt={p.name} fill sizes="40px" className="object-contain p-1" />
+                <Image src={p.image || '/images/placeholder.png'} alt={p.name} fill sizes="40px" className="object-contain p-1" />
               </div>
               <span className="text-xs sm:text-sm max-w-[100px] sm:max-w-[160px] truncate text-[#0A2238]">{p.name}</span>
               <button

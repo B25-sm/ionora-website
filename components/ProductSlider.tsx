@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect, useRef, useCallback } from 'react';
-import { products, productsByBrand } from '@/data/products';
 
 const isDebugLoggingEnabled = process.env.NODE_ENV !== 'production';
 
@@ -22,7 +21,7 @@ export default function ProductSlider() {
   const [touchStart, setTouchStart] = useState<number | null>(null);
   const [touchEnd, setTouchEnd] = useState<number | null>(null);
   const [isMuted, setIsMuted] = useState(true);
-  const [isAnimating, setIsAnimating] = useState(false);
+  const [, setIsAnimating] = useState(false);
   
   // Use array of refs for multiple videos
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
@@ -34,14 +33,6 @@ export default function ProductSlider() {
   
   // Session-level unmute preference - tracks explicit user action
   const userExplicitlyUnmutedRef = useRef(false);
-
-  // Get featured product
-  const getFeaturedProduct = (brandId: string) => {
-    const brandProducts = productsByBrand(brandId);
-    return brandProducts[0] || null;
-  };
-
-  const currentProduct = getFeaturedProduct(BRAND_CATEGORIES[activeCategory].id);
 
   // Handle dot click
   const handleDotClick = useCallback((clickedIndex: number) => {
@@ -67,8 +58,12 @@ export default function ProductSlider() {
       await video.play();
       debugLog(`[AUTOPLAY] Successfully started autoplay for video ${index}`);
       return true;
-    } catch (error: any) {
-      debugLog(`[AUTOPLAY] Autoplay blocked for video ${index}: ${error.name}`);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        debugLog(`[AUTOPLAY] Autoplay blocked for video ${index}: ${error.name}`);
+      } else {
+        debugLog(`[AUTOPLAY] Autoplay blocked for video ${index}: unknown error`);
+      }
       autoplayBlockedRef.current = true;
       return false;
     }
@@ -85,8 +80,12 @@ export default function ProductSlider() {
       video.muted = false;
       setIsMuted(false);
       debugLog(`[UNMUTE] Auto-unmuted video ${index} (session preference)`);
-    } catch (error: any) {
-      debugLog(`[UNMUTE] Blocked: ${error.name}`);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        debugLog(`[UNMUTE] Blocked: ${error.name}`);
+      } else {
+        debugLog(`[UNMUTE] Blocked: unknown error`);
+      }
       video.muted = true; // Fallback to muted
       setIsMuted(true);
     }
@@ -305,7 +304,7 @@ export default function ProductSlider() {
       // Success - UI and DOM are now in sync
       debugLog(`[UNMUTE] Success - Video ${activeCategory} ${nowMuted ? 'muted' : 'unmuted'}, UI updated`);
       
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error(`[UNMUTE] Failed to toggle mute:`, error);
       // Show fallback message
       alert('Browser requires a direct gesture to enable sound. Tap play to enable audio.');

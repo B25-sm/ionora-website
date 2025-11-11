@@ -90,7 +90,7 @@ export default function HydrationPage() {
                 <div className="bg-green-50 p-6 rounded-lg">
                   <h3 className="text-lg font-semibold text-green-900 mb-3">Supports Hydration</h3>
                   <p className="text-green-800 text-sm">
-                    Advocates say electrolysis reduces 'cluster size' of water molecules, making water easier to absorb 
+                    Advocates say electrolysis reduces &ldquo;cluster size&rdquo; of water molecules, making water easier to absorb 
                     into cells, leading to quicker hydration.
                   </p>
                 </div>

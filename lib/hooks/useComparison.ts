@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Product } from '@/data/products';
+import type { Product } from '@/data/products';
 
 const COMPARISON_KEY = 'ionora-comparison';
 
@@ -13,9 +13,8 @@ export function useComparison() {
     const stored = localStorage.getItem(COMPARISON_KEY);
     if (stored) {
       try {
-        const productIds = JSON.parse(stored);
-        // You would need to fetch products by IDs here
-        // For now, we'll just store the IDs
+        JSON.parse(stored);
+        // You would need to fetch products by IDs here. For now, we clear the list to avoid stale data.
         setSelectedProducts([]);
       } catch (error) {
         console.error('Failed to load comparison from localStorage:', error);

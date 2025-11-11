@@ -4,7 +4,9 @@ import './globals.css'
 import Navigation from '@/components/Navigation'
 import Footer from '@/components/Footer'
 import SearchModal from '@/components/SearchModal'
+import CallbackModal from '@/components/CallBackModal'
 import FABs from '@/components/FABs'
+import { CartProvider } from '@/components/cart/CartProvider'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -55,20 +57,23 @@ export default function RootLayout({
       <body className={inter.className} suppressHydrationWarning={true}>
         {/* Solid background */}
         <div className="min-h-dvh bg-bg text-primary overflow-x-hidden">
-          {/* Sticky global navbar */}
-          <Navigation />
+          <CartProvider>
+            {/* Sticky global navbar */}
+            <Navigation />
 
-          {/* Page content (offset for fixed nav) */}
-          <main className="pt-16 sm:pt-20 md:pt-24">
-            {children}
-          </main>
+            {/* Page content (offset for fixed nav) */}
+            <main className="pt-16 sm:pt-20 md:pt-24">
+              {children}
+            </main>
 
-          {/* Global footer */}
-          <Footer />
+            {/* Global footer */}
+            <Footer />
 
-          {/* Overlays / floating actions available on all pages */}
-          <SearchModal />
-          <FABs />
+            {/* Overlays / floating actions available on all pages */}
+            <SearchModal />
+            <FABs />
+            <CallbackModal />
+          </CartProvider>
         </div>
       </body>
     </html>

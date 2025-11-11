@@ -5,7 +5,8 @@ import { useSearchParams } from 'next/navigation';
 import { products, Product } from '@/data/products';
 import { BRANDS } from '@/data/brands';
 import Image from 'next/image';
-import { X, Plus, Search, Filter, ArrowLeft } from 'lucide-react';
+import Link from 'next/link';
+import { X, Plus, Search, ArrowLeft } from 'lucide-react';
 
 function ComparePageContent() {
   const searchParams = useSearchParams();
@@ -66,11 +67,6 @@ function ComparePageContent() {
     setSelectedCategory('all');
     setSelectedPlates('all');
     setSelectedInstallation('all');
-  };
-
-  const getBrandName = (brandId: string) => {
-    const brand = BRANDS.find(b => b.id === brandId);
-    return brand?.name || brandId;
   };
 
   const getBrandWithCountry = (brandId: string) => {
@@ -172,13 +168,13 @@ function ComparePageContent() {
         <div className="max-w-7xl mx-auto px-4 py-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
-              <a 
-                href="/products" 
+              <Link
+                href="/products"
                 className="flex items-center space-x-2 text-white/70 hover:text-white transition-colors"
               >
                 <ArrowLeft className="w-5 h-5" />
                 <span>Back to Products</span>
-              </a>
+              </Link>
               <div className="h-6 w-px bg-white/20"></div>
               <h1 className="text-3xl font-bold">Product Comparison</h1>
             </div>
@@ -209,7 +205,7 @@ function ComparePageContent() {
       {selectedProducts.length > 0 && (
         <div className="max-w-7xl mx-auto px-4 py-6">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {selectedProducts.map((product, index) => (
+            {selectedProducts.map((product) => (
               <div key={product.id} className="relative bg-white/5 border border-white/10 rounded-xl p-6">
                 <button
                   onClick={() => removeProduct(product.id)}
@@ -279,7 +275,7 @@ function ComparePageContent() {
                 <thead>
                   <tr className="border-b border-white/10">
                     <th className="sticky left-0 z-10 bg-[#0A0F2C] px-6 py-4 text-left font-semibold">Specification</th>
-                    {selectedProducts.map((product, index) => (
+                    {selectedProducts.map((product) => (
                       <th key={product.id} className="px-6 py-4 text-center min-w-[200px]">
                         <div className="flex flex-col items-center space-y-2">
                           <div className="w-12 h-12 relative">
@@ -471,7 +467,7 @@ function ComparePageContent() {
                   <div className="flex flex-wrap gap-2">
                     {searchTerm && (
                       <span className="px-2 py-1 bg-[#EBEBEB]/20 text-[#EBEBEB] text-xs rounded-full">
-                        Search: "{searchTerm}"
+                        Search: &quot;{searchTerm}&quot;
                       </span>
                     )}
                     {selectedBrand !== 'all' && (

@@ -3,11 +3,11 @@
 import { useParams, useRouter } from 'next/navigation';
 import { useState, useMemo } from 'react';
 import Image from 'next/image';
-import { ArrowLeft, Star, Filter } from 'lucide-react';
+import { ArrowLeft, Filter } from 'lucide-react';
 import { BRANDS } from '@/data/brands';
-import products from '@/data/products';
+import products, { type Product } from '@/data/products';
 import QuickViewModal from './QuickViewModal';
-import { sortProductsByVersion, extractVersionNumber } from '@/lib/productSorting';
+import { extractVersionNumber } from '@/lib/productSorting';
 import { HAS_WHATSAPP_NUMBER, getWhatsAppUrlWithMessage } from '@/lib/contact';
 
 type Props = {
@@ -19,7 +19,7 @@ export default function BrandProductsPage({ category }: Props) {
   const router = useRouter();
   const brandId = params.brandId as string;
   
-  const [quickViewProduct, setQuickViewProduct] = useState<any | null>(null);
+  const [quickViewProduct, setQuickViewProduct] = useState<Product | null>(null);
   const [sortBy, setSortBy] = useState('version');
 
   const brand = BRANDS.find(b => b.id === brandId);
@@ -74,11 +74,11 @@ export default function BrandProductsPage({ category }: Props) {
     return filteredProducts;
   }, [brandId, category, sortBy]);
 
-  const handleViewDetails = (product: any) => {
+  const handleViewDetails = (product: Product) => {
     setQuickViewProduct(product);
   };
 
-  const handleEnquire = (product: any) => {
+  const handleEnquire = (product: Product) => {
     if (!HAS_WHATSAPP_NUMBER) return;
     const message = `Hi! I'm interested in the ${product.name} water ionizer. Could you please provide more details about pricing and availability?`;
     const whatsappUrl = getWhatsAppUrlWithMessage(message);

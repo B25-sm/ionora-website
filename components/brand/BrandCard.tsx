@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 
 type BrandCardProps = {
   brandKey?: string;
@@ -31,12 +32,10 @@ export default function BrandCard({
         {/* Logo column - fixed width so heading never overlaps */}
         <div className="w-16 h-16 rounded-xl overflow-hidden bg-gradient-to-br from-sky-500/20 to-violet-500/10 flex items-center justify-center border border-white/6">
           {logoSrc ? (
-            // keep image contained so large source won't overflow
-            <img
+            <Image
               src={logoSrc}
               alt={`${title} logo`}
               className="w-full h-full object-contain"
-              loading="lazy"
               width={64}
               height={64}
             />
