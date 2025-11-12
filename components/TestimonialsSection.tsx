@@ -94,12 +94,6 @@ const testimonialSources: TestimonialSource[] = [
     fileName: 'f92c66840e94418cbdb9d274d42ec8c3.mp4',
   },
   {
-    name: 'Dr. Thomas Walko',
-    title: 'Medical Director',
-    company: 'Hydrogen Therapy Institute',
-    avatar: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=96&q=80',
-  },
-  {
     name: 'Lydia Grant',
     title: 'Program Director',
     company: 'Renew Wellness',
