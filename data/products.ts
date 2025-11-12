@@ -935,7 +935,11 @@ export const products = [
   }
 ];
 
-export type Product = (typeof products)[number];
+type BaseProduct = (typeof products)[number];
+
+export type Product = BaseProduct & {
+  gallery?: string[];
+};
 
 // Helper function to get products by brand
 export function productsByBrand(brandId: string) {
