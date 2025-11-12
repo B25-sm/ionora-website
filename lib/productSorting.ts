@@ -2,7 +2,7 @@
  * Utility functions for sorting products by version number
  */
 
-export interface Product {
+export interface SortableProduct {
   id: string;
   name: string;
   brand: string;
@@ -47,7 +47,7 @@ export function extractVersionNumber(productName: string): number {
 /**
  * Sorts products by version number in descending order (highest first)
  */
-export function sortProductsByVersion(products: Product[]): Product[] {
+export function sortProductsByVersion<T extends SortableProduct>(products: T[]): T[] {
   return [...products].sort((a, b) => {
     const versionA = extractVersionNumber(a.name);
     const versionB = extractVersionNumber(b.name);
@@ -63,7 +63,7 @@ export function sortProductsByVersion(products: Product[]): Product[] {
  * 2. Brand name (ascending)
  * 3. Product name (ascending)
  */
-export function sortProductsByVersionAndBrand(products: Product[]): Product[] {
+export function sortProductsByVersionAndBrand<T extends SortableProduct>(products: T[]): T[] {
   return [...products].sort((a, b) => {
     const versionA = extractVersionNumber(a.name);
     const versionB = extractVersionNumber(b.name);
