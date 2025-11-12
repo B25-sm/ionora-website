@@ -46,6 +46,13 @@ export default function ProductCard({ product }: { product: Product }) {
     return product.price;
   }, [product.installationVariants, product.price, selectedInstallation]);
 
+  const formattedDisplayPrice = useMemo(() => {
+    if (typeof displayPrice !== "number") {
+      return null;
+    }
+    return `₹${displayPrice.toLocaleString("en-IN")}`;
+  }, [displayPrice]);
+
   const handleAddToCart = async () => {
     if (isAdding) return;
 
@@ -202,7 +209,7 @@ export default function ProductCard({ product }: { product: Product }) {
         )}
 
         <p className="text-center text-xs sm:text-sm text-primary/70 mt-2 sm:mt-3">
-          {getDisplayPrice() ? `₹${getDisplayPrice()!.toLocaleString('en-IN')}` : 'Contact for Price'}
+          {formattedDisplayPrice ?? "Contact for Price"}
         </p>
       </div>
     </article>
