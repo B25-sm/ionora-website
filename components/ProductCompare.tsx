@@ -32,6 +32,25 @@ function openWhatsApp(productName: string) {
   window.open(whatsappUrl, "_blank");
 }
 
+const formatSpecValue = (value: unknown): string => {
+  const serialize = (input: unknown): string => {
+    if (input == null) return "";
+    if (Array.isArray(input)) {
+      return input.map(serialize).filter(Boolean).join(", ");
+    }
+    if (typeof input === "object") {
+      return Object.entries(input as Record<string, unknown>)
+        .map(([key, entryValue]) => `${key}: ${serialize(entryValue)}`)
+        .filter(Boolean)
+        .join(", ");
+    }
+    return String(input);
+  };
+
+  const formatted = serialize(value);
+  return formatted.trim() || "N/A";
+};
+
 export default function ProductCompare() {
   const searchParams = useSearchParams();
   
@@ -101,10 +120,9 @@ export default function ProductCompare() {
                 <td className="p-4 font-medium text-white/80">{key.replace(/([A-Z])/g, " $1").replace(/_/g," ")}</td>
                 {selected.map((p) => {
                   const value = p[key as keyof Product];
-                  const displayValue = Array.isArray(value) ? value.join(", ") : value;
                   return (
                     <td key={p.id + key} className="p-4 align-top text-sm">
-                      {displayValue ?? "N/A"}
+                      {formatSpecValue(value)}
                     </td>
                   );
                 })}
