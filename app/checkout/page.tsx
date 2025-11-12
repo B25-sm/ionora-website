@@ -463,7 +463,9 @@ export default function CheckoutPage() {
 
       await loadRazorpayScript();
 
-      if (!window.Razorpay) {
+      const RazorpayCtor = window.Razorpay;
+
+      if (!RazorpayCtor) {
         throw new Error('Razorpay SDK not available.');
       }
 
@@ -472,7 +474,7 @@ export default function CheckoutPage() {
       await new Promise<void>((resolve, reject) => {
         let paymentHandled = false;
 
-        const razorpay = new window.Razorpay({
+        const razorpay = new RazorpayCtor({
           key: publicKey,
           amount: order.amount,
           currency: order.currency,
