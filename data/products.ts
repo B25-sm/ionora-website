@@ -939,6 +939,7 @@ type BaseProduct = (typeof products)[number];
 
 export type Product = BaseProduct & {
   gallery?: string[];
+  series?: string;
 };
 
 // Helper function to get products by brand
