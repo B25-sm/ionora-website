@@ -102,6 +102,25 @@ type ProcessPaymentResponse = {
   };
 };
 
+type CreateAddressRequest = {
+  address_type: string;
+  full_address: string;
+  city: string;
+  state: string;
+  pincode: string;
+  country: string;
+  is_default: boolean;
+};
+
+type CreateOrderRequest = {
+  shipping_address_id: string;
+  payment_method: string;
+};
+
+type ProcessPaymentRequest = RazorpaySuccessPayload & {
+  order_id: string;
+};
+
 type RazorpaySuccessPayload = {
   razorpay_order_id: string;
   razorpay_payment_id: string;
@@ -304,7 +323,7 @@ export default function CheckoutPage() {
     setValidationError(null);
 
     try {
-      const response = await api.post<CheckoutValidationResponse>(
+      const response = await api.post<CheckoutValidationResponse, Record<string, never>>(
         '/checkout/validate',
         {},
         {
@@ -371,7 +390,7 @@ export default function CheckoutPage() {
     setAddressesLoading(true);
 
     try {
-      const response = await api.post<{ address: Address }>(
+      const response = await api.post<{ address: Address }, CreateAddressRequest>(
         '/user/address',
         {
           address_type: 'shipping',
@@ -427,7 +446,7 @@ export default function CheckoutPage() {
     setProcessingStage('creating-order');
 
     try {
-      const order = await api.post<CreateOrderResponse>(
+      const order = await api.post<CreateOrderResponse, CreateOrderRequest>(
         '/checkout/create-order',
         {
           shipping_address_id: selectedAddressId,
@@ -483,7 +502,7 @@ export default function CheckoutPage() {
 
             try {
               setProcessingStage('verifying-payment');
-              const verification = await api.post<ProcessPaymentResponse>(
+              const verification = await api.post<ProcessPaymentResponse, ProcessPaymentRequest>(
                 '/checkout/payment',
                 {
                   order_id: order.order.id,
