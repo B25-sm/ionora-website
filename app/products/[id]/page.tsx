@@ -28,6 +28,33 @@ export default function ProductDetails({ params }: { params: Promise<{ id: strin
   );
   const [quantity, setQuantity] = useState<number>(1);
 
+const selectedVariant = useMemo(() => {
+  if (!variantOptions || variantOptions.length === 0) return null;
+  const match = variantOptions.find((variant) => variant.type === selectedVariantType);
+  return match ?? variantOptions[0];
+}, [selectedVariantType, variantOptions]);
+
+const baseVariantOrProductPrice = selectedVariant?.price ?? product?.price;
+const basePrice = typeof baseVariantOrProductPrice === "number" ? baseVariantOrProductPrice : undefined;
+
+const formattedBasePrice = useMemo(() => {
+  if (!basePrice) return null;
+  return new Intl.NumberFormat("en-IN", {
+    style: "currency",
+    currency: "INR",
+    maximumFractionDigits: 0,
+  }).format(basePrice);
+}, [basePrice]);
+
+const totalPrice = useMemo(() => {
+  if (!basePrice) return null;
+  return new Intl.NumberFormat("en-IN", {
+    style: "currency",
+    currency: "INR",
+    maximumFractionDigits: 0,
+  }).format(basePrice * quantity);
+}, [basePrice, quantity]);
+
   useEffect(() => {
     if (!variantOptions || variantOptions.length === 0) {
       setSelectedVariantType(null);
@@ -72,35 +99,6 @@ export default function ProductDetails({ params }: { params: Promise<{ id: strin
       .replace(/-/g, " ")
       .replace(/\b\w/g, (char) => char.toUpperCase());
   };
-
-  const selectedVariant = useMemo(() => {
-    if (!variantOptions || variantOptions.length === 0) return null;
-    const match = variantOptions.find((variant) => variant.type === selectedVariantType);
-    return match ?? variantOptions[0];
-  }, [selectedVariantType, variantOptions]);
-
-  const basePrice =
-    typeof (selectedVariant?.price ?? product.price) === "number"
-      ? (selectedVariant?.price ?? (product.price as number))
-      : undefined;
-
-  const formattedBasePrice = useMemo(() => {
-    if (!basePrice) return null;
-    return new Intl.NumberFormat("en-IN", {
-      style: "currency",
-      currency: "INR",
-      maximumFractionDigits: 0,
-    }).format(basePrice);
-  }, [basePrice]);
-
-  const totalPrice = useMemo(() => {
-    if (!basePrice) return null;
-    return new Intl.NumberFormat("en-IN", {
-      style: "currency",
-      currency: "INR",
-      maximumFractionDigits: 0,
-    }).format(basePrice * quantity);
-  }, [basePrice, quantity]);
 
   const displayImage = selectedVariant?.image ?? product.image ?? "/images/placeholder.png";
 
