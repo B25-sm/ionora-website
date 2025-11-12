@@ -8,6 +8,12 @@ import { ApiRequestError, api } from "@/lib/api";
 const SESSION_KEY = "ionora.callback.modal.shown";
 const POPUP_DELAY = 20_000;
 
+type CallbackRequestPayload = {
+  name: string;
+  phone: string;
+  state: string;
+};
+
 const isBrowser = () => typeof window !== "undefined";
 
 const CallbackModal = () => {
@@ -132,7 +138,7 @@ const CallbackModal = () => {
       setIsSubmitting(true);
 
       try {
-        await api.post<{ callbackRequest: unknown }>(
+        await api.post<{ callbackRequest: unknown }, CallbackRequestPayload>(
           "/user/callback-request",
           { name, phone, state },
           { token },
