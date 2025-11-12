@@ -13,10 +13,11 @@ export default function QuickViewModal({ product, onClose }: Props) {
   if (!product) return null;
 
   const gallery = [product.image ?? '/images/placeholder.png', ...(product.gallery ?? [])];
-  const featureList = Array.isArray(product.features)
-    ? product.features
-    : product.features
-      ? [product.features]
+  const features = product.features;
+  const featureList: string[] = Array.isArray(features)
+    ? features
+    : typeof features === 'string'
+      ? [features]
       : [];
 
   return (
