@@ -98,7 +98,6 @@ const testimonialSources: TestimonialSource[] = [
     title: 'Medical Director',
     company: 'Hydrogen Therapy Institute',
     avatar: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=96&q=80',
-    fileName: 'Hydrogen Water presentation Dr.  Thomas Walko (2) (1) (1).mp4',
   },
   {
     name: 'Lydia Grant',
