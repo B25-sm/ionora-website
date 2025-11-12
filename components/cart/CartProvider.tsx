@@ -36,6 +36,7 @@ export type CartSummary = {
   tax: number;
   shipping: number;
   total: number;
+  discount?: number;
 };
 
 type CartResponse = {
@@ -53,6 +54,16 @@ type ExternalProductPayload = {
   stock_quantity?: number;
   specifications?: Record<string, unknown>;
 };
+
+type CartAddPayload =
+  | {
+      product_id: string;
+      quantity: number;
+    }
+  | {
+      quantity: number;
+      product: ExternalProductPayload;
+    };
 
 export type AddToCartInput =
   | {
@@ -84,6 +95,7 @@ const EMPTY_SUMMARY: CartSummary = Object.freeze({
   tax: 0,
   shipping: 0,
   total: 0,
+  discount: 0,
 });
 
 type CartState = {
@@ -114,7 +126,7 @@ const parseErrorMessage = (error: unknown) => {
   return 'Something went wrong. Please try again.';
 };
 
-const toApiPayload = (input: AddToCartInput) => {
+const toApiPayload = (input: AddToCartInput): CartAddPayload => {
   if ('externalProduct' in input) {
     const { quantity = 1, externalProduct } = input;
     return {
@@ -225,7 +237,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
       try {
         const payload = toApiPayload(input);
-        const response = await api.post<CartResponse>('/cart', payload, {
+        const response = await api.post<CartResponse, CartAddPayload>('/cart', payload, {
           token: currentToken,
         });
 
@@ -254,7 +266,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
       const currentToken = requireToken();
 
       try {
-        await api.put<{ message: string }>(
+        await api.put<{ message: string }, { quantity: number }>(
           `/cart/${cartItemId}`,
           { quantity },
           { token: currentToken },
