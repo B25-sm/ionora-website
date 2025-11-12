@@ -1,3 +1,5 @@
+import type { Variant } from './schema';
+
 export const products = [
   // Life Ionizers
   {
@@ -940,6 +942,7 @@ type BaseProduct = (typeof products)[number];
 export type Product = BaseProduct & {
   gallery?: string[];
   series?: string;
+  variants?: Variant[];
 };
 
 // Helper function to get products by brand
