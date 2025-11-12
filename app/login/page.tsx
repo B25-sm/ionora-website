@@ -1,6 +1,6 @@
 'use client';
 
-import { FormEvent, useEffect, useMemo, useState } from 'react';
+import { FormEvent, Suspense, useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 
@@ -22,6 +22,14 @@ type LoginResponse = {
 };
 
 export default function LoginPage() {
+  return (
+    <Suspense fallback={<LoginPageSkeleton />}>
+      <LoginPageContent />
+    </Suspense>
+  );
+}
+
+function LoginPageContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [email, setEmail] = useState('');
@@ -190,5 +198,38 @@ export default function LoginPage() {
     </main>
   );
 }
+
+function LoginPageSkeleton() {
+  return (
+    <main className="relative min-h-screen overflow-hidden bg-white">
+      <div className="pointer-events-none absolute inset-x-0 -top-32 -z-10 h-96 bg-[radial-gradient(circle_at_top,_rgba(15,76,129,0.12),_transparent_60%)]" />
+      <div className="mx-auto flex min-h-screen w-full max-w-6xl flex-col justify-center px-4 py-20 sm:px-6 lg:px-12">
+        <div className="grid gap-16 lg:grid-cols-[1.1fr_420px] lg:items-center">
+          <div className="space-y-6 text-slate-900">
+            <div className="inline-flex h-10 w-40 animate-pulse rounded-full border border-slate-200 bg-slate-100" />
+            <div className="h-10 w-3/5 animate-pulse rounded-lg bg-slate-100" />
+            <div className="h-6 w-2/5 animate-pulse rounded-lg bg-slate-100" />
+          </div>
+          <div className="rounded-3xl border border-slate-200 bg-white p-10 shadow-xl shadow-slate-900/5">
+            <div className="mb-8 space-y-2 text-center">
+              <div className="mx-auto h-8 w-2/5 animate-pulse rounded-lg bg-slate-100" />
+              <div className="mx-auto h-4 w-3/5 animate-pulse rounded-lg bg-slate-100" />
+            </div>
+            <div className="space-y-4">
+              <div className="h-12 w-full animate-pulse rounded-2xl bg-slate-100" />
+              <div className="h-12 w-full animate-pulse rounded-2xl bg-slate-100" />
+              <div className="h-12 w-full animate-pulse rounded-2xl bg-slate-200" />
+            </div>
+            <div className="mt-8 space-y-3">
+              <div className="mx-auto h-4 w-32 animate-pulse rounded-lg bg-slate-100" />
+              <div className="mx-auto h-4 w-40 animate-pulse rounded-lg bg-slate-100" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  );
+}
+
 
 
