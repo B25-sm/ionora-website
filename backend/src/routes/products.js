@@ -16,3 +16,6 @@ router.get("/:id", getProductById);
 
 export default router;
 
+
+
+
