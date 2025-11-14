@@ -11,7 +11,6 @@ const debugLog = (...args: Parameters<typeof console.log>) => {
 
 const BRAND_CATEGORIES = [
   { id: 'medisoul', name: 'Medisoul™', color: '#E5E5E5', video: '/videos/Ionora.mp4' },
-  { id: 'life', name: 'Life Ionizers™', color: '#EBEBEB', video: '/videos/lifeionizer.mp4' },
   { id: 'mediqua', name: 'Mediqua™', color: '#0A0F2C', video: '/videos/mediqua.mp4' }
 ];
 
@@ -26,7 +25,6 @@ export default function ProductSlider() {
   // Use array of refs for multiple videos
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
   const isAnimatingRef = useRef(false);
-  const pendingPlayIndex = useRef<number | null>(null);
   const autoplayBlockedRef = useRef(false);
   const canplayListenersRef = useRef<Map<number, (() => void) | null>>(new Map());
   const unmuteListenersRef = useRef<Map<number, (() => void) | null>>(new Map());
@@ -59,12 +57,15 @@ export default function ProductSlider() {
       debugLog(`[AUTOPLAY] Successfully started autoplay for video ${index}`);
       return true;
     } catch (error: unknown) {
-      if (error instanceof Error) {
-        debugLog(`[AUTOPLAY] Autoplay blocked for video ${index}: ${error.name}`);
-      } else {
-        debugLog(`[AUTOPLAY] Autoplay blocked for video ${index}: unknown error`);
+      const errorName = error instanceof Error ? error.name : 'unknown';
+      debugLog(`[AUTOPLAY] Autoplay issue for video ${index}: ${errorName}`);
+
+      // Only treat gesture-required errors as a global block
+      if (errorName === 'NotAllowedError' || errorName === 'NotSupportedError') {
+        autoplayBlockedRef.current = true;
+        debugLog(`[AUTOPLAY] Marking autoplay as blocked due to ${errorName}`);
       }
-      autoplayBlockedRef.current = true;
+
       return false;
     }
   }, []);
@@ -113,11 +114,10 @@ export default function ProductSlider() {
   // Handle video ended - advance to next
   const handleVideoEnded = useCallback((index: number) => {
     if (isAnimatingRef.current) return;
-    
-    debugLog(`[SEQUENTIAL] Video ${index} ended, advancing to next`);
+
+    debugLog(`[SEQUENTIAL] Video ${index} ended, moving to next`);
     const nextIndex = (index + 1) % BRAND_CATEGORIES.length;
     setActiveCategory(nextIndex);
-    pendingPlayIndex.current = nextIndex;
   }, []);
 
   // Handle video canplay - try autoplay once ready
@@ -212,8 +212,7 @@ export default function ProductSlider() {
       isAnimatingRef.current = false;
       setIsAnimating(false);
       
-      const targetIndex = pendingPlayIndex.current !== null ? pendingPlayIndex.current : activeCategory;
-      pendingPlayIndex.current = null;
+      const targetIndex = activeCategory;
       
       // Use double RAF to wait for CSS transitions to settle
       requestAnimationFrame(() => {
@@ -424,12 +423,22 @@ export default function ProductSlider() {
       const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
       const windowHeight = window.innerHeight;
       const documentHeight = document.documentElement.scrollHeight;
-      
+
       const isAtBottom = scrollTop + windowHeight >= documentHeight - 100;
-      setShowDots(!isAtBottom);
+
+      let isTestimonialsOverlap = false;
+      const testimonialsSection = document.getElementById('testimonials-section');
+      if (testimonialsSection) {
+        const rect = testimonialsSection.getBoundingClientRect();
+        isTestimonialsOverlap = rect.top <= windowHeight * 0.3;
+      }
+
+      setShowDots(!(isAtBottom || isTestimonialsOverlap));
     };
 
-    window.addEventListener('scroll', handleScroll);
+    handleScroll();
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 

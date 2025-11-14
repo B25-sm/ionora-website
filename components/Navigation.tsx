@@ -21,6 +21,7 @@ export default function Navigation() {
   const [usesHovered, setUsesHovered] = useState(false);
   const [usesOpen, setUsesOpen] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const pathname = usePathname();
   const menuRef = useRef<HTMLDivElement>(null);
   const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null);
@@ -59,6 +60,72 @@ export default function Navigation() {
       window.removeEventListener('storage', handleStorage);
     };
   }, [refreshAuthState]);
+
+  // Handle scroll to add background to header
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      setIsScrolled(scrollPosition > 10);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    
+    // Check initial scroll position
+    handleScroll();
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  // Close menu when scrolling (separate effect to avoid conflicts)
+  useEffect(() => {
+    if (!menuOpen) return; // Don't do anything if menu is already closed
+
+    let lastScrollY = window.scrollY;
+    let ticking = false;
+    let isActive = false;
+
+    // Wait a bit before starting to listen for scroll (prevents immediate closure when menu opens)
+    const timeoutId = setTimeout(() => {
+      isActive = true;
+      lastScrollY = window.scrollY; // Reset last scroll position after delay
+    }, 100);
+
+    const handleScroll = () => {
+      if (!isActive) return; // Don't handle scroll until timeout has passed
+      
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const currentScrollY = window.scrollY;
+          
+          // Only close if user actually scrolled (position changed by at least 5px)
+          if (Math.abs(currentScrollY - lastScrollY) > 5) {
+            setMenuOpen(false);
+            setProductsOpen(false);
+            setProductsHovered(false);
+            setIonizerOpen(false);
+            setIonizerHovered(false);
+            setPropertiesOpen(false);
+            setPropertiesHovered(false);
+            setUsesOpen(false);
+            setUsesHovered(false);
+          }
+          
+          lastScrollY = currentScrollY;
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
+    return () => {
+      clearTimeout(timeoutId);
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [menuOpen]);
 
   const handleSignOut = () => {
     authStorage.clear();
@@ -181,7 +248,12 @@ export default function Navigation() {
   };
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 bg-transparent">
+    <header 
+      className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
+        isScrolled ? 'bg-[#0A2238]/95 backdrop-blur-md shadow-lg' : 'bg-transparent'
+      }`}
+      style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 50 }}
+    >
       {/* Main navigation */}
       <div className="w-full px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 py-2">
           <nav className="relative flex items-center justify-between">

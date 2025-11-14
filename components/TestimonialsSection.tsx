@@ -543,7 +543,7 @@ export default function TestimonialsSection() {
   }, []);
 
   return (
-    <section className="relative z-10 bg-[#0A0F2C]">
+    <section id="testimonials-section" className="relative z-10 bg-[#0A0F2C]">
       <div className="page-wrap section-pad relative">
         <div className="mx-auto mb-16 max-w-3xl text-center">
           <p className="text-sm font-semibold uppercase tracking-[0.32em] text-[#FFD100]/80">

@@ -93,6 +93,32 @@ const CallbackModal = () => {
     };
   }, [clearTimer, scheduleModal, clearCloseTimeout]);
 
+  const handleManualOpen = useCallback(() => {
+    if (!isBrowser()) return;
+
+    clearTimer();
+    clearCloseTimeout();
+    setIsSuccess(false);
+    setSubmitError(null);
+    setIsSubmitting(false);
+
+    if (!authStorage.token()) {
+      setSubmitError("Please log in to submit a callback request.");
+    }
+
+    setIsOpen(true);
+  }, [clearTimer, clearCloseTimeout]);
+
+  useEffect(() => {
+    if (!isBrowser()) return;
+
+    window.addEventListener('callback:open', handleManualOpen);
+
+    return () => {
+      window.removeEventListener('callback:open', handleManualOpen);
+    };
+  }, [handleManualOpen]);
+
   useEffect(() => {
     if (!isBrowser()) return;
     if (isOpen) {
