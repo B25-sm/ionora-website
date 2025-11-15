@@ -1,124 +1,168 @@
 "use client";
 
-import { FormEvent, useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { authStorage } from "@/lib/authStorage";
-import { ApiRequestError, api } from "@/lib/api";
 
 const SESSION_KEY = "ionora.callback.modal.shown";
+const SESSION_TIMESTAMP_KEY = "ionora.callback.modal.timestamp";
 const POPUP_DELAY = 20_000;
-
-type CallbackRequestPayload = {
-  name: string;
-  phone: string;
-  state: string;
-};
+const MIN_TIME_AFTER_CLOSED = 2 * 60 * 1000; // 2 minutes (120 seconds) after user closes/rejects
+const MIN_TIME_AFTER_SUBMITTED = 5 * 60 * 1000; // 5 minutes after form is submitted
 
 const isBrowser = () => typeof window !== "undefined";
 
 const CallbackModal = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitError, setSubmitError] = useState<string | null>(null);
-  const [isSuccess, setIsSuccess] = useState(false);
   const timerRef = useRef<number | null>(null);
-  const closeTimeoutRef = useRef<number | null>(null);
+  const hasScheduledRef = useRef(false);
 
-  const clearTimer = useCallback(() => {
-    if (timerRef.current !== null && isBrowser()) {
+  const closeModal = useCallback(() => {
+    setIsOpen(false);
+    // Track when user closes/rejects the modal
+    if (isBrowser()) {
+      sessionStorage.setItem(SESSION_KEY, "closed");
+      sessionStorage.setItem(SESSION_TIMESTAMP_KEY, Date.now().toString());
+      console.log("[CallbackModal] Modal closed by user - will show again after 2 minutes");
+    }
+  }, []);
+
+  const openModal = useCallback(() => {
+    console.log("[CallbackModal] Opening modal");
+    setIsOpen(true);
+    if (isBrowser()) {
+      sessionStorage.setItem(SESSION_KEY, "shown");
+      sessionStorage.setItem(SESSION_TIMESTAMP_KEY, Date.now().toString());
+    }
+  }, []);
+
+  // Main effect to schedule the modal
+  useEffect(() => {
+    if (!isBrowser()) return;
+    
+    // Prevent double scheduling (React Strict Mode)
+    if (hasScheduledRef.current) {
+      console.log("[CallbackModal] Already scheduled, skipping");
+      return;
+    }
+
+    console.log("[CallbackModal] Component mounted");
+    
+    // Check sessionStorage with time-based logic
+    try {
+      const existingValue = sessionStorage.getItem(SESSION_KEY);
+      const timestampStr = sessionStorage.getItem(SESSION_TIMESTAMP_KEY);
+      console.log("[CallbackModal] SessionStorage value:", existingValue);
+      console.log("[CallbackModal] Timestamp:", timestampStr);
+      
+      if (existingValue && timestampStr) {
+        const lastActionTime = parseInt(timestampStr, 10);
+        const timeSinceLastAction = Date.now() - lastActionTime;
+        
+        if (existingValue === "submitted") {
+          // If form was submitted, wait 5 minutes
+          if (timeSinceLastAction < MIN_TIME_AFTER_SUBMITTED) {
+            const minutesRemaining = Math.ceil((MIN_TIME_AFTER_SUBMITTED - timeSinceLastAction) / 60000);
+            console.log(`[CallbackModal] Form was submitted ${Math.floor(timeSinceLastAction / 1000)}s ago. Will show again in ${minutesRemaining} minute(s)`);
+            return;
+          } else {
+            console.log("[CallbackModal] Enough time has passed since submission, allowing modal to show again");
+            sessionStorage.removeItem(SESSION_KEY);
+            sessionStorage.removeItem(SESSION_TIMESTAMP_KEY);
+          }
+        } else if (existingValue === "closed") {
+          // If user closed/rejected, wait 2 minutes (120 seconds)
+          if (timeSinceLastAction < MIN_TIME_AFTER_CLOSED) {
+            const secondsRemaining = Math.ceil((MIN_TIME_AFTER_CLOSED - timeSinceLastAction) / 1000);
+            console.log(`[CallbackModal] Modal was closed ${Math.floor(timeSinceLastAction / 1000)}s ago. Will show again in ${secondsRemaining} second(s) (2 minutes)`);
+            console.log("[CallbackModal] To force show: window.openCallbackModal()");
+            console.log("[CallbackModal] To reset: window.resetCallbackModal(); window.location.reload();");
+            return;
+          } else {
+            console.log("[CallbackModal] 2 minutes have passed since close, allowing modal to show again");
+            // Clear the old value so it can show again
+            sessionStorage.removeItem(SESSION_KEY);
+            sessionStorage.removeItem(SESSION_TIMESTAMP_KEY);
+          }
+        } else if (existingValue === "shown") {
+          // If just shown (not closed), allow it to show again after a short delay
+          if (timeSinceLastAction < 30000) { // 30 seconds
+            console.log(`[CallbackModal] Modal was just shown ${Math.floor(timeSinceLastAction / 1000)}s ago, waiting...`);
+            return;
+          } else {
+            // Clear if it's been a while
+            sessionStorage.removeItem(SESSION_KEY);
+            sessionStorage.removeItem(SESSION_TIMESTAMP_KEY);
+          }
+        }
+      }
+    } catch (error) {
+      console.error("[CallbackModal] Error accessing sessionStorage:", error);
+      // Continue anyway if sessionStorage fails
+    }
+
+    // Mark as scheduled immediately to prevent double scheduling
+    hasScheduledRef.current = true;
+    
+    console.log(`[CallbackModal] Scheduling modal in ${POPUP_DELAY / 1000} seconds`);
+    
+    // Schedule the modal
+    timerRef.current = window.setTimeout(() => {
+      console.log("[CallbackModal] Timer fired!");
+      openModal();
+    }, POPUP_DELAY);
+    
+    console.log(`[CallbackModal] Timer ID: ${timerRef.current}`);
+
+    // Cleanup on unmount
+    return () => {
+      if (timerRef.current !== null) {
+        console.log("[CallbackModal] Cleaning up timer on unmount");
+        window.clearTimeout(timerRef.current);
+        timerRef.current = null;
+      }
+    };
+  }, [openModal]);
+
+  // Manual open handler
+  const handleManualOpen = useCallback(() => {
+    if (!isBrowser()) return;
+    console.log("[CallbackModal] Manual open triggered");
+    if (timerRef.current !== null) {
       window.clearTimeout(timerRef.current);
       timerRef.current = null;
     }
-  }, []);
+    openModal();
+  }, [openModal]);
 
-  const clearCloseTimeout = useCallback(() => {
-    if (closeTimeoutRef.current !== null && isBrowser()) {
-      window.clearTimeout(closeTimeoutRef.current);
-      closeTimeoutRef.current = null;
-    }
-  }, []);
-
-  const closeModal = useCallback(() => {
-    clearCloseTimeout();
-    setIsOpen(false);
-    setIsSubmitting(false);
-    setSubmitError(null);
-    setIsSuccess(false);
-  }, [clearCloseTimeout]);
-
-  const scheduleModal = useCallback(() => {
-    if (!isBrowser()) return;
-    if (!authStorage.token()) return;
-    if (sessionStorage.getItem(SESSION_KEY)) return;
-
-    clearTimer();
-    timerRef.current = window.setTimeout(() => {
-      if (!authStorage.token()) return;
-      setIsOpen(true);
-      sessionStorage.setItem(SESSION_KEY, "shown");
-    }, POPUP_DELAY);
-  }, [clearTimer]);
-
+  // Expose global functions for testing
   useEffect(() => {
     if (!isBrowser()) return;
-
-    if (authStorage.token()) {
-      if (sessionStorage.getItem(SESSION_KEY) !== "submitted") {
+    
+    (window as any).openCallbackModal = handleManualOpen;
+    (window as any).resetCallbackModal = () => {
+      if (isBrowser()) {
         sessionStorage.removeItem(SESSION_KEY);
-      }
-      scheduleModal();
-    }
-
-    const handleAuthChange = () => {
-      const hasToken = Boolean(authStorage.token());
-
-      if (hasToken) {
-        if (sessionStorage.getItem(SESSION_KEY) !== "submitted") {
-          sessionStorage.removeItem(SESSION_KEY);
-        }
-        scheduleModal();
-      } else {
-        clearTimer();
-        sessionStorage.removeItem(SESSION_KEY);
-        setIsOpen(false);
+        sessionStorage.removeItem(SESSION_TIMESTAMP_KEY);
+        hasScheduledRef.current = false;
+        console.log("[CallbackModal] Reset - reload page to see modal again");
       }
     };
+    
+    console.log("[CallbackModal] Test functions available:");
+    console.log("  - window.openCallbackModal() - Open modal immediately");
+    console.log("  - window.resetCallbackModal() - Reset sessionStorage");
+  }, [handleManualOpen]);
 
-    window.addEventListener("auth:changed", handleAuthChange);
-
-    return () => {
-      clearTimer();
-      clearCloseTimeout();
-      window.removeEventListener("auth:changed", handleAuthChange);
-    };
-  }, [clearTimer, scheduleModal, clearCloseTimeout]);
-
-  const handleManualOpen = useCallback(() => {
-    if (!isBrowser()) return;
-
-    clearTimer();
-    clearCloseTimeout();
-    setIsSuccess(false);
-    setSubmitError(null);
-    setIsSubmitting(false);
-
-    if (!authStorage.token()) {
-      setSubmitError("Please log in to submit a callback request.");
-    }
-
-    setIsOpen(true);
-  }, [clearTimer, clearCloseTimeout]);
-
+  // Listen for manual open event
   useEffect(() => {
     if (!isBrowser()) return;
-
     window.addEventListener('callback:open', handleManualOpen);
-
     return () => {
       window.removeEventListener('callback:open', handleManualOpen);
     };
   }, [handleManualOpen]);
 
+  // Manage body overflow when modal is open
   useEffect(() => {
     if (!isBrowser()) return;
     if (isOpen) {
@@ -126,174 +170,65 @@ const CallbackModal = () => {
     } else {
       document.body.style.overflow = "";
     }
-
     return () => {
-      if (!isBrowser()) return;
-      document.body.style.overflow = "";
-      clearTimer();
-      clearCloseTimeout();
+      if (isBrowser()) {
+        document.body.style.overflow = "";
+      }
     };
-  }, [isOpen, clearTimer, clearCloseTimeout]);
-
-  const handleSubmit = useCallback(
-    async (event: FormEvent<HTMLFormElement>) => {
-      event.preventDefault();
-      if (isSubmitting) return;
-
-      if (!isBrowser()) return;
-
-      const token = authStorage.token();
-
-      if (!token) {
-        setSubmitError("Please log in to submit a callback request.");
-        return;
-      }
-
-      const formData = new FormData(event.currentTarget);
-      const name = String(formData.get("name") ?? "").trim();
-      const phone = String(formData.get("phone") ?? "").trim();
-      const state = String(formData.get("state") ?? "").trim();
-
-      if (!name || !phone || !state) {
-        setSubmitError("All fields are required.");
-        return;
-      }
-
-      setSubmitError(null);
-      setIsSuccess(false);
-      setIsSubmitting(true);
-
-      try {
-        await api.post<{ callbackRequest: unknown }, CallbackRequestPayload>(
-          "/user/callback-request",
-          { name, phone, state },
-          { token },
-        );
-
-        sessionStorage.setItem(SESSION_KEY, "submitted");
-        setIsSuccess(true);
-        event.currentTarget.reset();
-
-        clearCloseTimeout();
-        closeTimeoutRef.current = window.setTimeout(() => {
-          setIsSuccess(false);
-          closeModal();
-        }, 2000);
-      } catch (error) {
-        console.error("Callback request submission error:", error);
-        let message = "Something went wrong. Please try again.";
-        if (error instanceof ApiRequestError) {
-          message = error.message;
-        }
-        setSubmitError(message);
-      } finally {
-        setIsSubmitting(false);
-      }
-    },
-    [clearCloseTimeout, closeModal, isSubmitting],
-  );
+  }, [isOpen]);
 
   if (!isOpen) {
     return null;
   }
 
   return (
-    <div className="fixed inset-0 z-[1200] flex items-center justify-center bg-black/50 px-4">
-      <div className="relative w-full max-w-md rounded-[32px] border-[6px] border-primary-500 bg-white p-6 shadow-2xl sm:p-8">
+    <div className="fixed inset-0 z-[1200] flex items-center justify-center bg-black/50 p-2 sm:p-3">
+      <div className="relative w-full max-w-md max-h-[90vh] rounded-2xl border border-gray-200 bg-white shadow-2xl flex flex-col overflow-hidden backdrop-blur-sm">
         <button
           type="button"
           onClick={closeModal}
           aria-label="Close request a call back modal"
-          className="absolute right-4 top-4 text-2xl text-gray-400 transition-colors hover:text-gray-600"
+          className="absolute right-2 top-2 z-20 text-xl text-gray-400 transition-all hover:text-gray-600 hover:bg-gray-100 rounded-full w-7 h-7 flex items-center justify-center"
         >
           &times;
         </button>
 
-        <div className="space-y-6 text-center">
-          <div>
-            <h2 className="text-xl font-semibold text-gray-800 sm:text-2xl">
-              Let our water experts call you back:
-            </h2>
-          </div>
-
-          <div className="flex h-48 w-full items-center justify-center overflow-hidden rounded-xl border border-gray-200 bg-white">
-            <Image
-              src="/images/ionora-logo.png"
-              alt="Ionora water ionizers"
-              width={400}
-              height={240}
-              className="max-h-full w-auto object-contain"
-              priority
-            />
-          </div>
-
-          <div>
-            <h3 className="text-lg font-semibold text-gray-800">
-              Request A Call Back:
-            </h3>
-          </div>
-
-          <form className="space-y-4 text-left" onSubmit={handleSubmit}>
-            {submitError && (
-              <p className="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-600">
-                {submitError}
-              </p>
-            )}
-            {isSuccess && (
-              <p className="rounded-lg bg-green-50 px-3 py-2 text-sm text-green-600">
-                Thank you! Our team will reach out shortly.
-              </p>
-            )}
-            <label className="block">
-              <span className="mb-1 block text-sm font-semibold text-gray-700">
-                Name <span className="text-red-500">*</span>
-              </span>
-              <input
-                type="text"
-                name="name"
-                required
-                placeholder="Full Name"
-                className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+        {/* Header with Logo */}
+        <div className="flex-shrink-0 px-4 pt-4 pb-2.5 sm:px-5 sm:pt-5 sm:pb-3 border-b border-gray-100">
+          <div className="flex flex-col items-center justify-center space-y-1.5 sm:space-y-2">
+            <div className="relative w-28 h-8 sm:w-32 sm:h-9 transition-transform hover:scale-105">
+              <Image
+                src="/images/ionora-logo.png"
+                alt="IONORA - The Elite Market Place"
+                fill
+                className="object-contain"
+                priority
               />
-            </label>
+            </div>
+            <div className="space-y-0.5 text-center">
+              <h2 className="text-base sm:text-lg font-semibold text-gray-900 tracking-tight">
+                Let our water experts call you back
+              </h2>
+              <p className="text-xs sm:text-sm text-gray-500">
+                Request A Call Back
+              </p>
+            </div>
+          </div>
+        </div>
 
-            <label className="block">
-              <span className="mb-1 block text-sm font-semibold text-gray-700">
-                Phone <span className="text-red-500">*</span>
-              </span>
-              <div className="flex items-center gap-2 rounded-lg border border-gray-300 px-3 py-2 focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20">
-                <span className="text-sm font-medium text-gray-600">+91</span>
-                <input
-                  type="tel"
-                  name="phone"
-                  required
-                  placeholder="081234 56789"
-                  className="flex-1 border-none bg-transparent text-sm text-gray-900 outline-none focus:ring-0"
-                />
-              </div>
-            </label>
-
-            <label className="block">
-              <span className="mb-1 block text-sm font-semibold text-gray-700">
-                State <span className="text-red-500">*</span>
-              </span>
-              <input
-                type="text"
-                name="state"
-                required
-                placeholder="Enter your state"
-                className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
-              />
-            </label>
-
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className="w-full rounded-lg bg-primary-500 px-4 py-3 text-sm font-semibold uppercase tracking-wide text-white transition-colors hover:bg-primary-400 focus:outline-none focus:ring-2 focus:ring-primary-300 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60"
-            >
-              {isSubmitting ? "Submitting..." : "Submit"}
-            </button>
-          </form>
+        {/* Form Content */}
+        <div className="w-full flex-1 min-h-0 p-3 sm:p-4">
+          <iframe
+            src="https://app.ionorainternational.com/forms/wtl/ee5b8e9ca2f1345950875cd6a662a22e"
+            width="100%"
+            height="100%"
+            frameBorder="0"
+            sandbox="allow-top-navigation allow-forms allow-scripts allow-same-origin allow-popups"
+            allowFullScreen
+            className="w-full h-full rounded-lg border-0"
+            title="Request a Call Back Form"
+            style={{ minHeight: '400px' }}
+          />
         </div>
       </div>
     </div>
@@ -301,5 +236,3 @@ const CallbackModal = () => {
 };
 
 export default CallbackModal;
-
-

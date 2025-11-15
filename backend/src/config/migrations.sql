@@ -275,3 +275,26 @@ CREATE TABLE IF NOT EXISTS callback_requests (
 CREATE INDEX IF NOT EXISTS idx_callback_requests_user_id ON callback_requests (user_id);
 CREATE INDEX IF NOT EXISTS idx_callback_requests_created_at ON callback_requests (created_at);
 
+-- Make user_id nullable in callback_requests to allow submissions without login
+DO $$
+BEGIN
+  IF EXISTS (
+    SELECT 1
+    FROM information_schema.columns
+    WHERE table_name = 'callback_requests'
+      AND column_name = 'user_id'
+      AND is_nullable = 'NO'
+  ) THEN
+    -- Drop the foreign key constraint first
+    ALTER TABLE callback_requests DROP CONSTRAINT IF EXISTS fk_callback_requests_user;
+    
+    -- Make user_id nullable
+    ALTER TABLE callback_requests ALTER COLUMN user_id DROP NOT NULL;
+    
+    -- Re-add the foreign key constraint (it will allow NULL values)
+    ALTER TABLE callback_requests 
+      ADD CONSTRAINT fk_callback_requests_user 
+      FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE;
+  END IF;
+END $$;
+

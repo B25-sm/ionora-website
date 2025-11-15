@@ -47,5 +47,57 @@ export const authenticate = async (req, res, next) => {
   }
 };
 
+// Optional authentication: doesn't fail if no token is provided, but sets req.user if token is valid
+export const optionalAuthenticate = async (req, res, next) => {
+  try {
+    const authHeader = req.headers.authorization;
+
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+      // No token provided, continue without authentication
+      req.user = null;
+      return next();
+    }
+
+    const token = authHeader.split(" ")[1];
+
+    let decoded;
+    try {
+      decoded = verifyToken(token);
+    } catch (error) {
+      // Invalid token, continue without authentication
+      req.user = null;
+      return next();
+    }
+
+    const userId = decoded?.sub;
+
+    if (!userId) {
+      // Invalid token payload, continue without authentication
+      req.user = null;
+      return next();
+    }
+
+    const { rows } = await query(
+      `
+        SELECT id, email, full_name, phone, email_verified, created_at, updated_at, last_login
+        FROM users
+        WHERE id = $1
+      `,
+      [userId],
+    );
+
+    const user = rows[0];
+
+    // Set user if found, otherwise continue without authentication
+    req.user = user || null;
+    return next();
+  } catch (error) {
+    console.error("Optional authentication middleware error:", error);
+    // On error, continue without authentication
+    req.user = null;
+    return next();
+  }
+};
+
 export default authenticate;
 

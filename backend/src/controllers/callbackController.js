@@ -19,11 +19,8 @@ export const createCallbackRequest = async (req, res) => {
     return res.status(400).json({ errors: errors.array() });
   }
 
-  const userId = req.user?.id;
-
-  if (!userId) {
-    return res.status(401).json({ message: "Unauthorized." });
-  }
+  // user_id is optional - can be null if user is not logged in
+  const userId = req.user?.id || null;
 
   const { name, phone, state } = req.body;
 
@@ -53,6 +50,7 @@ export default {
   callbackRequestValidators,
   createCallbackRequest,
 };
+
 
 
 
