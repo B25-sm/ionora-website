@@ -1,4 +1,4 @@
-const DEFAULT_WHATSAPP_NUMBER = '+919203123451';
+const DEFAULT_WHATSAPP_NUMBER = '+919203123452';
 
 const envWhatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER?.trim();
 const rawWhatsAppNumber =
