@@ -47,9 +47,23 @@ export default function VideoBackground() {
         }`}
       />
 
+      {/* Life Ionizers */}
+      <video
+        data-ionora
+        src="/videos/Ionora.mp4"
+        autoPlay
+        loop
+        muted
+        playsInline
+        preload="auto"
+        className={`absolute top-1/2 left-1/2 h-auto min-h-full min-w-full w-auto -translate-x-1/2 -translate-y-1/2 transform transition-opacity duration-500 ${
+          active === 'life' ? 'opacity-100' : 'opacity-0'
+        }`}
+      />
+
       {/* Radio Controls */}
       <div className="absolute bottom-10 left-10 space-y-3 rounded-2xl bg-black/40 p-4 text-white backdrop-blur-sm">
-        {['medisoul', 'mediqua'].map((label) => (
+        {['medisoul', 'mediqua', 'life'].map((label) => (
           <label
             key={label}
             className="flex cursor-pointer items-center gap-2 transition-opacity hover:opacity-80"
@@ -62,7 +76,13 @@ export default function VideoBackground() {
               className="h-4 w-4 accent-indigo-500"
             />
             <span className="font-medium capitalize">
-              {label.replace(/ionizer/, ' Ionizers')}
+              {label === 'life' 
+                ? 'Life Ionizers™' 
+                : label === 'medisoul' 
+                ? 'Medisoul™' 
+                : label === 'mediqua' 
+                ? 'Mediqua™' 
+                : label.replace(/ionizer/, ' Ionizers')}
             </span>
           </label>
         ))}

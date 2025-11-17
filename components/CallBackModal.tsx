@@ -1,7 +1,8 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState, FormEvent } from "react";
 import Image from "next/image";
+import { api, ApiRequestError } from "@/lib/api";
 
 const SESSION_KEY = "ionora.callback.modal.shown";
 const SESSION_TIMESTAMP_KEY = "ionora.callback.modal.timestamp";
@@ -15,6 +16,14 @@ const CallbackModal = () => {
   const [isOpen, setIsOpen] = useState(false);
   const timerRef = useRef<number | null>(null);
   const hasScheduledRef = useRef(false);
+  
+  // Form state
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [state, setState] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState(false);
 
   const closeModal = useCallback(() => {
     setIsOpen(false);
@@ -177,6 +186,66 @@ const CallbackModal = () => {
     };
   }, [isOpen]);
 
+  // Reset form when modal opens
+  useEffect(() => {
+    if (isOpen) {
+      setName("");
+      setPhone("");
+      setState("");
+      setError(null);
+      setSuccess(false);
+    }
+  }, [isOpen]);
+
+  // Handle form submission
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setError(null);
+    setIsSubmitting(true);
+
+    try {
+      // Submit to backend API (no token required - works without login)
+      await api.post<{ callbackRequest: unknown }>(
+        "/public/callback-request",
+        {
+          name: name.trim(),
+          phone: phone.trim(),
+          state: state.trim(),
+        }
+      );
+
+      // Success - mark as submitted and close after a delay
+      setSuccess(true);
+      if (isBrowser()) {
+        sessionStorage.setItem(SESSION_KEY, "submitted");
+        sessionStorage.setItem(SESSION_TIMESTAMP_KEY, Date.now().toString());
+      }
+
+      // Close modal after 2 seconds
+      setTimeout(() => {
+        closeModal();
+      }, 2000);
+    } catch (err) {
+      if (err instanceof ApiRequestError) {
+        // Handle validation errors
+        if (err.details && typeof err.details === "object" && "errors" in err.details) {
+          const errors = (err.details as { errors?: Array<{ msg?: string }> }).errors;
+          if (errors && errors.length > 0) {
+            setError(errors.map((e) => e.msg || "Validation error").join(", "));
+          } else {
+            setError(err.message || "Unable to submit callback request. Please try again.");
+          }
+        } else {
+          setError(err.message || "Unable to submit callback request. Please try again.");
+        }
+      } else {
+        setError("Unable to submit callback request. Please try again.");
+      }
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   if (!isOpen) {
     return null;
   }
@@ -217,18 +286,110 @@ const CallbackModal = () => {
         </div>
 
         {/* Form Content */}
-        <div className="w-full flex-1 min-h-0 p-3 sm:p-4">
-          <iframe
-            src="https://app.ionorainternational.com/forms/wtl/ee5b8e9ca2f1345950875cd6a662a22e"
-            width="100%"
-            height="100%"
-            frameBorder="0"
-            sandbox="allow-top-navigation allow-forms allow-scripts allow-same-origin allow-popups"
-            allowFullScreen
-            className="w-full h-full rounded-lg border-0"
-            title="Request a Call Back Form"
-            style={{ minHeight: '400px' }}
-          />
+        <div className="w-full flex-1 min-h-0 p-4 sm:p-5 overflow-y-auto">
+          {success ? (
+            <div className="flex flex-col items-center justify-center py-8 text-center">
+              <div className="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center mb-4">
+                <svg
+                  className="w-8 h-8 text-green-600"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M5 13l4 4L19 7"
+                  />
+                </svg>
+              </div>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                Request Submitted Successfully!
+              </h3>
+              <p className="text-sm text-gray-600">
+                Our water experts will call you back shortly.
+              </p>
+            </div>
+          ) : (
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div>
+                <label
+                  htmlFor="callback-name"
+                  className="block text-sm font-medium text-gray-700 mb-1.5"
+                >
+                  Full Name <span className="text-red-500">*</span>
+                </label>
+                <input
+                  id="callback-name"
+                  type="text"
+                  required
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  className="w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-gray-900 placeholder-gray-400 outline-none transition focus:border-gray-900 focus:ring-2 focus:ring-gray-900/10"
+                  placeholder="Enter your full name"
+                />
+              </div>
+
+              <div>
+                <label
+                  htmlFor="callback-phone"
+                  className="block text-sm font-medium text-gray-700 mb-1.5"
+                >
+                  Phone Number <span className="text-red-500">*</span>
+                </label>
+                <input
+                  id="callback-phone"
+                  type="tel"
+                  required
+                  minLength={7}
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                  className="w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-gray-900 placeholder-gray-400 outline-none transition focus:border-gray-900 focus:ring-2 focus:ring-gray-900/10"
+                  placeholder="Enter your phone number"
+                />
+                <p className="mt-1 text-xs text-gray-500">
+                  Phone number must be at least 7 characters long
+                </p>
+              </div>
+
+              <div>
+                <label
+                  htmlFor="callback-state"
+                  className="block text-sm font-medium text-gray-700 mb-1.5"
+                >
+                  State <span className="text-red-500">*</span>
+                </label>
+                <input
+                  id="callback-state"
+                  type="text"
+                  required
+                  value={state}
+                  onChange={(e) => setState(e.target.value)}
+                  className="w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-gray-900 placeholder-gray-400 outline-none transition focus:border-gray-900 focus:ring-2 focus:ring-gray-900/10"
+                  placeholder="Enter your state"
+                />
+              </div>
+
+              {error && (
+                <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+                  {error}
+                </div>
+              )}
+
+              <button
+                type="submit"
+                disabled={isSubmitting || !name.trim() || !phone.trim() || !state.trim()}
+                className="w-full rounded-lg bg-gray-900 px-4 py-3 text-base font-semibold text-white shadow-lg shadow-gray-900/20 transition hover:bg-gray-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-900 disabled:cursor-not-allowed disabled:bg-gray-400 disabled:shadow-none"
+              >
+                {isSubmitting ? "Submitting..." : "Submit Request"}
+              </button>
+
+              <p className="text-xs text-center text-gray-500">
+                You don't need to log in to submit a callback request
+              </p>
+            </form>
+          )}
         </div>
       </div>
     </div>
