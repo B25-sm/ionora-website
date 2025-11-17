@@ -147,7 +147,9 @@ const CallbackModal = () => {
   useEffect(() => {
     if (!isBrowser()) return;
     
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (window as any).openCallbackModal = handleManualOpen;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (window as any).resetCallbackModal = () => {
       if (isBrowser()) {
         sessionStorage.removeItem(SESSION_KEY);
@@ -205,7 +207,10 @@ const CallbackModal = () => {
 
     try {
       // Submit to backend API (no token required - works without login)
-      await api.post<{ callbackRequest: unknown }>(
+      await api.post<
+        { callbackRequest: unknown },
+        { name: string; phone: string; state: string }
+      >(
         "/public/callback-request",
         {
           name: name.trim(),
@@ -386,7 +391,7 @@ const CallbackModal = () => {
               </button>
 
               <p className="text-xs text-center text-gray-500">
-                You don't need to log in to submit a callback request
+                You don&apos;t need to log in to submit a callback request
               </p>
             </form>
           )}
