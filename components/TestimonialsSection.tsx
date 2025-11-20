@@ -126,7 +126,7 @@ const PLAY_DEBOUNCE_MS = 300;
 async function safePlay(videoEl: HTMLVideoElement, id: number) {
   if (!videoEl) return;
 
-  videoEl.muted = true;
+  videoEl.muted = false;
   videoEl.playsInline = true;
 
   if (currentPlaying !== null && currentPlaying !== id && currentPlayingEl) {
@@ -461,7 +461,6 @@ const TestimonialCard = ({
             <video
               ref={videoRef}
               loop
-              muted
               playsInline
               preload="metadata"
               data-tid={`testimonial-${testimonial.id}`}
