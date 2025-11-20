@@ -35,9 +35,9 @@ export const BRANDS: Array<{
     mainImage: '/images/products/life/MXL-11 counter.png',
     featured: true,
     productCount: 12,
-    platesWarranty: '25 years',
+    platesWarranty: '15 years',
     partsWarranty: '7 years',
-    labourWarranty: '3 years (2 years in a year)'
+    labourWarranty: '3 years (2 services per year)'
   },
   { 
     id: 'mediqua-india', 
@@ -55,9 +55,9 @@ export const BRANDS: Array<{
     mainImage: '/images/products/mediqua/ak-3000.png',
     featured: true,
     productCount: 8,
-    platesWarranty: '15 years',
+    platesWarranty: '10 years',
     partsWarranty: '5 years',
-    labourWarranty: '3 years (2 years in a year)'
+    labourWarranty: '3 years (2 services per year)'
   },
   { 
     id: 'medisoul-india', 
@@ -77,9 +77,9 @@ export const BRANDS: Array<{
     mainImage: '/images/products/medisoul/msl-11-undercounter-black.png',
     featured: true,
     productCount: 24,
-    platesWarranty: '25 years',
+    platesWarranty: '15 years',
     partsWarranty: '7 years',
-    labourWarranty: '3 years (2 years in a year)'
+    labourWarranty: '3 years (2 services per year)'
   },
   { 
     id: 'kyron-india', 

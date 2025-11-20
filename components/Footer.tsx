@@ -54,7 +54,12 @@ export default function Footer() {
               <p className="text-primary/70">IONORA INTERNATIONAL PRIVATE LIMITED</p>
               <p className="text-primary/70">PNO-66, SY NO-11/3 SA SOCIETY, KONDAPUR, MADHAPUR, Shaikpet, Hyderabad, Telangana-500081, India.</p>
               <p className="text-primary/70">info@ionora.in</p>
-              <p className="text-primary/70">IONORA toll free number:- 1800 1234 706</p>
+              <p className="text-primary/70">
+                IONORA toll free number:- <span className="whitespace-nowrap">1800 1234 706</span>
+              </p>
+              <p className="text-primary/70">
+                WhatsApp support:- <span className="whitespace-nowrap">9203 123452</span>
+              </p>
             </div>
           </div>
         </div>
