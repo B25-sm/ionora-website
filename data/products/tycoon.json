@@ -11,10 +11,12 @@
         "Power": "1000 Watts XL Power™ SMPS",
         "pH Range": "2.0 – 12.2 pH",
         "Max ORP": "Up to -1005 mV",
-        "Warranty": "Lifetime Parts | 5 Year Labor",
+        "Warranty": "Parts: 7 years | Labour: 3 years (2 services/year) | Plates: 15 years",
         "Dimensions": "13\" W x 13\" L x 13\" H",
         "Voltage": "110–220V",
-        "Colors": ["Black/Graphite"]
+        "Colors": [
+          "Black/Graphite"
+        ]
       }
     },
     {
@@ -27,7 +29,7 @@
         "Power": "1500 Watts XL Power™ SMPS",
         "pH Range": "2.0 – 12.2 pH",
         "Max ORP": "Up to -1193 mV",
-        "Warranty": "Lifetime Parts | 5 Year Labor",
+        "Warranty": "Parts: 7 years | Labour: 3 years (2 services/year) | Plates: 15 years",
         "Dimensions": "15.5\" W x 23\" L x 13\" H"
       }
     },
@@ -41,10 +43,9 @@
         "Power": "2000 Watts XL Power™ SMPS",
         "pH Range": "2.0 – 12.2 pH",
         "Max ORP": "Up to -1193 mV",
-        "Warranty": "Lifetime Parts | 5 Year Labor",
+        "Warranty": "Parts: 7 years | Labour: 3 years (2 services/year) | Plates: 15 years",
         "Dimensions": "15.5\" W x 23\" L x 13\" H"
       }
     }
   ]
 }
-

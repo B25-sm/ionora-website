@@ -15,7 +15,7 @@
         "ORP": "Up to -1250 mV",
         "Hydrogen": "~1800 ppb",
         "Dimensions": "35 x 35 x 15 cm",
-        "Warranty": "5 years machine | 25 years plates",
+        "Warranty": "Parts: 5 years | Labour: 3 years (2 services/year) | Plates: 10 years",
         "Made": "Made in Korea"
       }
     },
@@ -31,7 +31,7 @@
         "pH Range": "2.5 – 11.5",
         "ORP": "Up to -1250 mV",
         "Hydrogen": "~1850 ppb",
-        "Warranty": "5 years machine | 25 years plates",
+        "Warranty": "Parts: 5 years | Labour: 3 years (2 services/year) | Plates: 10 years",
         "Dimensions": "35 x 35 x 15 cm",
         "Made": "Made in Korea"
       }
@@ -46,7 +46,7 @@
         "pH Range": "3.5 – 10.5",
         "ORP": "Around -400 mV",
         "Hydrogen": "~1000 ppb",
-        "Warranty": "5 years machine | 25 years plates",
+        "Warranty": "Parts: 5 years | Labour: 3 years (2 services/year) | Plates: 10 years",
         "Dimensions": "19 x 37.5 x 25 cm",
         "Made": "Made in Korea"
       }
@@ -61,7 +61,7 @@
         "pH Range": "3.5 – 10.5",
         "ORP": "-400 mV",
         "Hydrogen": "1000 ppb",
-        "Warranty": "5 years",
+        "Warranty": "Parts: 5 years | Labour: 3 years (2 services/year) | Plates: 10 years",
         "Dimensions": "19 x 37.5 x 25 cm",
         "Made": "Made in Korea"
       }
@@ -78,7 +78,7 @@
         "ORP": "-450 mV",
         "Wastage": "Zero wastage (RO compatible)",
         "Dimensions": "120 x 290 x 15 mm",
-        "Warranty": "5 years",
+        "Warranty": "Parts: 5 years | Labour: 3 years (2 services/year) | Plates: 10 years",
         "Made": "Made in Korea"
       }
     },
@@ -91,7 +91,7 @@
         "Features": "Ozone sterilization, UV lamp, touch sensor",
         "Power": "100W",
         "Dimensions": "350 x 350 x 150 mm",
-        "Warranty": "5 years",
+        "Warranty": "Parts: 5 years | Labour: 3 years (2 services/year) | Plates: 10 years",
         "Made": "Made in Korea"
       }
     },
@@ -106,7 +106,7 @@
         "ORP": "Up to -850 mV",
         "Hydrogen": "~1800 ppb",
         "Features": "7-inch screen, RFID filter tracking, UV tech, programmable pH",
-        "Warranty": "5 years machine | 25 years plates",
+        "Warranty": "Parts: 5 years | Labour: 3 years (2 services/year) | Plates: 10 years",
         "Filters": "Dual UF & MCF",
         "Made": "Made in Korea"
       }
@@ -122,7 +122,7 @@
         "Hydrogen": "1400 ppb",
         "Filters": "Dual UF & MCF",
         "Dimensions": "19 x 37.5 x 25 cm",
-        "Warranty": "1 year machine | 5 years plates",
+        "Warranty": "Parts: 5 years | Labour: 3 years (2 services/year) | Plates: 10 years",
         "Made": "Made in Korea"
       }
     },
@@ -136,10 +136,9 @@
         "Levels": "9 water levels (4 alkaline, 4 acidic, 1 purified)",
         "Material": "SUS304 body; die-cast head with chrome plating",
         "Display": "LED with touch sensor",
-        "Warranty": "1 year",
+        "Warranty": "Parts: 5 years | Labour: 3 years (2 services/year) | Plates: 10 years",
         "Made": "Made in Korea"
       }
     }
   ]
 }
-

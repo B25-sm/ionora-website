@@ -1,6 +1,12 @@
 import type { Variant } from './schema';
 
-export const products = [
+const BRAND_WARRANTIES: Record<string, string> = {
+  life: "Parts: 7 years | Labour: 3 years (2 services/year) | Plates: 15 years",
+  medisoul: "Parts: 7 years | Labour: 3 years (2 services/year) | Plates: 15 years",
+  mediqua: "Parts: 5 years | Labour: 3 years (2 services/year) | Plates: 10 years",
+};
+
+const rawProducts = [
   // Life Ionizers
   {
     id: "mxl-5",
@@ -937,7 +943,17 @@ export const products = [
   }
 ];
 
-type BaseProduct = (typeof products)[number];
+export const products = rawProducts.map((product) => {
+  const brandKey = product.brand?.toLowerCase();
+  const brandWarranty = brandKey ? BRAND_WARRANTIES[brandKey] : undefined;
+  if (!brandWarranty) return product;
+  return {
+    ...product,
+    warranty: brandWarranty,
+  };
+});
+
+type BaseProduct = (typeof rawProducts)[number];
 
 export type Product = BaseProduct & {
   gallery?: string[];
