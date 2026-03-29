@@ -67,7 +67,7 @@ export default function Footer() {
         {/* Bottom section */}
         <div className="mt-6 sm:mt-8 md:mt-10 pt-4 sm:pt-5 md:pt-6 border-t border-primary/10">
           <div className="flex flex-col sm:flex-row justify-between items-center gap-3 sm:gap-4 text-xs sm:text-sm text-primary/50">
-            <div>© 2025 IONORA • All Rights Reserved</div>
+            <div>© 2025 IONORA International Pvt Ltd • All Rights Reserved</div>
             <div className="flex items-center gap-4 sm:gap-6">
               <Link href="/privacy-policy" className="hover:text-primary/70 transition-colors duration-200">
                 Privacy Policy
