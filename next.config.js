@@ -1,5 +1,9 @@
+const path = require('path')
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Use this app as the tracing root (avoids wrong inference when a parent folder has package-lock.json).
+  outputFileTracingRoot: path.join(__dirname),
   images: {
     remotePatterns: [
       {
